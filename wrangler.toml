@@ -1,0 +1,12 @@
+name = "phinn-ai-chat"
+main = "worker/ai-chat.js"
+compatibility_date = "2026-10-01"
+
+# 免费档额度:10 万请求/天,足够客服场景
+# 部署后需要:
+#   wrangler secret put ZHIPU_API_KEY
+# 绑定到站点域名(页面 fetch '/api/chat' 才能通):
+#   方式 A(推荐):自有域名 DNS 托管到 Cloudflare,
+#     routes = [{ pattern = "你的域名/api/*", zone_name = "你的域名" }]
+#   方式 B:pages.github.io 无法反代 → 把 index.html 里 API 常量
+#     改为 Worker 的 workers.dev 绝对地址,并把该地址加进 CORS 白名单
