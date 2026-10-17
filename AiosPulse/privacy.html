@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AiosPulse — Privacy Policy</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", "Hiragino Sans", "Microsoft YaHei", sans-serif;
+         background: #120e1a; color: #ece7f6; line-height: 1.8; padding: 48px 20px 80px; }
+  .wrap { max-width: 780px; margin: 0 auto; }
+  h1 { font-size: 30px; margin-bottom: 6px; }
+  .sub { color: #b3a6d9; margin-bottom: 34px; }
+  h2 { font-size: 20px; margin: 34px 0 12px; color: #b79cff; }
+  p, li { color: #d5cfe6; font-size: 15px; }
+  ul { padding-left: 22px; margin: 8px 0; }
+  .card { background: #1a1428; border: 1px solid #2c2340; border-radius: 14px; padding: 22px 26px; margin-top: 14px; }
+  .langbar { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+  .langbar button { background: #221a34; color: #c4bbe0; border: 1px solid #372b52; border-radius: 20px;
+                    padding: 7px 18px; cursor: pointer; font-size: 14px; }
+  .langbar button.on { background: #7c5cf0; color: #14101e; border-color: #7c5cf0; }
+  section[data-lang] { display: none; }
+  section[data-lang].show { display: block; }
+  footer { margin-top: 60px; color: #7b7291; font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>AiosPulse</h1>
+  <p class="sub">Privacy Policy · 隐私政策</p>
+
+  <div class="langbar">
+    <button onclick="sw('zh')" id="b-zh" class="on">中文</button>
+    <button onclick="sw('en')" id="b-en">English</button>
+    <button onclick="sw('ja')" id="b-ja">日本語</button>
+  </div>
+
+  <section data-lang="zh" class="show">
+    <div class="card">
+      <p>AiosPulse 不收集任何数据。</p>
+      <ul>
+        <li>不收集:无账号系统、无分析 SDK、无广告、无追踪器</li>
+        <li>存储:App Store Connect 数据快照与 AI 配置只保存在你的设备本地(快照在本地 Documents,AI Key 存系统钥匙串)</li>
+        <li>网络:仅在你主动连接自己的 App Store Connect 账号或调用你自选的 AI 服务时,由你的设备直接向对应服务发起请求;开发者不经手、不中转、不存储任何数据</li>
+        <li>权限:不申请定位、通讯录、麦克风、相机</li>
+        <li>AI 功能:可选。不配置则所有本地分析照常可用;配置后请求直接从你的设备发往你指定的服务商(如 OpenAI 兼容端点或本地 Ollama)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>联系方式</h2>
+      <p>phinn@kinet.app</p>
+    </div>
+  </section>
+
+  <section data-lang="en">
+    <div class="card">
+      <p>AiosPulse collects no data.</p>
+      <ul>
+        <li>No accounts, no analytics SDKs, no ads, no trackers</li>
+        <li>Storage: your App Store Connect snapshots and AI settings stay on your device only (snapshots in local Documents; the AI key lives in the system Keychain)</li>
+        <li>Network is used only when you connect to your own App Store Connect account or call an AI provider of your choice — requests go directly from your device to those services. The developer never relays or stores any of it</li>
+        <li>Permissions: no location, contacts, microphone, or camera</li>
+        <li>AI features are optional. Without configuration all local analysis still works; once configured, requests go straight from your device to the provider you specify (an OpenAI-compatible endpoint, or a local Ollama)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Contact</h2>
+      <p>phinn@kinet.app</p>
+    </div>
+  </section>
+
+  <section data-lang="ja">
+    <div class="card">
+      <p>AiosPulse は一切のデータを収集しません。</p>
+      <ul>
+        <li>収集なし:アカウント登録・解析 SDK・広告・トラッカーは一切ありません</li>
+        <li>保存:App Store Connect のスナップショットと AI 設定は端末内にのみ保存されます(スナップショットはローカル Documents、AI キーはシステム Keychain)</li>
+        <li>通信:お客様自身の App Store Connect アカウントへの接続時、および任意の AI サービス呼び出し時のみ、端末から対象サービスへ直接リクエストします。開発者はデータを経由・保存しません</li>
+        <li>権限:位置情報・連絡先・マイク・カメラは要求しません</li>
+        <li>AI 機能は任意です。未設定でもローカル分析はすべて利用可能です。設定した場合は、端末からお客様が指定したプロバイダー(OpenAI 互換エンドポイントやローカル Ollama)へ直接リクエストされます</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>連絡先</h2>
+      <p>phinn@kinet.app</p>
+    </div>
+  </section>
+
+  <footer>Effective: 2026-10-18 · AiosPulse</footer>
+</div>
+<script>
+function sw(l){
+  document.querySelectorAll('section[data-lang]').forEach(s=>s.classList.toggle('show', s.dataset.lang===l));
+  document.querySelectorAll('.langbar button').forEach(b=>b.classList.toggle('on', b.id==='b-'+l));
+}
+</script>
+</body>
+</html>
