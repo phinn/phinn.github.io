@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RecipeLoom — Privacy &amp; Support</title>
+<style>
+  :root { --ink:#3A3028; --paper:#FAF6EF; --accent:#E05B3A; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:-apple-system,"PingFang SC","Helvetica Neue",sans-serif; background:var(--paper); color:var(--ink); line-height:1.65; padding:48px 20px; }
+  main { max-width:720px; margin:0 auto; }
+  h1 { font-size:2rem; margin-bottom:.4rem; }
+  h2 { font-size:1.25rem; margin:2rem 0 .6rem; }
+  p, li { margin-bottom:.6rem; }
+  ul { padding-left:1.4rem; }
+  .card { background:#fff; border-radius:16px; padding:28px; box-shadow:0 2px 12px rgba(58,48,40,.08); }
+  .muted { opacity:.65; font-size:.9rem; }
+  a { color:var(--accent); }
+  section[data-lang] { display:none; }
+  section[data-lang].on { display:block; }
+  .lang { margin-bottom:1.2rem; }
+  .lang button { border:1px solid var(--ink); background:transparent; border-radius:999px; padding:6px 16px; margin-right:8px; cursor:pointer; font-size:.95rem; }
+  .lang button.on { background:var(--ink); color:#fff; }
+  .logo { font-weight:700; letter-spacing:.5px; }
+  .logo .loom { color:var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <div class="lang">
+    <button data-l="en" class="on">English</button>
+    <button data-l="zh">中文</button>
+  </div>
+
+  <section data-lang="en" class="on">
+    <h1><span class="logo">Recipe<span class="loom">Loom</span></span> — Privacy &amp; Support</h1>
+    <div class="card">
+      <h2>Effective: 2026-10-21 (App v1.0)</h2>
+      <p>RecipeLoom turns any recipe source — a photo of a printed page, a screenshot, a handwritten card, a web link, or pasted text — into a clean, structured recipe you can search and cook from.</p>
+
+      <h2>1. We do not collect any data</h2>
+      <ul>
+        <li><strong>No account.</strong> No sign-up, no login, no user profiles.</li>
+        <li><strong>No analytics, no ads, no tracking SDKs</strong> of any kind are embedded.</li>
+        <li>We never see your recipes, photos, or search history.</li>
+      </ul>
+
+      <h2>2. Where your data lives</h2>
+      <p>All recipes, photos and drafts are stored <strong>only on your device</strong>, in the app's local database. Nothing is synced anywhere by default. Deleting the app deletes everything, permanently.</p>
+
+      <h2>3. The only time RecipeLoom can reach the internet</h2>
+      <p>RecipeLoom works fully offline by default — network access is <strong>off</strong> until you turn it on. There is exactly one optional network feature:</p>
+      <ul>
+        <li><strong>Cloud AI fallback (optional, off by default).</strong> If your device does not support on-device Apple Intelligence, you may optionally enable cloud AI and provide your own API key. When you confirm an extraction, the <em>recipe text</em> is first stripped of personal information (email addresses, phone numbers) on-device, then sent over HTTPS directly to the AI provider endpoint you configured (default: Zhipu BigModel OpenAI-compatible API). Your key and requests go <strong>from your device straight to that provider</strong> — never through any server run by us. We hold no proxy, no logs, no copies.</li>
+        <li>Web-link import fetches the page you ask for, from your device, directly.</li>
+      </ul>
+      <p>If you never enable cloud AI, the app makes <strong>zero network requests</strong>.</p>
+
+      <h2>4. Photos &amp; camera</h2>
+      <p>Recipe photos are read only to recognize text (OCR) on your device, and to store the cover image you choose. They are never uploaded unless you explicitly enable the optional cloud AI above.</p>
+
+      <h2>5. Children</h2>
+      <p>RecipeLoom is a general-audience cooking tool. It is not directed at children under 13 and collects no age information.</p>
+
+      <h2>6. Data deletion</h2>
+      <ul>
+        <li>Delete a recipe in the app → it is removed from the local database immediately.</li>
+        <li>Uninstall the app → all local data is erased by iOS.</li>
+        <li>Questions or data requests: <strong>phinn@outlook.com</strong></li>
+      </ul>
+
+      <h2>7. Changes to this policy</h2>
+      <p>Material changes will be noted in the app's release notes. Prior versions are available on request via the email above.</p>
+
+      <h2>8. Contact</h2>
+      <p>RecipeLoom developer — phinn@outlook.com</p>
+    </div>
+  </section>
+
+  <section data-lang="zh">
+    <h1><span class="logo">Recipe<span class="loom">Loom</span></span> — 隐私与支持</h1>
+    <div class="card">
+      <h2>生效日期:2026-10-21(App v1.0)</h2>
+      <p>RecipeLoom 把任意来源的食谱——印刷页照片、截图、手写卡片、网页链接、粘贴文本——变成干净、结构化、可搜索、可跟做的食谱。</p>
+
+      <h2>1. 我们不收集任何数据</h2>
+      <ul>
+        <li><strong>无账号</strong>:没有注册、登录、用户体系。</li>
+        <li><strong>不嵌入</strong>任何第三方分析、统计、广告、追踪 SDK。</li>
+        <li>我们看不到你的食谱、照片和搜索历史。</li>
+      </ul>
+
+      <h2>2. 数据存在哪里</h2>
+      <p>所有食谱、照片、草稿<strong>只存在你的设备本地</strong>(App 本地数据库),默认没有任何同步。删除 App 即永久删除全部数据。</p>
+
+      <h2>3. 唯一可能的联网通道</h2>
+      <p>RecipeLoom 默认完全离线工作——网络访问在你主动开启前<strong>保持关闭</strong>。可选联网功能只有一个:</p>
+      <ul>
+        <li><strong>云 AI 兜底(可选,默认关闭)</strong>:当设备不支持端侧 Apple Intelligence 时,你可选择开启云 AI 并填入自己的 API Key。确认提取时,<em>食谱文本</em>会先在本机剥离个人信息(邮箱、电话),再经 HTTPS <strong>从你的设备直连</strong>你配置的 AI 服务商(默认:智谱 BigModel OpenAI 兼容接口)。全程不经过开发者的任何服务器——无代理、无日志、无副本。</li>
+        <li>网页链接导入按你的指令从设备直接抓取该页面。</li>
+      </ul>
+      <p>如果你从不开启云 AI,本应用发出<strong>零网络请求</strong>。</p>
+
+      <h2>4. 照片与相机</h2>
+      <p>食谱照片仅用于设备本地的文字识别(OCR)和你选择的封面存储。除非你主动开启上述云 AI,照片永不上传。</p>
+
+      <h2>5. 儿童</h2>
+      <p>RecipeLoom 是面向大众的烹饪工具,不面向 13 岁以下儿童,不收集任何年龄信息。</p>
+
+      <h2>6. 数据删除</h2>
+      <ul>
+        <li>在应用内删除食谱 → 立即从本地数据库移除;</li>
+        <li>卸载应用 → 本地全部数据由 iOS 擦除;</li>
+        <li>问题或数据请求:<strong>phinn@outlook.com</strong></li>
+      </ul>
+
+      <h2>7. 政策变更</h2>
+      <p>重大变更将通过应用更新说明告知。历史版本可向上方邮箱索取。</p>
+
+      <h2>8. 联系方式</h2>
+      <p>RecipeLoom 开发者 — phinn@outlook.com</p>
+    </div>
+  </section>
+</main>
+<script>
+  document.querySelectorAll('.lang button').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.lang button').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      document.querySelectorAll('section[data-lang]').forEach(function(s){
+        s.classList.toggle('on', s.getAttribute('data-lang') === b.getAttribute('data-l'));
+      });
+    });
+  });
+</script>
+</body>
+</html>
