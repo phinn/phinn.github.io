@@ -139,7 +139,7 @@ footer{padding:34px 0;color:var(--dim);font-size:13px}
       <a href="#privacy" data-i18n="navPriv">隐私</a>
     </div>
     <div class="langs">
-      <button data-l="en">EN</button><button data-l="zh" class="on">中文</button>
+      <button data-lang="en">EN</button><button data-lang="zh" class="on">中文</button>
     </div>
   </div>
 </nav>
@@ -364,7 +364,7 @@ function apply(l){
     if(v!==undefined) el.innerHTML = v;
   });
   document.querySelectorAll(".phone img, .shot img").forEach(img=>{
-    img.src = (l==="en") ? img.src.replace(/-(zh|en)\.png/, "-"+l+".png") : img.src.replace(/-(zh|en)\.png/, "-"+l+".png");
+    img.src = img.src.replace(/-(zh|en)\.png$/, "-"+l+".png");
   });
   document.title = d.title;
   document.documentElement.lang = l;
