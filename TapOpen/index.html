@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TapOpen — Support &amp; Privacy</title>
+<style>
+  :root { --ink:#26333F; --paper:#FBF6F1; --accent:#E87722; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:-apple-system,"PingFang SC","Helvetica Neue",sans-serif; background:var(--paper); color:var(--ink); line-height:1.65; padding:48px 20px; }
+  main { max-width:720px; margin:0 auto; }
+  h1 { font-size:2rem; margin-bottom:.4rem; }
+  h2 { font-size:1.25rem; margin:2rem 0 .6rem; }
+  p, li { margin-bottom:.6rem; }
+  ul { padding-left:1.4rem; }
+  .card { background:#fff; border-radius:16px; padding:28px; box-shadow:0 2px 12px rgba(38,51,63,.08); }
+  .muted { opacity:.65; font-size:.9rem; }
+  a { color:var(--accent); }
+  section[data-lang] { display:none; }
+  section[data-lang].on { display:block; }
+  .lang { margin-bottom:1.2rem; }
+  .lang button { border:1px solid var(--ink); background:transparent; border-radius:999px; padding:6px 16px; margin-right:8px; cursor:pointer; font-size:.95rem; }
+  .lang button.on { background:var(--ink); color:#fff; }
+</style>
+</head>
+<body>
+<main>
+  <div class="lang">
+    <button data-l="en" class="on">English</button>
+    <button data-l="zh">中文</button>
+  </div>
+
+  <section data-lang="en" class="on">
+    <h1>TapOpen — Support &amp; Privacy</h1>
+    <div class="card">
+      <h2>About TapOpen</h2>
+      <p>TapOpen gives an aging parent one big button for the websites your family sets up for them — a video call, the pharmacy, the family album. A family member configures everything on their own phone and sends it over in a message. The parent just taps. Passwords are stored in the iOS Keychain and are never shown on screen.</p>
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:support@tapopenapp.com">support@tapopenapp.com</a></p>
+      <h2>Privacy Policy</h2>
+      <p><strong>TapOpen collects no data. Period.</strong></p>
+      <ul>
+        <li>No account, no sign-up, no analytics, no tracking, no advertising.</li>
+        <li>All data (door names, web addresses, passwords) stays on your device, in the app's own storage and the iOS Keychain.</li>
+        <li>Configuration travels device-to-device only through channels you choose yourself (e.g. Messages, WeChat) — the app never uploads anything.</li>
+        <li>We do not have servers. There is nothing to breach, nothing to sell.</li>
+      </ul>
+      <p class="muted">Effective 2026-10-21 · v1.0</p>
+    </div>
+  </section>
+
+  <section data-lang="zh">
+    <h1>TapOpen — 支持与隐私</h1>
+    <div class="card">
+      <h2>关于 TapOpen</h2>
+      <p>TapOpen 给爸妈一个「大门按钮」：视频通话、网上药房、家庭相册……子女在自己的手机上花两分钟配好，用消息发到长辈手机。长辈看到整个屏幕只有一扇门，点一下就开门。密码全部存在 iOS 钥匙串里，永远不会显示在屏幕上。</p>
+      <h2>联系我们</h2>
+      <p>邮箱：<a href="mailto:support@tapopenapp.com">support@tapopenapp.com</a></p>
+      <h2>隐私政策</h2>
+      <p><strong>TapOpen 不收集任何数据。</strong></p>
+      <ul>
+        <li>无账号、无注册、无统计、无追踪、无广告。</li>
+        <li>所有数据(门的名称、网址、密码)只存在你手机本地的应用存储和 iOS 钥匙串里。</li>
+        <li>配置只在两台手机之间通过你自己选择的渠道(短信、微信等)传递——应用本身不上传任何东西。</li>
+        <li>我们没有服务器。无数据可泄露，无数据可买卖。</li>
+      </ul>
+      <p class="muted">生效日期 2026-10-21 · v1.0</p>
+    </div>
+  </section>
+</main>
+<script>
+document.querySelectorAll('.lang button').forEach(function(b){
+  b.addEventListener('click', function(){
+    document.querySelectorAll('.lang button').forEach(function(x){x.classList.remove('on')});
+    b.classList.add('on');
+    document.querySelectorAll('section[data-lang]').forEach(function(s){
+      s.classList.toggle('on', s.getAttribute('data-lang')===b.getAttribute('data-l'));
+    });
+  });
+});
+</script>
+</body>
+</html>
