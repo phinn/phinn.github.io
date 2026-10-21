@@ -1,97 +1,379 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DayStitch — Support &amp; Privacy</title>
+<title>DayStitch — Your day, written for you</title>
+<meta name="description" content="DayStitch turns what your phone already knows — places, photos, steps, calendar — into one written story of your day. No typing. Fully automatic. On-device only.">
+<meta property="og:title" content="DayStitch — Your day, written for you">
+<meta property="og:description" content="A journal with zero typing. Your day, stitched automatically.">
+<meta property="og:image" content="shots/home-en.png">
+<link rel="icon" href="icon.png">
 <style>
-  :root { --ink:#26333F; --paper:#FBF6F1; --accent:#C46A4A; }
-  * { box-sizing:border-box; margin:0; padding:0; }
-  body { font-family:-apple-system,"PingFang SC","Helvetica Neue",sans-serif; background:var(--paper); color:var(--ink); line-height:1.65; padding:48px 20px; }
-  main { max-width:720px; margin:0 auto; }
-  h1 { font-size:2rem; margin-bottom:.4rem; }
-  h2 { font-size:1.25rem; margin:2rem 0 .6rem; }
-  p, li { margin-bottom:.6rem; }
-  ul { padding-left:1.4rem; }
-  .card { background:#fff; border-radius:16px; padding:28px; box-shadow:0 2px 12px rgba(38,51,63,.08); }
-  .muted { opacity:.65; font-size:.9rem; }
-  a { color:var(--accent); }
-  section[data-lang] { display:none; }
-  section[data-lang].on { display:block; }
-  .lang { margin-bottom:1.2rem; }
-  .lang button { border:1px solid var(--ink); background:transparent; border-radius:999px; padding:6px 16px; margin-right:8px; cursor:pointer; font-size:.95rem; }
-  .lang button.on { background:var(--ink); color:#fff; }
-  .logo { font-weight:700; letter-spacing:.5px; }
-  .logo .stitch { color:var(--accent); }
+:root{
+  --paper:#FBF6F1; --surface:#FFFFFF; --line:#E7DED2;
+  --ink:#26333F; --muted:#6E7A85; --dim:#9AA5AE;
+  --accent:#C46A4A; --accent-soft:rgba(196,106,74,.10);
+  --grad:linear-gradient(135deg,#C46A4A 0%,#E8A26E 100%);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC",Inter,system-ui,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+section{padding:76px 0;border-bottom:1px solid var(--line)}
+
+nav{position:sticky;top:0;z-index:50;background:rgba(251,246,241,.86);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;letter-spacing:.2px}
+.brand .mark{width:32px;height:32px;border-radius:9px;overflow:hidden;box-shadow:0 2px 8px rgba(38,51,63,.15)}
+.brand .stitch{color:var(--accent)}
+.navlinks{display:flex;gap:26px;font-size:14px;color:var(--muted)}
+.navlinks a:hover{color:var(--ink)}
+.langs button{border:1px solid var(--line);background:transparent;border-radius:999px;padding:5px 14px;margin-left:6px;cursor:pointer;font-size:13px;color:var(--muted)}
+.langs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+.hero{padding:84px 0 72px;border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;grid-template-columns:1.12fr .88fr;gap:56px;align-items:center}
+.kicker{color:var(--accent);font-size:13px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px}
+h1{font-size:46px;line-height:1.16;letter-spacing:-.8px;font-weight:800}
+h1 .hl{background:linear-gradient(transparent 62%,rgba(196,106,74,.22) 62%)}
+.sub{margin-top:18px;font-size:17px;color:var(--muted);max-width:480px}
+.cta{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:13px 26px;border-radius:14px;font-weight:700;font-size:15px}
+.btn.primary{background:var(--grad);color:#fff;box-shadow:0 10px 26px rgba(196,106,74,.30)}
+.btn.ghost{border:1.5px solid var(--line);color:var(--muted)}
+.trust{margin-top:22px;display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--dim)}
+
+.phone{width:292px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:44px;padding:18px 14px 22px;box-shadow:0 34px 90px rgba(38,51,63,.14),0 6px 24px rgba(196,106,74,.08)}
+.phone .notch{width:86px;height:7px;border-radius:99px;background:var(--line);margin:0 auto 14px}
+.phone img{width:100%;border-radius:26px;display:block}
+
+.sechead{max-width:600px;margin-bottom:46px}
+h2{font-size:31px;letter-spacing:-.4px;font-weight:800}
+.sechead p{margin-top:12px;color:var(--muted);font-size:15.5px}
+
+/* 四源 */
+.sources{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.src{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px 22px;transition:transform .18s,box-shadow .18s}
+.src:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(38,51,63,.10)}
+.src .ic{width:46px;height:46px;border-radius:13px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px}
+.src h3{font-size:16.5px;margin-bottom:4px}
+.src p{font-size:13.5px;color:var(--muted)}
+
+/* 展示双屏 */
+.show{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start}
+.shot{background:#fff;border:1px solid var(--line);border-radius:24px;padding:14px;box-shadow:0 18px 48px rgba(38,51,63,.10)}
+.shot img{width:100%;border-radius:14px;display:block}
+.shot .cap{display:flex;justify-content:space-between;align-items:baseline;padding:12px 6px 2px}
+.shot .cap b{font-size:15px}
+.shot .cap span{font-size:12.5px;color:var(--dim)}
+
+/* 缝合前后 */
+.stitchrow{display:grid;grid-template-columns:1fr 60px 1fr;gap:0;align-items:center}
+.pane{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px}
+.pane h3{font-size:17px;margin-bottom:14px}
+.pane.scattered .ev{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:14px;color:var(--muted)}
+.pane.scattered .ev .dot{width:9px;height:9px;border-radius:99px;background:var(--line);flex:none}
+.arrow{text-align:center;font-size:26px;color:var(--accent)}
+.pane.story .scene{padding:11px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.pane.story .scene:last-child{border-bottom:0}
+.pane.story .scene b{color:var(--accent)}
+.pane.story .scene .t{color:var(--dim);font-size:12px;margin-right:8px;font-variant-numeric:tabular-nums}
+
+/* 差异对比 */
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.vcard{border-radius:20px;padding:30px;border:1px solid var(--line);background:var(--surface)}
+.vcard.good{border-color:rgba(196,106,74,.35);box-shadow:0 12px 36px rgba(196,106,74,.08)}
+.vcard h3{font-size:17px;margin-bottom:14px}
+.vcard li{list-style:none;padding:8px 0;font-size:14.5px;color:var(--muted);border-bottom:1px dashed var(--line);display:flex;gap:10px}
+.vcard li:last-child{border-bottom:0}
+.vcard .tagline{display:inline-block;font-size:12px;font-weight:800;padding:3px 12px;border-radius:999px;margin-bottom:14px}
+.vcard.bad .tagline{background:rgba(38,51,63,.07);color:var(--muted)}
+.vcard.good .tagline{background:var(--accent-soft);color:var(--accent)}
+
+/* 隐私 */
+.priv{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pcard{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px 24px;text-align:center}
+.pcard .ic{font-size:30px;margin-bottom:10px}
+.pcard h3{font-size:16px;margin-bottom:6px}
+.pcard p{font-size:13.5px;color:var(--muted)}
+
+/* 其他 app */
+.apps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.acard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;transition:transform .18s,box-shadow .18s}
+.acard:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(38,51,63,.10)}
+.acard .ic{width:42px;height:42px;border-radius:11px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px}
+.acard h3{font-size:15px}
+.acard .cat{font-size:11.5px;color:var(--dim);margin-bottom:6px}
+.acard p{font-size:12.5px;color:var(--muted)}
+.acard .go{display:inline-block;margin-top:10px;font-size:12.5px;font-weight:700;color:var(--accent)}
+
+footer{padding:34px 0;color:var(--dim);font-size:13px}
+.foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.foot a:hover{color:var(--ink)}
+
+@media(max-width:900px){
+  h1{font-size:36px}
+  .hero .wrap{grid-template-columns:1fr;gap:44px}
+  .sources{grid-template-columns:1fr 1fr}
+  .show{grid-template-columns:1fr}
+  .stitchrow{grid-template-columns:1fr}
+  .arrow{transform:rotate(90deg);padding:8px 0}
+  .vs{grid-template-columns:1fr}
+  .priv{grid-template-columns:1fr}
+  .apps{grid-template-columns:1fr 1fr}
+  .navlinks{display:none}
+}
 </style>
 </head>
 <body>
-<main>
-  <div class="lang">
-    <button data-l="en" class="on">English</button>
-    <button data-l="zh">中文</button>
+
+<nav>
+  <div class="wrap nav">
+    <div class="brand"><div class="mark"><img src="icon.png" alt="" style="width:100%;height:100%;display:block"></div><span>Day<span class="stitch">Stitch</span></span></div>
+    <div class="navlinks">
+      <a href="#sources" data-i18n="navSrc">数据源</a>
+      <a href="#show" data-i18n="navShow">一天的样子</a>
+      <a href="#vs" data-i18n="navVs">为什么不同</a>
+      <a href="#privacy" data-i18n="navPriv">隐私</a>
+    </div>
+    <div class="langs">
+      <button data-l="en">EN</button><button data-l="zh" class="on">中文</button>
+    </div>
   </div>
+</nav>
 
-  <section data-lang="en" class="on">
-    <h1><span class="logo">Day<span class="stitch">Stitch</span></span> — Support &amp; Privacy</h1>
-    <div class="card">
-      <h2>About DayStitch</h2>
-      <p>DayStitch turns what your phone already knows — places you visited, photos you took, steps and drives, calendar events — into one written story of your day. No typing. Every night the story is already there, waiting for you to read and keep.</p>
-      <h2>Frequently Asked</h2>
-      <ul>
-        <li><strong>Where is my data processed?</strong> Entirely on your device. The story is composed by on-device logic only — nothing is uploaded, nothing is sent to any server.</li>
-        <li><strong>Does DayStitch modify my photos or calendar?</strong> No. It reads only what iOS already shows you, and never edits or deletes anything.</li>
-        <li><strong>Can I export?</strong> Story cards can be saved to your photo library; entries stay in the app's local storage.</li>
-      </ul>
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:support@daystitch.app">support@daystitch.app</a></p>
-      <h2>Privacy Policy</h2>
-      <p><strong>DayStitch collects no data. Period.</strong></p>
-      <ul>
-        <li>No account, no sign-up, no analytics, no tracking, no advertising.</li>
-        <li>All data (locations, photos, motion, calendar events, stories) stays on your device.</li>
-        <li>We have no servers. There is nothing to breach, nothing to sell.</li>
-        <li>Permissions (Location / Photos / Motion / Calendar) are requested only to compose your daily story, and you can revoke them at any time in iOS Settings.</li>
-      </ul>
-      <p class="muted">Effective 2026-10-21 · v1.0</p>
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="kicker" data-i18n="kick">Automatic Daily Journal</div>
+      <h1 data-i18n="h1">你的故事,<br><span class="hl">自己长出来</span></h1>
+      <p class="sub" data-i18n="sub">手机已经知道你的一天:去过哪、拍了什么、走了多远、日程几何。DayStitch 把这些缝成一篇写好的日记——你只是读到它。</p>
+      <div class="cta">
+        <a class="btn primary" href="#" data-i18n="ctaApp">App Store →</a>
+        <a class="btn ghost" href="#show" data-i18n="ctaSee">看看一天的样子</a>
+      </div>
+      <div class="trust">
+        <span data-i18n="t1">✓ 零输入</span><span data-i18n="t2">✓ 纯端侧</span><span data-i18n="t3">✓ 无账号</span><span data-i18n="t4">✓ 只读不改</span>
+      </div>
     </div>
-  </section>
+    <div class="phone">
+      <div class="notch"></div>
+      <img src="shots/home-zh.png" alt="DayStitch 首页">
+    </div>
+  </div>
+</header>
 
-  <section data-lang="zh">
-    <h1><span class="logo">Day<span class="stitch">Stitch</span></span> — 支持与隐私</h1>
-    <div class="card">
-      <h2>关于 DayStitch</h2>
-      <p>DayStitch 把手机已经知道的事——你去过的地方、拍下的照片、步数与行程、日历日程——自动缝成一天的故事。一个字都不用写,每晚故事已就位,等你翻阅。</p>
-      <h2>常见问题</h2>
-      <ul>
-        <li><strong>数据在哪里处理?</strong> 全部在你的设备上。故事完全由端侧逻辑生成,不上传、不联网。</li>
-        <li><strong>会改动我的照片或日历吗?</strong> 不会。只读取 iOS 本来就展示给你的内容,永不编辑或删除任何东西。</li>
-        <li><strong>可以导出吗?</strong> 故事卡片可保存到相册;条目保存在应用本地存储中。</li>
-      </ul>
-      <h2>联系我们</h2>
-      <p>邮箱:<a href="mailto:support@daystitch.app">support@daystitch.app</a></p>
-      <h2>隐私政策</h2>
-      <p><strong>DayStitch 不收集任何数据。</strong></p>
-      <ul>
-        <li>无账号、无注册、无统计、无追踪、无广告。</li>
-        <li>所有数据(位置、照片、运动、日程、故事)都留在你的设备上。</li>
-        <li>我们没有服务器——没有可被攻破的库,也没有可出售的数据。</li>
-        <li>权限(位置/照片/运动/日历)仅用于生成当天故事,可在 iOS 设置中随时关闭。</li>
-      </ul>
-      <p class="muted">生效日期 2026-10-21 · v1.0</p>
+<section id="sources">
+  <div class="wrap">
+    <div class="sechead">
+      <div class="kicker" data-i18n="srcKick">四个信号源</div>
+      <h2 data-i18n="srcTitle">你的手机早就记下了,只是没人缝起来</h2>
+      <p data-i18n="srcSub">DayStitch 只读取 iOS 本来就有的信号,不新增任何记录负担。</p>
     </div>
-  </section>
-</main>
+    <div class="sources">
+      <div class="src"><div class="ic">📍</div><h3 data-i18n="s1t">位置到访</h3><p data-i18n="s1d">何时到、何时走、在哪停留,聚成地点与时段。</p></div>
+      <div class="src"><div class="ic">📷</div><h3 data-i18n="s2t">照片时刻</h3><p data-i18n="s2d">当天拍的照片,落进它发生的那一幕。</p></div>
+      <div class="src"><div class="ic">🏃</div><h3 data-i18n="s3t">运动里程</h3><p data-i18n="s3d">步行、驾车、静坐——活动方式给时间轴定性。</p></div>
+      <div class="src"><div class="ic">📅</div><h3 data-i18n="s4t">日历日程</h3><p data-i18n="s4d">会议与安排,给场景一个名字。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="show">
+  <div class="wrap">
+    <div class="sechead">
+      <div class="kicker" data-i18n="showKick">一天,两屏</div>
+      <h2 data-i18n="showTitle">首页是今天的封面,点开是缝好的故事</h2>
+    </div>
+    <div class="show">
+      <div class="shot">
+        <img src="shots/home-zh.png" alt="首页">
+        <div class="cap"><b data-i18n="capHome">今天封面</b><span data-i18n="capHomeS">一句话概括这一天</span></div>
+      </div>
+      <div class="shot">
+        <img src="shots/day-zh.png" alt="故事页">
+        <div class="cap"><b data-i18n="capDay">故事时间轴</b><span data-i18n="capDayS">场景按时序缝合,照片就位</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sechead">
+      <div class="kicker" data-i18n="stKick">缝合引擎</div>
+      <h2 data-i18n="stTitle">从碎片到成文</h2>
+    </div>
+    <div class="stitchrow">
+      <div class="pane scattered">
+        <h3 data-i18n="p1t">原始信号</h3>
+        <div class="ev"><span class="dot"></span><span data-i18n="p1a">09:14 到访 · 某园区</span></div>
+        <div class="ev"><span class="dot"></span><span data-i18n="p1b">09:30 拍了 3 张照片</span></div>
+        <div class="ev"><span class="dot"></span><span data-i18n="p1c">10:00 日历 · 每周站会</span></div>
+        <div class="ev"><span class="dot"></span><span data-i18n="p1d">14:20 步行 1.8 km</span></div>
+        <div class="ev"><span class="dot"></span><span data-i18n="p1e">18:05 到家</span></div>
+      </div>
+      <div class="arrow">➜</div>
+      <div class="pane story">
+        <h3 data-i18n="p2t">一天的故事</h3>
+        <div class="scene"><span class="t">上午</span><span data-i18n="p2a">去了<b>园区</b>,赶上<b>每周站会</b>,会前随手拍了 3 张</span></div>
+        <div class="scene"><span class="t">下午</span><span data-i18n="p2b">步行 1.8 km,换了换脑子</span></div>
+        <div class="scene"><span class="t">傍晚</span><span data-i18n="p2c">18:05 到家,一天走了 6.2 km</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="vs">
+  <div class="wrap">
+    <div class="sechead">
+      <div class="kicker" data-i18n="vsKick">为什么不同</div>
+      <h2 data-i18n="vsTitle">别再对着空白页发呆</h2>
+    </div>
+    <div class="vs">
+      <div class="vcard bad">
+        <span class="tagline" data-i18n="badTag">传统日记 / Apple Journal</span>
+        <ul>
+          <li>✗ <span data-i18n="b1">要你主动坐下来写,写不出第三天</span></li>
+          <li>✗ <span data-i18n="b2">每天同一句提示语,越写越像打卡</span></li>
+          <li>✗ <span data-i18n="b3">手写/语音不保存、丢稿的抱怨一直有</span></li>
+        </ul>
+      </div>
+      <div class="vcard good">
+        <span class="tagline" data-i18n="goodTag">DayStitch</span>
+        <ul>
+          <li>✓ <span data-i18n="g1">睡前故事已写好,你只负责读</span></li>
+          <li>✓ <span data-i18n="g2">内容来自你真实的一天,永不重复</span></li>
+          <li>✓ <span data-i18n="g3">没有输入框,就没有丢稿</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="privacy">
+  <div class="wrap">
+    <div class="sechead">
+      <div class="kicker" data-i18n="prKick">隐私</div>
+      <h2 data-i18n="prTitle">没有服务器,就没有可泄露的库</h2>
+    </div>
+    <div class="priv">
+      <div class="pcard"><div class="ic">🔒</div><h3 data-i18n="pr1t">纯端侧</h3><p data-i18n="pr1d">故事在你手机上生成,永不上传。</p></div>
+      <div class="pcard"><div class="ic">👁️</div><h3 data-i18n="pr2t">只读不改</h3><p data-i18n="pr2d">绝不修改照片、日历或位置记录。</p></div>
+      <div class="pcard"><div class="ic">🗑️</div><h3 data-i18n="pr3t">随时可撤</h3><p data-i18n="pr3d">权限随时可关,关了照样能用剩下的。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="apps">
+  <div class="wrap">
+    <div class="sechead">
+      <div class="kicker" data-i18n="appsKick">更多应用</div>
+      <h2 data-i18n="appsTitle">同一个开发者的其他应用</h2>
+    </div>
+    <div class="apps">
+      <a class="acard" href="https://apps.apple.com/us/app/id6809450051" target="_blank" rel="noopener">
+        <div class="ic">🤖</div><h3>KinetAios</h3><div class="cat" data-i18n="a1c">Mac · AI 工作台</div>
+        <p data-i18n="a1d">Claude Code & Codex 原生客户端,Mac 上的 AI Agent 仪表盘。</p>
+        <span class="go" data-i18n="aGo">App Store →</span>
+      </a>
+      <a class="acard" href="https://apps.apple.com/us/app/id6780944289" target="_blank" rel="noopener">
+        <div class="ic">✅</div><h3>KinetTask</h3><div class="cat" data-i18n="a2c">iPhone · 效率</div>
+        <p data-i18n="a2d">100% 端侧 AI 任务管理,任务数据永不离开你的设备。</p>
+        <span class="go" data-i18n="aGo">App Store →</span>
+      </a>
+      <a class="acard" href="https://apps.apple.com/us/app/id6782778566" target="_blank" rel="noopener">
+        <div class="ic">☀️</div><h3>KinetBrief</h3><div class="cat" data-i18n="a4c">iPhone · 工具</div>
+        <p data-i18n="a4d">把一天的消息和日程,折成一份早晨简报。</p>
+        <span class="go" data-i18n="aGo">App Store →</span>
+      </a>
+      <a class="acard" href="https://apps.apple.com/cn/app/id1295506659" target="_blank" rel="noopener">
+        <div class="ic">💛</div><h3>Card Diary</h3><div class="cat" data-i18n="a5c">iPhone · 日记</div>
+        <p data-i18n="a5d">手写卡片日记,写给愿意动笔的日子。</p>
+        <span class="go" data-i18n="aGo">App Store →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div>© 2026 DayStitch · <img src="icon.png" alt="" style="width:20px;height:20px;border-radius:5px;vertical-align:-4px"> <span data-i18n="ftMade">为不想写日记的你而做</span></div>
+    <div><a href="privacy.html" data-i18n="ftPriv">隐私政策与支持</a> · <a href="mailto:support@daystitch.app">support@daystitch.app</a></div>
+  </div>
+</footer>
+
 <script>
-  document.querySelectorAll('.lang button').forEach(function(b){
-    b.addEventListener('click', function(){
-      document.querySelectorAll('.lang button').forEach(function(x){x.classList.remove('on');});
-      b.classList.add('on');
-      document.querySelectorAll('section[data-lang]').forEach(function(s){
-        s.classList.toggle('on', s.dataset.lang === b.dataset.l);
-      });
-    });
+const I18N = {
+zh: {},
+en: {
+  title:"DayStitch — Your day, written for you",
+  navSrc:"Sources", navShow:"A Day", navVs:"Why Different", navPriv:"Privacy",
+  kick:"Automatic Daily Journal",
+  h1:`Your story,<br><span class="hl">written by itself</span>`,
+  sub:"Your phone already knows your day: where you went, what you shot, how far you walked, what was scheduled. DayStitch stitches it into a written story — you just read it.",
+  ctaApp:"App Store →", ctaSee:"See a whole day",
+  t1:"✓ Zero typing", t2:"✓ On-device", t3:"✓ No account", t4:"✓ Read-only",
+  srcKick:"Four Signals",
+  srcTitle:"Your phone recorded it all. Nobody stitched it.",
+  srcSub:"DayStitch only reads signals iOS already keeps — you add zero recording burden.",
+  s1t:"Place visits", s1d:"When you arrived, how long you stayed — clustered into places and scenes.",
+  s2t:"Photo moments", s2d:"Today's shots drop into the scene where they happened.",
+  s3t:"Motion", s3d:"Walking, driving, sitting still — how you moved gives the timeline meaning.",
+  s4t:"Calendar", s4d:"Meetings and plans give each scene a name.",
+  showKick:"A Day, Two Screens",
+  showTitle:"Home is today's cover; tap in for the stitched story.",
+  capHome:"Today's cover", capHomeS:"One line for the whole day",
+  capDay:"Story timeline", capDayS:"Scenes in order, photos in place",
+  stKick:"The Stitching Engine", stTitle:"From fragments to prose",
+  p1t:"Raw signals",
+  p1a:"09:14 arrived · campus", p1b:"09:30 took 3 photos", p1c:"10:00 calendar · weekly standup",
+  p1d:"14:20 walked 1.8 km", p1e:"18:05 got home",
+  p2t:"The day's story",
+  p2a:`Made it to <b>the campus standup</b>, snapped 3 photos before it started`,
+  p2b:"Walked 1.8 km to clear my head",
+  p2c:"Home by 18:05 — 6.2 km on my feet today",
+  vsKick:"Why Different", vsTitle:"Stop staring at a blank page",
+  badTag:"Traditional journals / Apple Journal",
+  b1:"Demands you sit down and write — nobody survives day three",
+  b2:"Same prompt every day; journaling turns into a chore",
+  b3:"Lost handwritten notes and unsaved voice entries — a running complaint",
+  goodTag:"DayStitch",
+  g1:"Tonight's story is already written; you just read",
+  g2:"Content comes from your real day — never repeats",
+  g3:"No input box, nothing to lose",
+  prKick:"Privacy", prTitle:"No servers — nothing to breach",
+  pr1t:"On-device", pr1d:"Stories are composed on your phone. Nothing ever uploads.",
+  pr2t:"Read-only", pr2d:"Never modifies your photos, calendar or location history.",
+  pr3t:"Revocable", pr3d:"Revoke any permission anytime; DayStitch keeps working with the rest.",
+  appsKick:"More Apps", appsTitle:"Other apps by the same developer",
+  a1c:"Mac · AI Workbench", a1d:"Native client for Claude Code & Codex. The AI agent dashboard for Mac.",
+  a2c:"iPhone · Productivity", a2d:"100% on-device AI task management. Tasks never leave your device.",
+  a4c:"iPhone · Utilities", a4d:"Folds a day of messages and events into one morning brief.",
+  a5c:"iPhone · Journaling", a5d:"Card-based diary, for the days you feel like writing.",
+  aGo:"App Store →",
+  ftMade:"Made for people who don't journal", ftPriv:"Privacy & Support"
+}
+};
+function apply(l){
+  const d = I18N[l];
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const v = d[el.dataset.i18n];
+    if(v!==undefined) el.innerHTML = v;
   });
+  document.querySelectorAll(".phone img, .shot img").forEach(img=>{
+    img.src = (l==="en") ? img.src.replace(/-(zh|en)\.png/, "-"+l+".png") : img.src.replace(/-(zh|en)\.png/, "-"+l+".png");
+  });
+  document.title = d.title;
+  document.documentElement.lang = l;
+  localStorage.setItem("daystitch_lang", l);
+  document.querySelectorAll(".langs button").forEach(b=>b.classList.toggle("on", b.dataset.lang===l));
+}
+const saved = localStorage.getItem("daystitch_lang");
+apply(saved && I18N[saved] ? saved : "zh");
+document.querySelectorAll(".langs button").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.lang)));
 </script>
 </body>
 </html>

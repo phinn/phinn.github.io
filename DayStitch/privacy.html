@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DayStitch — Support &amp; Privacy</title>
+<style>
+  :root { --ink:#26333F; --paper:#FBF6F1; --accent:#C46A4A; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:-apple-system,"PingFang SC","Helvetica Neue",sans-serif; background:var(--paper); color:var(--ink); line-height:1.65; padding:48px 20px; }
+  main { max-width:720px; margin:0 auto; }
+  h1 { font-size:2rem; margin-bottom:.4rem; }
+  h2 { font-size:1.25rem; margin:2rem 0 .6rem; }
+  p, li { margin-bottom:.6rem; }
+  ul { padding-left:1.4rem; }
+  .card { background:#fff; border-radius:16px; padding:28px; box-shadow:0 2px 12px rgba(38,51,63,.08); }
+  .muted { opacity:.65; font-size:.9rem; }
+  a { color:var(--accent); }
+  section[data-lang] { display:none; }
+  section[data-lang].on { display:block; }
+  .lang { margin-bottom:1.2rem; }
+  .lang button { border:1px solid var(--ink); background:transparent; border-radius:999px; padding:6px 16px; margin-right:8px; cursor:pointer; font-size:.95rem; }
+  .lang button.on { background:var(--ink); color:#fff; }
+  .logo { font-weight:700; letter-spacing:.5px; }
+  .logo .stitch { color:var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <div class="lang">
+    <button data-l="en" class="on">English</button>
+    <button data-l="zh">中文</button>
+  </div>
+
+  <section data-lang="en" class="on">
+    <h1><span class="logo">Day<span class="stitch">Stitch</span></span> — Support &amp; Privacy</h1>
+    <div class="card">
+      <h2>About DayStitch</h2>
+      <p>DayStitch turns what your phone already knows — places you visited, photos you took, your steps and drives, your calendar — into one written story of your day. No typing. Every night the story is already there, waiting for you to read and keep.</p>
+      <h2>Frequently Asked</h2>
+      <ul>
+        <li><strong>Where is my data processed?</strong> Entirely on your device. The story is composed by on-device logic only — nothing is uploaded, nothing is sent to any server.</li>
+        <li><strong>Does DayStitch modify my photos or calendar?</strong> No. It reads only what iOS already shows you, and never edits or deletes anything.</li>
+        <li><strong>Can I export?</strong> Story cards can be saved to your photo library; entries stay in the app's local storage.</li>
+      </ul>
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:support@daystitch.app">support@daystitch.app</a></p>
+      <h2>Privacy Policy</h2>
+      <p><strong>DayStitch collects no data. Period.</strong></p>
+      <ul>
+        <li>No account, no sign-up, no analytics, no tracking, no advertising.</li>
+        <li>All data (locations, photos, motion, calendar events, stories) stays on your device.</li>
+        <li>We have no servers. There is nothing to breach, nothing to sell.</li>
+        <li>Permissions (Location / Photos / Motion / Calendar) are requested only to compose your daily story, and you can revoke them at any time in iOS Settings.</li>
+      </ul>
+      <p class="muted">Effective 2026-10-21 · v1.0</p>
+    </div>
+  </section>
+
+  <section data-lang="zh">
+    <h1><span class="logo">Day<span class="stitch">Stitch</span></span> — 支持与隐私</h1>
+    <div class="card">
+      <h2>关于 DayStitch</h2>
+      <p>DayStitch 把手机已经知道的事——你去过的地方、拍下的照片、步数与行程、日历日程——自动缝成一天的故事。一个字都不用写,每晚故事已就位,等你翻阅。</p>
+      <h2>常见问题</h2>
+      <ul>
+        <li><strong>数据在哪里处理?</strong> 全部在你的设备上。故事完全由端侧逻辑生成,不上传、不联网。</li>
+        <li><strong>会改动我的照片或日历吗?</strong> 不会。只读取 iOS 本来就展示给你的内容,永不编辑或删除任何东西。</li>
+        <li><strong>可以导出吗?</strong> 故事卡片可保存到相册;条目保存在应用本地存储中。</li>
+      </ul>
+      <h2>联系我们</h2>
+      <p>邮箱:<a href="mailto:support@daystitch.app">support@daystitch.app</a></p>
+      <h2>隐私政策</h2>
+      <p><strong>DayStitch 不收集任何数据。</strong></p>
+      <ul>
+        <li>无账号、无注册、无统计、无追踪、无广告。</li>
+        <li>所有数据(位置、照片、运动、日程、故事)都留在你的设备上。</li>
+        <li>我们没有服务器——没有可被攻破的库,也没有可出售的数据。</li>
+        <li>权限(位置/照片/运动/日历)仅用于生成当天故事,可在 iOS 设置中随时关闭。</li>
+      </ul>
+      <p class="muted">生效日期 2026-10-21 · v1.0</p>
+    </div>
+  </section>
+</main>
+<script>
+  document.querySelectorAll('.lang button').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.lang button').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      document.querySelectorAll('section[data-lang]').forEach(function(s){
+        s.classList.toggle('on', s.dataset.lang === b.dataset.l);
+      });
+    });
+  });
+</script>
+</body>
+</html>
