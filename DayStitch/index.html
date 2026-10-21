@@ -368,7 +368,7 @@ function apply(l){
   document.querySelectorAll(".phone img, .shot img").forEach(img=>{
     img.src = img.src.replace(/-(zh|en)\.png$/, "-"+l+".png");
   });
-  document.title = d.title;
+  document.title = d.title || "DayStitch — 你的故事,自己长出来";
   document.documentElement.lang = l;
   localStorage.setItem("daystitch_lang", l);
   document.querySelectorAll(".langs button").forEach(b=>b.classList.toggle("on", b.dataset.lang===l));
