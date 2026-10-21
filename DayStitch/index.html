@@ -359,11 +359,14 @@ en: {
 };
 function apply(l){
   const d = I18N[l];
+  if(!apply._snap){
+    apply._snap = true;
+    document.querySelectorAll("[data-i18n]").forEach(el=>{ el.dataset.orig = el.innerHTML; });
+  }
   document.querySelectorAll("[data-i18n]").forEach(el=>{
     const v = d[el.dataset.i18n];
-    if(v!==undefined){ el.innerHTML = v; }
-    else if(d._native && el.dataset.orig===undefined){ el.dataset.orig = el.innerHTML; }
-    if(d._native && el.dataset.orig!==undefined && v===undefined){ el.innerHTML = el.dataset.orig; }
+    if(v!==undefined) el.innerHTML = v;
+    else if(d._native) el.innerHTML = el.dataset.orig;
   });
   document.querySelectorAll(".phone img, .shot img").forEach(img=>{
     img.src = img.src.replace(/-(zh|en)\.png$/, "-"+l+".png");
