@@ -139,7 +139,7 @@ footer{padding:34px 0;color:var(--dim);font-size:13px}
       <a href="#privacy" data-i18n="navPriv">隐私</a>
     </div>
     <div class="langs">
-      <button data-lang="en">EN</button><button data-lang="zh" class="on">中文</button>
+      <button data-lang="en">EN</button><button data-lang="ja">日</button><button data-lang="zh" class="on">中文</button>
     </div>
   </div>
 </nav>
@@ -308,6 +308,54 @@ footer{padding:34px 0;color:var(--dim);font-size:13px}
 <script>
 const I18N = {
 zh: { _native: true },
+ja: {
+  title:"DayStitch — あなたの一日を、自動で綴る",
+  navSrc:"データソース", navShow:"一日の記録", navVs:"従来との違い", navPriv:"プライバシー",
+  kick:"自動日記",
+  h1:`あなたの物語が、<br><span class="hl">ひとりでに綴られる</span>`,
+  sub:"スマホはもうあなたの一日を知っています。どこに行き、何を撮り、どれだけ歩き、何の予定があったか。DayStitch はそれを読みやすい物語に縫い合わせます。あなたは読むだけ。",
+  ctaApp:"App Store →", ctaSee:"一日の記録を見る",
+  t1:"✓ 入力ゼロ", t2:"✓ 端末内で完結", t3:"✓ アカウント不要", t4:"✓ 読み取り専用",
+  srcKick:"4つのシグナル",
+  srcTitle:"スマホが全部記録していた。綴る人はいなかった。",
+  srcSub:"DayStitch は iOS がすでに保持しているシグナルを読むだけ。記録の負担はゼロです。",
+  s1t:"滞在記録", s1d:"いつ着いて、どれだけいたか。場所とシーンにまとめます。",
+  s2t:"写真の瞬間", s2d:"その日撮った写真は、起きたシーンの位置に収まります。",
+  s3t:"移動", s3d:"歩く・車・じっとしていた。移動の事実が時間線に意味を与えます。",
+  s4t:"カレンダー", s4d:"予定がそれぞれのシーンに名前を付けます。",
+  showKick:"一日、二つの画面",
+  showTitle:"ホームは今日の表紙。タップすると縫い合わされた物語へ。",
+  capHome:"今日の表紙", capHomeS:"一日を一行で",
+  capDay:"物語のタイムライン", capDayS:"シーンは時系列、写真は定位置",
+  stKick:"ステッチング・エンジン", stTitle:"断片から物語へ",
+  p1t:"生のシグナル",
+  p1a:"09:14 到着 · キャンパス", p1b:"09:30 写真を3枚撮影", p1c:"10:00 予定 · 週次スタンドアップ",
+  p1d:"14:20 1.8 km を歩く", p1e:"18:05 帰宅",
+  p2t:"一日の物語",
+  p2a:`始まる前に <b>キャンパスのスタンドアップ</b> に間に合い、3枚撮っておいた`,
+  p2b:"1.8 km 歩いて頭をすっきり",
+  p2c:"18:05 帰宅 — 今日の歩行は合計 6.2 km",
+  vsKick:"従来との違い", vsTitle:"白いページとにらめっこはもう終わり",
+  badTag:"従来の日記 / Apple Journal",
+  b1:"座って書くことを求める — 三日で続かない",
+  b2:"毎日同じお題。日記が義務になる",
+  b3:"手書きの消えた項目、保存されない音声 — 不満の定番",
+  goodTag:"DayStitch",
+  g1:"今夜の物語はもう書かれてある。あなたは読むだけ",
+  g2:"中身は本物の一日。二度と同じにならない",
+  g3:"入力欄がない。失くすものもない",
+  prKick:"プライバシー", prTitle:"サーバーなし。漏れるものもない",
+  pr1t:"端末内で完結", pr1d:"物語はスマホの中で組み立てられ、何もアップロードしません。",
+  pr2t:"読み取り専用", pr2d:"写真・カレンダー・位置履歴を決して変更しません。",
+  pr3t:"いつでも取り消し", pr3d:"権限はいつでも取消可能。残ったシグナルで動作を続けます。",
+  appsKick:"他のアプリ", appsTitle:"同じ開発者の他のアプリ",
+  a1c:"Mac · AI ワークベンチ", a1d:"Claude Code & Codex のネイティブクライアント。Mac 用 AI エージェントダッシュボード。",
+  a2c:"iPhone · 仕事効率化", a2d:"100% 端末内で完結する AI タスク管理。タスクは端末の外へ出ません。",
+  a4c:"iPhone · ユーティリティ", a4d:"一日のメッセージと予定を朝のブリーフにまとめます。",
+  a5c:"iPhone · 日記", a5d:"カード式の日記。書きたい日のために。",
+  aGo:"App Store →",
+  ftMade:"書かない人のための日記", ftPriv:"プライバシー & サポート"
+},
 en: {
   title:"DayStitch — Your day, written for you",
   navSrc:"Sources", navShow:"A Day", navVs:"Why Different", navPriv:"Privacy",
@@ -369,7 +417,7 @@ function apply(l){
     else if(d._native) el.innerHTML = el.dataset.orig;
   });
   document.querySelectorAll(".phone img, .shot img").forEach(img=>{
-    img.src = img.src.replace(/-(zh|en)\.png$/, "-"+l+".png");
+    img.src = img.src.replace(/-(zh|en|ja)\.png$/, "-"+l+".png");
   });
   document.title = d.title || "DayStitch — 你的故事,自己长出来";
   document.documentElement.lang = l;
@@ -377,7 +425,7 @@ function apply(l){
   document.querySelectorAll(".langs button").forEach(b=>b.classList.toggle("on", b.dataset.lang===l));
 }
 const saved = localStorage.getItem("daystitch_lang");
-apply(saved && I18N[saved] ? saved : (navigator.language.startsWith("zh") ? "zh" : "en"));
+apply(saved && I18N[saved] ? saved : (navigator.language.startsWith("zh") ? "zh" : navigator.language.startsWith("ja") ? "ja" : "en"));
 document.querySelectorAll(".langs button").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.lang)));
 </script>
 </body>
