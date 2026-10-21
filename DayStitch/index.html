@@ -307,7 +307,7 @@ footer{padding:34px 0;color:var(--dim);font-size:13px}
 
 <script>
 const I18N = {
-zh: {},
+zh: { _native: true },
 en: {
   title:"DayStitch — Your day, written for you",
   navSrc:"Sources", navShow:"A Day", navVs:"Why Different", navPriv:"Privacy",
@@ -361,7 +361,9 @@ function apply(l){
   const d = I18N[l];
   document.querySelectorAll("[data-i18n]").forEach(el=>{
     const v = d[el.dataset.i18n];
-    if(v!==undefined) el.innerHTML = v;
+    if(v!==undefined){ el.innerHTML = v; }
+    else if(d._native && el.dataset.orig===undefined){ el.dataset.orig = el.innerHTML; }
+    if(d._native && el.dataset.orig!==undefined && v===undefined){ el.innerHTML = el.dataset.orig; }
   });
   document.querySelectorAll(".phone img, .shot img").forEach(img=>{
     img.src = img.src.replace(/-(zh|en)\.png$/, "-"+l+".png");
@@ -372,7 +374,7 @@ function apply(l){
   document.querySelectorAll(".langs button").forEach(b=>b.classList.toggle("on", b.dataset.lang===l));
 }
 const saved = localStorage.getItem("daystitch_lang");
-apply(saved && I18N[saved] ? saved : "zh");
+apply(saved && I18N[saved] ? saved : (navigator.language.startsWith("zh") ? "zh" : "en"));
 document.querySelectorAll(".langs button").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.lang)));
 </script>
 </body>
