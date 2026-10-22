@@ -7,6 +7,7 @@
 <meta name="description" content="Turn any recipe source — a photo, a screenshot, a link, a handwritten card, plain text — into a clean structured recipe on your iPhone. On-device first. No account. $9.99 once.">
 <meta property="og:title" content="RecipeLoom — Any recipe, anywhere. Yours in seconds.">
 <meta property="og:description" content="Any source → structured recipe. On-device first. Pay once, $9.99.">
+<meta property="og:image" content="shots/duo_1.jpg">
 <style>
   :root { --ink:#3A3028; --paper:#FAF6EF; --card:#FFFFFF; --line:#EBE2D4;
           --accent:#E05B3A; --accent-soft:rgba(224,91,58,.10); --muted:#8A7E70; }
@@ -38,6 +39,11 @@
   .cta { margin-top:30px; }
   .cta .btn { font-size:16px; padding:13px 30px; }
   .cta small { display:block; margin-top:10px; color:var(--muted); font-size:13px; }
+
+  /* shots */
+  .shots { display:grid; grid-template-columns:1fr 1.22fr 1fr; gap:20px; align-items:end; margin-top:52px; }
+  .shot { background:var(--card); border:1px solid var(--line); border-radius:22px; padding:10px; box-shadow:0 16px 44px rgba(58,48,40,.09); }
+  .shot img { width:100%; border-radius:14px; display:block; }
 
   /* demo: sources -> structured */
   .demo { display:grid; grid-template-columns:1fr 64px 1fr; gap:0; align-items:center; margin-top:8px; }
@@ -118,6 +124,11 @@
         <span class="badge">💸 <b>$9.99</b> once — no subscription</span>
         <span class="badge">🔒 On-device first</span>
         <span class="badge">📵 Zero tracking</span>
+      </div>
+      <div class="shots">
+        <div class="shot"><img src="shots/iphone_2.jpg" alt="RecipeLoom recipe detail — Scrambled Eggs with Tomato"></div>
+        <div class="shot"><img src="shots/duo_1.jpg" alt="RecipeLoom — Your recipes, unfolded."></div>
+        <div class="shot"><img src="shots/ipad_1.jpg" alt="RecipeLoom on iPad"></div>
       </div>
       <div class="cta">
         <a class="btn" href="https://apps.apple.com/app/id6825420160">Download on the App Store</a>
@@ -208,6 +219,11 @@
         <span class="badge">💸 <b>$9.99</b> 买断 · 无订阅</span>
         <span class="badge">🔒 端侧优先</span>
         <span class="badge">📵 零追踪</span>
+      </div>
+      <div class="shots">
+        <div class="shot"><img src="shots/iphone_2.jpg" alt="RecipeLoom 食谱详情 — 番茄炒蛋"></div>
+        <div class="shot"><img src="shots/duo_1.jpg" alt="RecipeLoom — 你的食谱,自此摊开"></div>
+        <div class="shot"><img src="shots/ipad_1.jpg" alt="RecipeLoom iPad 版"></div>
       </div>
       <div class="cta">
         <a class="btn" href="https://apps.apple.com/app/id6825420160">App Store 下载</a>
