@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RecipeLoom — Any recipe, anywhere. Yours in seconds.</title>
+<meta name="description" content="Turn any recipe source — a photo, a screenshot, a link, a handwritten card, plain text — into a clean structured recipe on your iPhone. On-device first. No account. $9.99 once.">
+<meta property="og:title" content="RecipeLoom — Any recipe, anywhere. Yours in seconds.">
+<meta property="og:description" content="Any source → structured recipe. On-device first. Pay once, $9.99.">
+<style>
+  :root { --ink:#3A3028; --paper:#FAF6EF; --card:#FFFFFF; --line:#EBE2D4;
+          --accent:#E05B3A; --accent-soft:rgba(224,91,58,.10); --muted:#8A7E70; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { font-family:-apple-system,"PingFang SC","Helvetica Neue",sans-serif; background:var(--paper); color:var(--ink); line-height:1.7; -webkit-font-smoothing:antialiased; }
+  a { color:var(--accent); text-decoration:none; }
+  .wrap { max-width:1020px; margin:0 auto; padding:0 24px; }
+  nav { position:sticky; top:0; z-index:9; background:rgba(250,246,239,.88); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
+  nav .wrap { display:flex; align-items:center; justify-content:space-between; height:60px; }
+  .logo { font-weight:700; font-size:17px; letter-spacing:.2px; }
+  .logo .loom { color:var(--accent); }
+  .logo .dot { display:inline-block; width:10px; height:10px; border-radius:3px; background:var(--accent); margin-right:8px; transform:rotate(45deg); }
+  .btn { display:inline-flex; align-items:center; gap:8px; background:var(--ink); color:#fff; border-radius:999px; padding:10px 22px; font-size:15px; font-weight:600; }
+  .btn:hover { background:var(--accent); }
+  .lang { margin-right:16px; }
+  .lang button { border:1px solid var(--ink); background:transparent; border-radius:999px; padding:4px 14px; cursor:pointer; font-size:13px; color:var(--ink); margin-left:6px; }
+  .lang button.on { background:var(--ink); color:#fff; }
+  section { padding:72px 0; border-bottom:1px solid var(--line); }
+
+  /* hero */
+  .hero { text-align:center; padding:84px 0 64px; }
+  .hero h1 { font-size:clamp(34px,6vw,56px); line-height:1.12; font-weight:800; letter-spacing:-1px; }
+  .hero h1 em { font-style:normal; color:var(--accent); }
+  .hero p.sub { max-width:640px; margin:18px auto 0; font-size:18px; color:var(--muted); }
+  .badges { margin-top:26px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .badge { background:var(--card); border:1px solid var(--line); border-radius:999px; padding:8px 18px; font-size:14px; color:var(--ink); }
+  .badge b { color:var(--accent); }
+  .cta { margin-top:30px; }
+  .cta .btn { font-size:16px; padding:13px 30px; }
+  .cta small { display:block; margin-top:10px; color:var(--muted); font-size:13px; }
+
+  /* demo: sources -> structured */
+  .demo { display:grid; grid-template-columns:1fr 64px 1fr; gap:0; align-items:center; margin-top:8px; }
+  .pane { background:var(--card); border:1px solid var(--line); border-radius:22px; padding:30px; box-shadow:0 14px 40px rgba(58,48,40,.07); }
+  .pane h3 { font-size:14px; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); margin-bottom:18px; }
+  .src { display:flex; align-items:center; gap:12px; padding:10px 0; font-size:15.5px; color:var(--ink); }
+  .src .ic { width:40px; height:40px; border-radius:12px; background:var(--accent-soft); display:flex; align-items:center; justify-content:center; font-size:19px; flex:none; }
+  .src small { display:block; font-size:12.5px; color:var(--muted); }
+  .arrow { text-align:center; font-size:28px; color:var(--accent); }
+  .recipe { font-size:14.5px; }
+  .recipe .title { font-size:19px; font-weight:700; margin-bottom:2px; }
+  .recipe .meta { color:var(--muted); font-size:13px; margin-bottom:14px; }
+  .recipe .row { display:flex; gap:10px; padding:6px 0; border-bottom:1px dashed var(--line); }
+  .recipe .row:last-child { border-bottom:0; }
+  .recipe .n { width:22px; height:22px; border-radius:7px; background:var(--accent); color:#fff; font-size:12px; display:flex; align-items:center; justify-content:center; flex:none; margin-top:2px; }
+  .recipe .ing b { min-width:64px; display:inline-block; }
+  .tags { margin-top:12px; }
+  .tag { display:inline-block; background:var(--accent-soft); color:var(--accent); border-radius:999px; padding:3px 12px; font-size:12.5px; margin-right:6px; }
+
+  /* features */
+  h2 { font-size:clamp(26px,4vw,34px); font-weight:800; letter-spacing:-.5px; }
+  .lead { color:var(--muted); margin-top:10px; font-size:16.5px; max-width:620px; }
+  .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:38px; }
+  .f { background:var(--card); border:1px solid var(--line); border-radius:20px; padding:26px; }
+  .f .ic { width:46px; height:46px; border-radius:14px; background:var(--accent-soft); display:flex; align-items:center; justify-content:center; font-size:22px; margin-bottom:14px; }
+  .f h3 { font-size:17px; margin-bottom:6px; }
+  .f p { font-size:14.5px; color:var(--muted); }
+
+  /* steps */
+  .steps { margin-top:38px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px; counter-reset:s; }
+  .step { background:var(--card); border:1px solid var(--line); border-radius:20px; padding:26px; position:relative; }
+  .step::before { counter-increment:s; content:counter(s); position:absolute; top:-14px; left:22px; width:30px; height:30px; border-radius:10px; background:var(--accent); color:#fff; font-weight:700; display:flex; align-items:center; justify-content:center; font-size:15px; transform:rotate(45deg); }
+  .step h3 { font-size:16.5px; margin:8px 0 6px; }
+  .step p { font-size:14px; color:var(--muted); }
+
+  /* pricing */
+  .price { background:var(--ink); color:#fff; border-radius:26px; padding:52px 40px; text-align:center; margin-top:38px; }
+  .price .num { font-size:56px; font-weight:800; letter-spacing:-1px; }
+  .price .num small { font-size:20px; font-weight:500; opacity:.75; }
+  .price p { color:rgba(255,255,255,.72); max-width:480px; margin:12px auto 0; font-size:15.5px; }
+  .price .btn { background:var(--accent); margin-top:26px; }
+  .price .btn:hover { filter:brightness(1.08); }
+
+  footer { padding:40px 0 56px; text-align:center; color:var(--muted); font-size:13.5px; }
+  footer .logo { font-size:15px; color:var(--ink); margin-bottom:6px; }
+  footer a { margin:0 8px; }
+
+  section[data-lang] { display:none; }
+  section[data-lang].on { display:block; }
+  section.lzh { display:none; }
+  section.lzh.on { display:block; }
+  @media (max-width:820px) {
+    .demo { grid-template-columns:1fr; gap:14px; }
+    .arrow { transform:rotate(90deg); padding:4px 0; }
+    .grid, .steps { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo"><span class="dot"></span>Recipe<span class="loom">Loom</span></div>
+    <div style="display:flex;align-items:center">
+      <span class="lang"><button data-l="en" class="on">EN</button><button data-l="zh">中文</button></span>
+      <a class="btn" href="https://apps.apple.com/app/id6825420160" data-t="nav_cta">App Store</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= EN ================= -->
+<div data-lang="en" class="on">
+  <section class="hero">
+    <div class="wrap">
+      <h1>Any recipe, anywhere.<br><em>Yours</em> in seconds.</h1>
+      <p class="sub" data-t="sub">Screenshot it, link it, snap a handwritten card — RecipeLoom turns every source into one clean, structured recipe saved on your iPhone.</p>
+      <div class="badges">
+        <span class="badge">💸 <b>$9.99</b> once — no subscription</span>
+        <span class="badge">🔒 On-device first</span>
+        <span class="badge">📵 Zero tracking</span>
+      </div>
+      <div class="cta">
+        <a class="btn" href="https://apps.apple.com/app/id6825420160">Download on the App Store</a>
+        <small data-t="cta_small">iOS 26 · iPhone · English &amp; 简体中文</small>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="demo">
+        <div class="pane">
+          <h3>Any source</h3>
+          <div class="src"><span class="ic">📸</span><span>Screenshot <small>from any app or web page</small></span></div>
+          <div class="src"><span class="ic">🔗</span><span>Link <small>paste a recipe URL</small></span></div>
+          <div class="src"><span class="ic">✍️</span><span>Handwritten card <small>grandma's recipes, recognized</small></span></div>
+          <div class="src"><span class="ic">📄</span><span>Plain text <small>messy notes, voice memo transcript</small></span></div>
+        </div>
+        <div class="arrow">➜</div>
+        <div class="pane">
+          <h3>Structured recipe</h3>
+          <div class="recipe">
+            <div class="title">番茄炒蛋 · Scrambled Eggs with Tomato</div>
+            <div class="meta">2 servings · 15 min · Home cooking</div>
+            <div class="row ing"><span class="n">·</span><span><b>3</b> eggs, beaten</span></div>
+            <div class="row ing"><span class="n">·</span><span><b>2</b> ripe tomatoes, wedged</span></div>
+            <div class="row ing"><span class="n">·</span><span><b>1 tbsp</b> scallion · salt · sugar</span></div>
+            <div class="row"><span class="n">1</span><span>Scramble eggs in hot oil until just set; remove.</span></div>
+            <div class="row"><span class="n">2</span><span>Softening tomatoes with a pinch of salt, 3 min.</span></div>
+            <div class="row"><span class="n">3</span><span>Fold eggs back, season, finish with scallion.</span></div>
+            <div class="tags"><span class="tag">quick</span><span class="tag">weekday</span><span class="tag">★ saved to shelf</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Built like a tool, not a service.</h2>
+      <p class="lead" data-t="feat_lead">No account. No cloud library holding your recipes hostage. Just a fast loom that weaves sources into your own shelf.</p>
+      <div class="grid">
+        <div class="f"><div class="ic">🧠</div><h3>On-device first</h3><p>OCR and parsing run on your iPhone with Apple Intelligence. If your device can't, a cloud option stays off until you turn it on.</p></div>
+        <div class="f"><div class="ic">🔒</div><h3>Zero collection</h3><p>No sign-up, no analytics, no ads. Your shelf lives in a local database. Delete the app — everything is gone.</p></div>
+        <div class="f"><div class="ic">💸</div><h3>Pay once, own it</h3><p>$9.99. All features, every future update. No subscription, no "pro" tier, no dark patterns.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Three steps. Dinner's organized.</h2>
+      <div class="steps">
+        <div class="step"><h3 data-t="s1t">Feed it anything</h3><p data-t="s1d">A photo, screenshot, link, or pasted text — whatever form the recipe is in.</p></div>
+        <div class="step"><h3 data-t="s2t">Confirm the draft</h3><p data-t="s2d">RecipeLoom extracts title, servings, ingredients and steps. Fix anything, then keep.</p></div>
+        <div class="step"><h3 data-t="s3t">Cook from your shelf</h3><p data-t="s3d">Search in one place, cook in focus mode with big, glanceable steps.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>One price. Yours forever.</h2>
+      <div class="price">
+        <div class="num">$9.99 <small>once</small></div>
+        <p data-t="price_p">Every feature unlocked from day one. Free updates. Your recipes never leave your device unless you say so.</p>
+        <a class="btn" href="https://apps.apple.com/app/id6825420160">Download on the App Store</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="logo"><span class="dot"></span>Recipe<span class="loom">Loom</span></div>
+      <div><a href="privacy.html">Privacy &amp; Support</a> · <a href="mailto:phinn@outlook.com">phinn@outlook.com</a></div>
+      <div style="margin-top:8px">© 2026 Phinn · Made for people who cook</div>
+    </div>
+  </footer>
+</div>
+
+<!-- ================= 中文 ================= -->
+<div data-lang="zh">
+  <section class="hero">
+    <div class="wrap">
+      <h1>任何来源的菜谱,<br><em>几秒</em>变成你的。</h1>
+      <p class="sub">截图、链接、手写卡片拍一张——RecipeLoom 把所有形态的菜谱,整理成结构清晰的一份,存进你的 iPhone。</p>
+      <div class="badges">
+        <span class="badge">💸 <b>$9.99</b> 买断 · 无订阅</span>
+        <span class="badge">🔒 端侧优先</span>
+        <span class="badge">📵 零追踪</span>
+      </div>
+      <div class="cta">
+        <a class="btn" href="https://apps.apple.com/app/id6825420160">App Store 下载</a>
+        <small>iOS 26 · iPhone · 简体中文 &amp; English</small>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="demo">
+        <div class="pane">
+          <h3>任意来源</h3>
+          <div class="src"><span class="ic">📸</span><span>截图 <small>任何 App 或网页里的菜谱</small></span></div>
+          <div class="src"><span class="ic">🔗</span><span>链接 <small>粘贴菜谱网址</small></span></div>
+          <div class="src"><span class="ic">✍️</span><span>手写菜谱卡 <small>妈妈的手写本也能识别</small></span></div>
+          <div class="src"><span class="ic">📄</span><span>纯文本 <small>零散笔记、语音转写都行</small></span></div>
+        </div>
+        <div class="arrow">➜</div>
+        <div class="pane">
+          <h3>结构化菜谱</h3>
+          <div class="recipe">
+            <div class="title">番茄炒蛋</div>
+            <div class="meta">2 人份 · 15 分钟 · 家常</div>
+            <div class="row ing"><span class="n">·</span><span>鸡蛋 <b>3 个</b>,打散</span></div>
+            <div class="row ing"><span class="n">·</span><span>熟番茄 <b>2 个</b>,切角</span></div>
+            <div class="row ing"><span class="n">·</span><span>葱花 <b>1 勺</b> · 盐 · 糖</span></div>
+            <div class="row"><span class="n">1</span><span>热油快炒鸡蛋至刚凝固,盛出。</span></div>
+            <div class="row"><span class="n">2</span><span>下番茄加少许盐,炒软约 3 分钟。</span></div>
+            <div class="row"><span class="n">3</span><span>回锅合炒,调味,撒葱花出锅。</span></div>
+            <div class="tags"><span class="tag">快手</span><span class="tag">工作日</span><span class="tag">★ 已存入书架</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>它是一件工具,不是一项服务。</h2>
+      <p class="lead">不用注册账号,没有云端的菜谱库绑架你的数据。只有一台快的织机,把来源织进你自己的书架。</p>
+      <div class="grid">
+        <div class="f"><div class="ic">🧠</div><h3>端侧优先</h3><p>OCR 和解析在 iPhone 上用 Apple Intelligence 完成;设备不支持时,云 AI 默认关闭,由你决定是否开启。</p></div>
+        <div class="f"><div class="ic">🔒</div><h3>零收集</h3><p>无注册、无统计、无广告。书架就是本地数据库,删除 App,一切随之消失。</p></div>
+        <div class="f"><div class="ic">💸</div><h3>一次买断</h3><p>$9.99,全部功能,后续更新免费。没有订阅,没有「高级版」,没有套路。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>三步,晚饭就位。</h2>
+      <div class="steps">
+        <div class="step"><h3>喂给它任何东西</h3><p>照片、截图、链接、粘贴的文字——菜谱是什么形态都行。</p></div>
+        <div class="step"><h3>确认草稿</h3><p>自动提取标题、份数、食材和步骤,改两笔,收进书架。</p></div>
+        <div class="step"><h3>照着书架做菜</h3><p>一处搜索,专注烹饪模式大字步骤,一眼看清下一步。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>一个价格,永远是你的。</h2>
+      <div class="price">
+        <div class="num">$9.99 <small>买断</small></div>
+        <p>第一天就解锁全部功能,更新免费。除非你主动开启,菜谱永远不离开你的设备。</p>
+        <a class="btn" href="https://apps.apple.com/app/id6825420160">App Store 下载</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="logo"><span class="dot"></span>Recipe<span class="loom">Loom</span></div>
+      <div><a href="privacy.html">隐私与支持</a> · <a href="mailto:phinn@outlook.com">phinn@outlook.com</a></div>
+      <div style="margin-top:8px">© 2026 Phinn · 为爱做饭的人而做</div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll('.lang button').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.lang button').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      document.querySelectorAll('[data-lang]').forEach(function(s){
+        s.classList.toggle('on', s.getAttribute('data-lang') === b.getAttribute('data-l'));
+      });
+    });
+  });
+</script>
+</body>
+</html>
