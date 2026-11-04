@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The 43-App Survival Checklist — 77 checks before every App Store submission</title>
+<meta name="description" content="Free checklist: 77 checks distilled from 43 apps submitted in one month, an account-level 4.3 batch strike, and 40+ review submissions. Portfolio pacing, metadata hygiene, upload protocol, appeal templates.">
+<meta property="og:title" content="The 43-App Survival Checklist">
+<meta property="og:description" content="77 checks before every App Store submission — from an account that learned the hard way.">
+<style>
+:root{--ink:#e8e6e1;--mut:#9a97a0;--accent:#5eb0ef;--accent2:#f5a623;--line:#2c2c34;--card:#1c1c24;--bg:#141419}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 -apple-system,system-ui,"Segoe UI",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 22px 72px}
+.kicker{font:600 12px/1 -apple-system,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2)}
+h1{font:800 34px/1.25 -apple-system,system-ui,sans-serif;margin:10px 0 14px;letter-spacing:-.01em}
+.lede{color:var(--mut);font-size:17px;max-width:62ch}
+.stats{display:flex;gap:26px;flex-wrap:wrap;margin:26px 0 8px}
+.stat b{display:block;font:800 26px/1 -apple-system,system-ui,sans-serif;color:var(--accent)}
+.stat span{font-size:13px;color:var(--mut)}
+.toc{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 6px}
+.toc a{font:600 12.5px/1 -apple-system,system-ui,sans-serif;color:var(--accent);text-decoration:none;padding:7px 12px;border:1px solid var(--line);border-radius:99px;background:var(--card)}
+section{margin-top:40px}
+h2{font:700 20px/1.4 -apple-system,system-ui,sans-serif;border-bottom:1px solid var(--line);padding-bottom:10px}
+ol.cl{list-style:none;padding:0;margin:14px 0 0}
+ol.cl li{display:flex;gap:12px;padding:9px 12px;margin:4px 0;background:var(--card);border:1px solid var(--line);border-radius:8px}
+.num{flex:0 0 auto;min-width:26px;text-align:right;font:700 13px/1.9 ui-monospace,Menlo,monospace;color:var(--accent2)}
+li code{font:600 13.5px ui-monospace,Menlo,monospace;background:#0a0a0f;border:1px solid var(--line);border-radius:5px;padding:2px 6px;color:#c9e3ff}
+.box{margin:44px 0;padding:26px 28px;background:linear-gradient(135deg,#5eb0ef18,#5eb0ef05);border:1px solid #5eb0ef55;border-radius:14px}
+.box h3{margin:0 0 8px;font:800 20px/1.4 -apple-system,system-ui,sans-serif;color:var(--accent)}
+.box p{margin:0 0 14px;color:var(--mut)}
+.box ul{margin:0 0 16px;padding-left:20px;color:var(--ink)}
+.box li{margin:5px 0}
+form{display:flex;gap:10px;flex-wrap:wrap}
+input[type=email]{flex:1 1 240px;padding:12px 15px;border:1px solid var(--line);border-radius:9px;font:15px -apple-system,system-ui,sans-serif;background:#0f0f14;color:var(--ink)}
+input[type=email]:focus{outline:2px solid var(--accent);border-color:var(--accent)}
+button{padding:12px 24px;border:0;border-radius:9px;background:var(--accent);color:#0d2233;font:700 15px -apple-system,system-ui,sans-serif;cursor:pointer}
+button:hover{filter:brightness(1.1)}
+.fine{margin:10px 0 0;font-size:12.5px;color:var(--mut)}
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font:13px/1.6 -apple-system,system-ui,sans-serif;color:var(--mut)}
+footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<p class="kicker">App Store Submission · Field Checklist</p>
+<h1>The 43-App Survival Checklist</h1>
+<p class="lede">I shipped <strong>43 apps in one month</strong>. Apple flagged 27 inside 14 days, struck the account twice with 4.3, and froze 6 apps. These are the 77 checks I now run before every single submission — so you never learn them the way I did.</p>
+<div class="stats">
+<div class="stat"><b>43</b><span>apps in 30 days (the mistake)</span></div>
+<div class="stat"><b>27</b><span>flagged within 14 days</span></div>
+<div class="stat"><b>77</b><span>checks, run top-to-bottom</span></div>
+</div>
+<div class="toc"><a href="#s0">A. Portfolio &amp; Listing Layer (12 checks) — where 4.3 / 4.2.6 lives</a><a href="#s1">B. Binary &amp; Metadata (14 checks)</a><a href="#s2">C. In-App Purchase &amp; Payments (11 checks)</a><a href="#s3">D. Review Notes &amp; Demo Flow (10 checks)</a><a href="#s4">E. Screenshots &amp; Marketing (10 checks)</a><a href="#s5">F. Post-Submission Discipline (12 checks)</a><a href="#s6">G. Personal-Data &amp; Compliance (8 checks)</a></div>
+<section id="s0"><h2>A. Portfolio &amp; Listing Layer (12 checks) — where 4.3 / 4.2.6 lives</h2><ol class="cl"><li><span class="num">1</span><span>New apps in rolling 14 days ≤ 5?</span></li><li><span class="num">2</span><span>New apps in rolling 30 days ≤ 8? (extended budget for slow-burn accounts)</span></li><li><span class="num">3</span><span>Any two app titles share a rhyme suffix or template word?</span></li><li><span class="num">4</span><span>App name free of another company&#x27;s trademark?</span></li><li><span class="num">5</span><span>Subtitle free of another company&#x27;s trademark?</span></li><li><span class="num">6</span><span>Keywords field free of competitor trademarks? (legal risk + review flag)</span></li><li><span class="num">7</span><span>Support URL live, loads &lt;3s, no template clones of sibling apps?</span></li><li><span class="num">8</span><span>Support page has per-app unique h1 + section order?</span></li><li><span class="num">9</span><span>Privacy policy URL live, per-app, names the app specifically?</span></li><li><span class="num">10</span><span>Marketing cadence not identical-day across apps?</span></li><li><span class="num">11</span><span>Screenshots don&#x27;t share identical framing across portfolio?</span></li><li><span class="num">12</span><span>Category + age rating consistent with actual feature set? (4.3(c) bait)</span></li></ol></section><section id="s1"><h2>B. Binary &amp; Metadata (14 checks)</h2><ol class="cl"><li><span class="num">13</span><span>Build number never used on ANY platform of this app?</span></li><li><span class="num">14</span><span>Version string matches intended submission, no placeholder?</span></li><li><span class="num">15</span><span>No debug flags, test menu, or hidden admin panels reachable in release build?</span></li><li><span class="num">16</span><span>Third-party SDKs all updated (no deprecated API warnings in archive)?</span></li><li><span class="num">17</span><span>Info.plist purpose strings present and specific (camera / mic / location)?</span></li><li><span class="num">18</span><span>No private API calls (verify with <code>otool</code> grep, not trust)?</span></li><li><span class="num">19</span><span>App icon correct sizes, no alpha channel?</span></li><li><span class="num">20</span><span>Launch screen matches final UI layout?</span></li><li><span class="num">21</span><span>All localized <code>.strings</code> files present for claimed locales?</span></li><li><span class="num">22</span><span>No hardcoded strings visible in UI for claimed locales?</span></li><li><span class="num">23</span><span>Demo account credentials work if login-gated?</span></li><li><span class="num">24</span><span>Sign in with Apple offered if any third-party login exists?</span></li><li><span class="num">25</span><span>No payment references to external methods in binary metadata?</span></li><li><span class="num">26</span><span>URL schemes registered and tested?</span></li></ol></section><section id="s2"><h2>C. In-App Purchase &amp; Payments (11 checks)</h2><ol class="cl"><li><span class="num">27</span><span>All IAP products in &quot;Ready to Submit&quot; with localized metadata?</span></li><li><span class="num">28</span><span>IAP screenshot uploaded for each product?</span></li><li><span class="num">29</span><span>Purchase restore mechanism implemented and tested?</span></li><li><span class="num">30</span><span>No mention of external payment methods anywhere in UI?</span></li><li><span class="num">31</span><span>Subscription terms (length/price/renewal) visible BEFORE purchase?</span></li><li><span class="num">32</span><span>Subscription EULA + privacy link inside paywall?</span></li><li><span class="num">33</span><span>Free-trial auto-renew disclosure explicit?</span></li><li><span class="num">34</span><span>Price tier consistent across locales?</span></li><li><span class="num">35</span><span>Server-side receipt validation implemented?</span></li><li><span class="num">36</span><span>Consumable purchases re-purchasable after restore?</span></li><li><span class="num">37</span><span>Family Sharing decision made (on or off) and consistent?</span></li></ol></section><section id="s3"><h2>D. Review Notes &amp; Demo Flow (10 checks)</h2><ol class="cl"><li><span class="num">38</span><span>Review notes explain EVERY non-obvious feature?</span></li><li><span class="num">39</span><span>Demo account credentials current and tested THIS week?</span></li><li><span class="num">40</span><span>Hardware-dependent features have video demo link in notes?</span></li><li><span class="num">41</span><span>Review notes mention data reset procedure for reviewers?</span></li><li><span class="num">42</span><span>No &quot;test&quot; language left in notes from previous submission?</span></li><li><span class="num">43</span><span>Contact person reachable during review window?</span></li><li><span class="num">44</span><span>Phased release setting intentional?</span></li><li><span class="num">45</span><span>Copyright year updated?</span></li><li><span class="num">46</span><span>License agreements attached if using third-party assets?</span></li><li><span class="num">47</span><span>Review notes preempt known rejection patterns?</span></li></ol></section><section id="s4"><h2>E. Screenshots &amp; Marketing (10 checks)</h2><ol class="cl"><li><span class="num">48</span><span>Screenshots show real UI (no mockups that diverge from app)?</span></li><li><span class="num">49</span><span>No device frames that Apple considers misleading?</span></li><li><span class="num">50</span><span>Text overlays don&#x27;t promise features not in the build?</span></li><li><span class="num">51</span><span>Screenshots match current app version&#x27;s UI?</span></li><li><span class="num">52</span><span>All required device sizes uploaded?</span></li><li><span class="num">53</span><span>App Preview videos (if any) show the actual app?</span></li><li><span class="num">54</span><span>Promo text within limits, no price references?</span></li><li><span class="num">55</span><span>Description matches actual features (no vaporware)?</span></li><li><span class="num">56</span><span>What&#x27;s New section written for this version?</span></li><li><span class="num">57</span><span>Screenshots color-space sRGB (P3 can shift) and text legible?</span></li></ol></section><section id="s5"><h2>F. Post-Submission Discipline (12 checks)</h2><ol class="cl"><li><span class="num">58</span><span>Submission logged with date, app, build, notes?</span></li><li><span class="num">59</span><span>Account-level submission velocity tracked weekly?</span></li><li><span class="num">60</span><span>4.3 / 4.2.6 strike history documented per account?</span></li><li><span class="num">61</span><span>Rejection templates pre-written for likely rejections?</span></li><li><span class="num">62</span><span>Response SLA: reply to rejection within 24h?</span></li><li><span class="num">63</span><span>Escalation path defined (App Review Board → dev support)?</span></li><li><span class="num">64</span><span>Apology-free factual reply style (no begging)?</span></li><li><span class="num">65</span><span>Each rejection answer is per-question structured (Q1...Q9 format)?</span></li><li><span class="num">66</span><span>No mass-appeal template replies across apps?</span></li><li><span class="num">67</span><span>Post-recovery cooling period respected before next batch?</span></li><li><span class="num">68</span><span>Binary cache purge confirmed before resubmission?</span></li><li><span class="num">69</span><span>Retention policy: keep all correspondence for 12 months?</span></li></ol></section><section id="s6"><h2>G. Personal-Data &amp; Compliance (8 checks)</h2><ol class="cl"><li><span class="num">70</span><span>Privacy nutrition labels match actual data collection?</span></li><li><span class="num">71</span><span>Account deletion path exists if account creation exists?</span></li><li><span class="num">72</span><span>Data collection disclosed in-app before it happens?</span></li><li><span class="num">73</span><span>Analytics SDKs documented in privacy labels?</span></li><li><span class="num">74</span><span>COPPA compliance if kids category?</span></li><li><span class="num">75</span><span>GDPR data export/deletion tested?</span></li><li><span class="num">76</span><span>China-specific: ICP filing number displayed if required?</span></li><li><span class="num">77</span><span>Export compliance (encryption) keys answered correctly?</span></li></ol></section>
+<div class="box">
+<h3>Get the full PDF + appeal templates</h3>
+<p>This page is the checklist. The <strong>PDF kit</strong> adds the parts you only need when things go wrong:</p>
+<ul>
+<li>The <strong>9-question 4.3(a) appeal answer set</strong> — fill-in-the-blank responses that survived a real account-level review</li>
+<li><strong>12 rejection-response templates</strong> (4.3 spam / 4.2.6 minimum function / metadata / crash)</li>
+<li>The <strong>pacing budget spreadsheet</strong> that keeps you under the radar</li>
+</ul>
+<form action="#" method="post">
+<input type="email" name="email" placeholder="you@example.com" required>
+<button type="submit">Send me the kit</button>
+</form>
+<p class="fine">No spam. Unsubscribe anytime. Sent via MailerLite.</p>
+</div>
+<footer>Published by an indie iOS developer · <a href="/app-store-4-3-rejection.html">Read the full 4.3 field account →</a> · <a href="/">kinetapp</a></footer>
+</div>
+<!-- MAILERLITE-START -->
+</body>
+</html>

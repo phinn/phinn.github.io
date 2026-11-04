@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>App Store Rejection 4.3: Anatomy of a Batch Rejection (43 Apps, Two Strikes, Hard Numbers)</title>
+<meta name="description" content="A field account from an indie iOS developer: 43 apps in one month, 21 rejected in the same minute — twice. What actually triggers batch 4.3(a)/4.3(b) rejections, the 9-question survey pattern, what recovery realistically looks like, and the pacing budgets that prevent relapse.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="App Store Rejection 4.3: Anatomy of a Batch Rejection (43 Apps, Two Strikes)">
+<meta property="og:description" content="The trigger is submission velocity and account profile, not code similarity — with a controlled experiment to prove it. Survey survival pattern, what recovery realistically looks like, hard pacing budgets.">
+<meta property="og:url" content="https://phinn.github.io/kinetapp/app-store-4-3-rejection.html">
+<link rel="canonical" href="https://phinn.github.io/kinetapp/app-store-4-3-rejection.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "App Store Rejection 4.3: Anatomy of a Batch Rejection (43 Apps, Two Strikes, Hard Numbers)",
+  "description": "43 apps submitted in one month, 21 rejected in the same minute — twice. A field account of what triggers batch 4.3 rejections, the survey pattern, and what recovery realistically looks like.",
+  "author": {"@type": "Person", "name": "Junjie Shen"},
+  "datePublished": "2026-11-01",
+  "keywords": "app store 4.3 rejection, guideline 4.3(a) design spam, 4.3(b) rejection survey, 4.2.6 minimum functionality, appeal app store rejection, resolution center reply template",
+  "url": "https://phinn.github.io/kinetapp/app-store-4-3-rejection.html"
+}
+</script>
+<style>
+:root{--ink:#1a1a1a;--mut:#555;--accent:#0a6ea8;--line:#e4e0d6;--paper:#faf8f3;--card:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.75 Georgia,"Times New Roman",serif}
+main{max-width:720px;margin:0 auto;padding:48px 24px 80px}
+header.hero{border-bottom:3px solid var(--ink);padding-bottom:24px;margin-bottom:36px}
+.kicker{font:600 12px/1 -apple-system,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
+h1{font:700 32px/1.25 -apple-system,system-ui,sans-serif;letter-spacing:-.01em;margin:0 0 14px}
+.lede{font-style:italic;color:var(--mut);margin:0}
+h2{font:700 22px/1.3 -apple-system,system-ui,sans-serif;margin:44px 0 14px;padding-top:8px}
+p{margin:0 0 16px}
+strong{color:#000}
+ol,ul{margin:0 0 16px;padding-left:26px}
+li{margin-bottom:10px}
+table{width:100%;border-collapse:collapse;margin:20px 0;font:14px/1.6 -apple-system,system-ui,sans-serif}
+th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;background:var(--card)}
+th{background:#f1ede4;font-weight:600}
+blockquote{margin:24px 0;padding:16px 22px;border-left:4px solid var(--accent);background:var(--card);font-size:17px}
+blockquote p{margin:0}
+a{color:var(--accent)}
+code{font:13px/1.5 ui-monospace,Menlo,monospace;background:#f1ede4;padding:2px 6px;border-radius:4px}
+.cta{margin:28px 0;padding:20px 22px;background:var(--card);border:1px solid var(--line);border-radius:10px;font:15px/1.7 -apple-system,system-ui,sans-serif}
+.cta strong{display:block;margin-bottom:8px;font-size:16px}
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font:13px/1.6 -apple-system,system-ui,sans-serif;color:var(--mut)}
+.signup{margin:32px 0;padding:24px 26px;background:linear-gradient(135deg,#0a6ea812,#0a6ea805);border:1px solid #0a6ea840;border-radius:12px;font:15px/1.7 -apple-system,system-ui,sans-serif}
+.signup h3{margin:0 0 6px;font:700 18px/1.4 -apple-system,system-ui,sans-serif;color:#0a4a72}
+.signup p.sub{margin:0 0 14px;color:var(--mut);font-size:14px}
+.signup form{display:flex;gap:10px;flex-wrap:wrap}
+.signup input[type=email]{flex:1 1 240px;padding:11px 14px;border:1px solid var(--line);border-radius:8px;font:15px -apple-system,system-ui,sans-serif;background:#fff}
+.signup input[type=email]:focus{outline:2px solid #0a6ea8;border-color:#0a6ea8}
+.signup button{padding:11px 22px;border:0;border-radius:8px;background:var(--accent);color:#fff;font:600 15px -apple-system,system-ui,sans-serif;cursor:pointer}
+.signup button:hover{background:#085a8a}
+.signup .fine{margin:10px 0 0;font-size:12.5px;color:var(--mut)}
+</style>
+</head>
+<body>
+<main>
+<header class="hero">
+<p class="kicker">App Store · Field Guide</p>
+<h1>App Store Rejection 4.3: Anatomy of a Batch Rejection (43 Apps, Two Strikes, Hard Numbers)</h1>
+<p class="lede">A field account from an indie iOS developer: 43 apps submitted in one month, 21 rejected in the same minute — twice. This is the full anatomy: triggers, the survey, what recovery realistically looks like (including the apps that didn't come back). Every number below comes from App Store Connect records and Resolution Center threads.</p>
+</header>
+
+<p>If you just got hit with <strong>Guideline 4.3(a) — Design - Spam</strong> (often bundled with 4.3(b) and 4.2.6), and especially if you got <strong>multiple rejections at once with a 9-question survey</strong>, this page is for you.</p>
+
+<h2>TL;DR — what actually triggers batch 4.3 rejections</h2>
+<ol>
+<li><strong>The trigger is submission velocity and account profile, not code similarity.</strong> I have a controlled experiment proving this (§2).</li>
+<li>A same-day batch rejection is an <strong>account-level flag</strong>. Every new submission will now be manually scrutinized until you clear it.</li>
+<li>The 9-question survey has a survival pattern: <strong>honesty + one app every 48 hours + lead with your best app.</strong></li>
+<li>Hard budget rule that kept me safe ever since: <strong>≤5 new apps per rolling 14 days, ≤8 per rolling 30 days.</strong></li>
+</ol>
+
+<h2>1. What happened to me</h2>
+<p>Before October 1st: 28 apps on the account, every submission approved normally. Then I went into burst mode — 43 new apps inside one month, peaking at 3 submissions on October 5th.</p>
+<p>At <strong>5:25 AM on October 6th</strong>, Apple answered everything I had submitted that week:</p>
+<ul>
+<li><strong>21 apps REJECTED simultaneously</strong> — 54% of my account</li>
+<li>All 21 rejection letters carried timestamps <strong>within the same minute</strong></li>
+<li>Every letter cited <strong>4.3(a) Design - Spam</strong>, most bundled with <strong>4.3(b)</strong> and <strong>4.2.6 Minimum Functionality</strong></li>
+<li>Six apps got the additional <strong>9-question survey</strong> (the "are you a template factory" interrogation)</li>
+</ul>
+<p>Why did my account look like a factory? Honest self-audit: 10 apps used rhyming suffixes (-let/-ette families), 24 apps shared one support-page template (same h1, same CSS, same footer), and four-language metadata shipped in lockstep. <strong>An reviewer doesn't need to open Xcode — the App Store search page alone exposes the pattern.</strong></p>
+
+<h2>2. The experiment: it's not the code</h2>
+<p>During the flag window, three queues ran simultaneously on my account:</p>
+<table>
+<tr><th>Queue</th><th>Window</th><th>Outcome</th><th>Controlled variable</th></tr>
+<tr><td>15 first-time submissions</td><td>May–Sep (pre-flag)</td><td><strong>All approved clean</strong></td><td>Same code skeleton, same localization pipeline</td></tr>
+<tr><td>2 flagship version updates</td><td>During the flag</td><td><strong>Approved one by one</strong></td><td>Same account, same templates, flag active</td></tr>
+<tr><td>1 brand-new app, unrelated category</td><td>During the flag, first submission</td><td><strong>Same 4.3+4.2.6 survey</strong></td><td>2,030 lines of code, <strong>zero code shared with the flagged family</strong></td></tr>
+</table>
+<p>Read row three twice. An app <strong>sharing no code with anything on the account</strong> got the same spam survey on day one — while older apps <em>built from the same skeleton</em> sailed through updates in the same window.</p>
+<blockquote><p><strong>Batch 4.3 is triggered by submission velocity and account-level profile — not by code fingerprints.</strong></p></blockquote>
+<p>This changes your whole playbook: reskinning won't save you, refactoring won't save you. <strong>Pacing is the only lever.</strong></p>
+
+<h2>3. The survey: answering the 9 questions</h2>
+<p>The survey is Apple's "prove you're not a template factory" step. Every question fishes for mass-production evidence. Four disciplines decided which apps came back:</p>
+<ol>
+<li><strong>Be honest.</strong> When asked whether apps share code or assets — say yes, and explain <em>what</em> (engineering skeleton, localization pipeline) and <em>how each app differs functionally</em>. Two inconsistent answers across apps = account-level trust collapse.</li>
+<li><strong>One reply every 48 hours. Never batch.</strong> Sending 21 copies of the same answer is a signed confession that you are exactly what they're asking about.</li>
+<li><strong>Lead with your best app.</strong> The first one you answer should be your strongest: real usage, full feature set, complete differentiation materials. Its approval paves the way for the rest.</li>
+<li><strong>Rewrite every answer per app.</strong> Mechanism over marketing: which APIs, why, what user value.</li>
+</ol>
+<p>Result: <strong>most of the batch came back</strong> — roughly three weeks from first honest reply to final reinstatement. But this is where I have to be honest about what recovery does <em>not</em> look like: as of today, <strong>6 apps from the second strike remain frozen, 0 have been restored</strong>. A 4.3(b) freeze is not a rejection you can re-appeal; it has sat through multiple 48-hour-cycle replies with no change. Treat any "frozen" state as potentially permanent when you plan your pipeline.</p>
+
+<h2>4. The relapse (so you don't repeat it)</h2>
+<p>After recovery, I pushed volume again. Second verdict: 6 apps frozen, cooldown of 14+ days. The difference: the first time I could say "I didn't know." The second time, I <em>was</em> the reason. <strong>The risk model doesn't give credit for past recovery — it only reads the current window's velocity.</strong></p>
+<p>About the <strong>Extended Review warning</strong>: an app carrying that text is on a watchlist. Correct move is <em>not</em> to resubmit quickly — document your remediation in Resolution Center, fix the real underlying issue, and wait out the cooldown. Apps with 2+ rejections need human-level handling, not pipeline treatment.</p>
+
+<h2>5. The rules I run now</h2>
+<ol>
+<li><strong>Rolling 14-day new-app budget ≤ 5; 30-day ≤ 8.</strong> Check before every submission. This is the only <em>mathematical</em> guardrail.</li>
+<li><strong>No rhyming naming families.</strong> Ask: if an reviewer sees all my app names together in search results, what conclusion do they reach?</li>
+<li><strong>Support pages written per-app</strong> — independent h1, independent structure. No template clones.</li>
+<li><strong>Zero competitor trademarks in metadata</strong> — title, subtitle, keywords. I ate a 4.1(c) Copycats rejection on an <em>old app's routine update</em> for this.</li>
+<li><strong>48-hour cadence, single-thread, never batch.</strong></li>
+<li><strong>Freeze all new submissions while any 4.3 is unresolved.</strong></li>
+</ol>
+
+<div class="cta">
+<strong>Tools, if you want them</strong>
+🆓 <a href="https://payhip.com/b/FqhgR">Free 15-point pre-submission checklist</a> (distilled from 40+ submissions)<br><br>
+📄 <a href="https://payhip.com/b/qjIs9">The 4.3 Survival Report — $19</a>: the complete post-mortem, question-by-question survey answers, the full experiment matrix, both strike timelines<br><br>
+✉️ <a href="https://payhip.com/b/qCBdX">12 Rejection Reply Templates — $7</a>: Resolution Center skeletons for 2.1, 4.2, 4.3, 3.1.1, 5.1.1 and more, with variable maps and delivery rules<br><br>
+Or the full 6-book field-guide series ($7–19 each): ASC API automation, screenshot specs that pass, payout math — start from the free checklist above.
+</div>
+
+<div class="cta" id="newsletter" style="border-color:var(--accent)">
+<strong>Get the 60-point version of the checklist — free, by email</strong><br><br>
+The free checklist above is the 15-point starter. The full working document on my side is a <strong>60-point submission checklist</strong> (every check mapped to a documented pitfall, plus a matching pitfall reference) and <strong>12 Resolution Center reply templates</strong> with the character-count rules that actually pass.<br><br>
+I'm wiring up the download page right now — leave your email and you'll get both the moment they're up, plus future field notes when Apple changes review behavior. No cadence promises I won't keep: roughly one email per real incident, unsubscribe anytime.<br><br>
+<!-- MailerLite embed: replace this comment block with the ML embedded form code after list creation -->
+<form action="https://connect.mailerlite.com/" method="post" data-ml-form-placeholder onsubmit="location.href='mailto:phinn@outlook.com?subject=60-point%20checklist%20please&body=Send%20it%20to%20this%20address:%20';return false" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+<input type="email" required placeholder="you@example.com" style="flex:1;min-width:220px;padding:10px 12px;border:1px solid #d0d7de;border-radius:6px;font:inherit;background:#fff;color:#1f2328">
+<button type="submit" style="padding:10px 18px;border:0;border-radius:6px;background:var(--accent);color:#fff;font:inherit;font-weight:600;cursor:pointer">Send me the 60-point checklist</button>
+</form>
+<p style="margin:8px 0 0;font-size:.85em;opacity:.75">Temporarily handled by email while the automation is being wired — your address is only used to deliver the checklist and future field notes. Never sold, never shared.</p>
+</div>
+
+<p>The article above covers the most expensive 80% for free. The full text of the <strong>9-question survey chapter</strong> (question-by-question survival plays + the 48-hour rhythm) is also free: <a href="/kinetapp/nine-questions-43b-survey.html">The Nine Questions</a>. If you're currently in a batch-rejection hole, reply with your submission cadence — I read everything.</p>
+
+<div class="cta" id="newsletter">
+<strong>📮 The 60-point checklist + 12 reply templates — free by email</strong>
+The free checklist above is the 15-point starter cut. The working version on my machine is a <strong>60-point pre-submission checklist</strong> (every line mapped to the pitfall that earned it) plus the <strong>12 Resolution Center reply templates</strong> with the ≤3,900-char formatting rules verified against real threads.<br><br>
+<!-- MAILERLITE EMBED: 1) mailerlite.com → Forms → Embedded → copy <script> + form HTML; 2) replace everything between MAILERLITE-START / MAILERLITE-END with it; 3) delete this comment -->
+<!-- MAILERLITE-START (temporary mailto fallback until automation is wired) -->
+<form action="mailto:phinn@outlook.com?subject=Send%20me%20the%2060-point%20checklist" method="post" enctype="text/plain">
+<input type="email" required placeholder="you@example.com" style="flex:1;min-width:200px;padding:10px 12px;border:1px solid var(--line);border-radius:6px;font:inherit;background:#fff;color:#1a1a1a;width:60%;display:inline-block;vertical-align:middle">
+<button type="submit" style="padding:10px 18px;border:0;border-radius:6px;background:var(--accent);color:#fff;font:600 14px -apple-system,system-ui,sans-serif;cursor:pointer;display:inline-block;vertical-align:middle;margin-left:8px">Send it</button>
+</form>
+<p style="font-size:.85em;color:var(--mut);margin-top:10px">Wire-up note: this opens a pre-filled email to me while the mailing-list automation is being finished — you'll get the checklist + future field notes (one email per real incident, unsubscribe anytime, never sold).</p>
+<!-- MAILERLITE-END -->
+</div>
+
+<footer>
+<p><em>Not legal advice. All numbers verifiable in App Store Connect and Resolution Center records.</em></p>
+<p><strong>Related searches this page answers:</strong> app store 4.3 rejection · guideline 4.3(a) design spam · 4.3(b) rejection survey · 4.2.6 minimum functionality batch rejection · how to appeal app store rejection · resolution center reply template · 4.3 rejection survey answers</p>
+<p><a href="/">← Kinet · iOS field notes</a></p>
+</footer>
+</main>
+</body>
+</html>
