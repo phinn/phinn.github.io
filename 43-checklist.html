@@ -61,14 +61,19 @@ footer a{color:var(--accent)}
 <li><strong>12 rejection-response templates</strong> (4.3 spam / 4.2.6 minimum function / metadata / crash)</li>
 <li>The <strong>pacing budget spreadsheet</strong> that keeps you under the radar</li>
 </ul>
-<form action="#" method="post">
-<input type="email" name="email" placeholder="you@example.com" required>
+<form action="https://assets.mailerlite.com/jsonp/2767405/forms/203179633566287297/subscribe" method="post" target="_blank" class="ml-form">
+<input type="email" name="fields[email]" placeholder="you@example.com" required>
+<input type="hidden" name="ml-submit" value="1">
 <button type="submit">Send me the kit</button>
+<input type="hidden" name="anticsrf" value="true">
 </form>
 <p class="fine">No spam. Unsubscribe anytime. Sent via MailerLite.</p>
 </div>
 <footer>Published by an indie iOS developer · <a href="/app-store-4-3-rejection.html">Read the full 4.3 field account →</a> · <a href="/">kinetapp</a></footer>
 </div>
-<!-- MAILERLITE-START -->
+<!-- MailerLite Universal -->
+<script src="https://assets.mailerlite.com/js/universal.js"></script>
+<script>ml("account", "2767405");</script>
+<!-- End MailerLite Universal -->
 </body>
 </html>
