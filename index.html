@@ -8,6 +8,10 @@
 <meta property="og:title" content="Phinn · AI Agent Consulting — From Demo to Production">
 <meta property="og:description" content="Taking AI Agents from demo to production systems. Author of the open-source engine KinetAios — one person, full-stack delivery.">
 <meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://is1-ssl.mzstatic.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap">
 <style>
   :root {
     --paper: #f7f4ee;
@@ -19,9 +23,11 @@
     --accent-soft: #f3e2d8;
     --green: #4a7c59;
     --card: #fffdf8;
+    --serif: "Fraunces", "Palatino", "Georgia", "Songti SC", "STSong", "Hiragino Mincho ProN", "Yu Mincho", serif;
+    --ease: cubic-bezier(.22,.61,.36,1);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
   body {
     font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
     background: var(--paper);
@@ -48,15 +54,15 @@
   .lang { display: flex; gap: 4px; }
   .lang button {
     border: 1px solid transparent; background: transparent; cursor: pointer;
-    font-size: 12.5px; padding: 3px 9px; border-radius: 14px;
+    font-size: 12px; letter-spacing: .5px; padding: 3px 9px; border-radius: 14px;
     color: var(--ink-soft); font-family: inherit;
   }
   .lang button:hover { color: var(--accent); }
   .lang button.on { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
 
   /* hero */
-  .hero { padding: 72px 0 56px; }
-  .hero h1 { font-size: 40px; line-height: 1.3; letter-spacing: -.5px; margin-bottom: 18px; }
+  .hero { padding: 88px 0 56px; }
+  .hero h1 { font-family: var(--serif); font-size: clamp(30px, 4.6vw, 46px); line-height: 1.22; letter-spacing: -.6px; margin-bottom: 18px; font-weight: 600; }
   .hero h1 strong { color: var(--accent); }
   .hero p.sub { font-size: 17px; color: var(--ink-soft); max-width: 640px; margin-bottom: 28px; }
   .hero .cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
@@ -70,12 +76,13 @@
   .btn-ghost { border: 1px solid var(--line); color: var(--ink); background: var(--card); }
   .proof-row { margin-top: 34px; display: flex; gap: 36px; flex-wrap: wrap; }
   .proof { border-left: 3px solid var(--line); padding-left: 14px; }
-  .proof b { font-size: 22px; display: block; }
+  .proof b { font-family: var(--serif); font-size: 27px; display: block; line-height: 1.3; }
   .proof span { font-size: 13px; color: var(--ink-soft); }
 
   /* section */
   section { padding: 56px 0; border-top: 1px solid var(--line); }
-  h2 { font-size: 26px; margin-bottom: 8px; letter-spacing: -.3px; }
+  h2 { font-family: var(--serif); font-size: clamp(24px, 3vw, 31px); margin-bottom: 8px; letter-spacing: -.3px; font-weight: 600; }
+  .eyebrow { display: block; font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 2.2px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
   .sec-sub { color: var(--ink-soft); font-size: 15px; margin-bottom: 30px; }
 
   .svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
@@ -126,23 +133,36 @@
     padding: 2px 7px; border-radius: 9px;
   }
 
-  /* hover 图标弹出的截图轮播浮层(仅指针设备) */
+  /* hover 图标弹出的截图轮播浮层(仅指针设备;竖图 320 / Mac 横图 456 两档宽) */
   #shot-pop {
-    position: fixed; z-index: 60; width: 300px; padding: 10px;
-    background: #fff; border: 1px solid var(--line); border-radius: 14px;
-    box-shadow: 0 12px 40px rgba(25, 25, 35, .16);
-    opacity: 0; transform: translateY(6px) scale(.98);
-    transition: opacity .18s, transform .18s;
+    position: fixed; z-index: 60; width: var(--pop-w, 320px); padding: 10px 10px 9px;
+    background: #fff; border: 1px solid var(--line); border-radius: 16px;
+    box-shadow: 0 18px 50px rgba(25, 25, 35, .18), 0 2px 8px rgba(25, 25, 35, .06);
+    opacity: 0; transform: translateY(8px) scale(.97);
+    transition: opacity .2s ease, transform .2s ease;
     pointer-events: none; display: none;
   }
   #shot-pop.on { display: block; opacity: 1; transform: none; }
-  #shot-pop img {
-    display: block; margin: 0 auto; max-width: 100%; max-height: 320px;
-    object-fit: contain; border-radius: 8px; background: #f6f6f4;
+  #shot-pop .pop-head { display: flex; align-items: center; gap: 8px; padding: 2px 2px 9px; }
+  #shot-pop .pop-head img { width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0; }
+  #shot-pop .pop-head b { font-size: 13px; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #shot-pop .pop-head span { margin-left: auto; font-size: 12px; color: var(--ink-soft); flex-shrink: 0; }
+  #shot-pop .pop-stage {
+    background: #f6f4ef; border: 1px solid var(--line); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
   }
-  #shot-pop .pop-dots { display: flex; gap: 6px; justify-content: center; padding-top: 8px; }
-  #shot-pop .pop-dots i { width: 6px; height: 6px; border-radius: 50%; background: #ddd8cf; transition: background .15s; }
-  #shot-pop .pop-dots i.on { background: var(--accent); }
+  #shot-pop .pop-stage img {
+    display: block; max-width: 100%; max-height: 100%;
+    object-fit: contain; border-radius: 8px;
+    transition: opacity .18s ease;
+  }
+  #shot-pop .pop-dots { display: flex; gap: 6px; justify-content: center; padding-top: 9px; }
+  #shot-pop .pop-dots i {
+    width: 6px; height: 6px; border-radius: 3px; background: #ddd8cf;
+    transition: background .15s, width .15s; cursor: pointer;
+  }
+  #shot-pop .pop-dots i:hover { background: #b9b2a4; }
+  #shot-pop .pop-dots i.on { background: var(--accent); width: 16px; }
   @media (hover: none) { #shot-pop { display: none !important; } }
 
   /* faq */
@@ -157,14 +177,42 @@
   .contact-card span { font-size: 14px; color: var(--ink-soft); }
   .contact-card a { color: var(--accent); font-weight: 600; text-decoration: none; }
 
-  footer { padding: 32px 0; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 13px; }
+  footer { padding: 36px 0; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 13px; letter-spacing: .2px; }
   footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
   footer a { color: var(--ink-soft); }
 
   @media (max-width: 640px) {
-    .hero h1 { font-size: 30px; }
+    .hero h1 { font-size: 27px; }
+    .marquee { display: none; }
     header nav { display: none; }
   }
+
+  /* hero 图标走马灯: 双轨无缝滚动,hover 暂停,reduced-motion 静止 */
+  .marquee { margin-top: 40px; overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 16px 0; }
+  .mq-track { display: flex; gap: 30px; width: max-content; animation: mq 46s linear infinite; }
+  .marquee:hover .mq-track { animation-play-state: paused; }
+  .mq-track img { width: 38px; height: 38px; border-radius: 9px; display: block; }
+  @keyframes mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .mq-track { animation: none; } }
+
+  /* apps 分组筛选 chips */
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+  .chips button {
+    border: 1px solid var(--line); background: var(--card); cursor: pointer;
+    font-family: inherit; font-size: 13px; padding: 5px 15px; border-radius: 999px;
+    color: var(--ink-soft); transition: all .15s;
+  }
+  .chips button:hover { border-color: var(--accent); color: var(--accent); }
+  .chips button.on { background: var(--ink); border-color: var(--ink); color: var(--paper); font-weight: 600; }
+
+  /* 卡片 stagger 入场 + 全站 scroll-reveal */
+  .app-card, .svc, .case, .contact-card { opacity: 0; transform: translateY(14px); transition: opacity .5s var(--ease), transform .5s var(--ease); transition-delay: var(--d, 0ms); }
+  .rv { opacity: 1 !important; transform: none !important; }
+  @media (prefers-reduced-motion: reduce) { .app-card, .svc, .case, .contact-card { opacity: 1; transform: none; transition: none; } }
+
+  /* scrollspy 当前分区高亮 */
+  header nav a.here { color: var(--accent); font-weight: 600; }
+  .app-grid .empty { grid-column: 1 / -1; text-align: center; color: var(--ink-soft); font-size: 14px; padding: 30px 0; }
 </style>
 </head>
 <body>
@@ -196,6 +244,7 @@
     <a class="btn btn-primary" href="mailto:phinn@outlook.com" data-i18n="hero.ctaMail"></a>
     <a class="btn btn-ghost" href="#cases" data-i18n="hero.ctaCases"></a>
   </div>
+  <div class="marquee" aria-hidden="true"><div class="mq-track" id="mq-track"></div></div>
   <div class="proof-row">
     <div class="proof"><b>1000+</b><span data-i18n="proof.clones"></span></div>
     <div class="proof"><b>22</b><span data-i18n="proof.apps"></span></div>
@@ -205,6 +254,7 @@
 
 <section id="services">
   <div class="wrap">
+    <span class="eyebrow" data-i18n="eyebrow.services"></span>
     <h2 data-i18n="svc.title"></h2>
     <p class="sec-sub" data-i18n="svc.sub"></p>
     <div class="svc-grid">
@@ -235,6 +285,7 @@
 
 <section id="cases">
   <div class="wrap">
+    <span class="eyebrow" data-i18n="eyebrow.cases"></span>
     <h2 data-i18n="case.title"></h2>
     <p class="sec-sub" data-i18n="case.sub"></p>
     <div class="case-grid">
@@ -294,14 +345,17 @@
 
 <section id="apps">
   <div class="wrap">
+    <span class="eyebrow" data-i18n="eyebrow.apps"></span>
     <h2 data-i18n="apps.title"></h2>
     <p class="sec-sub" data-i18n="apps.sub"></p>
+    <div class="chips" id="app-chips"></div>
     <div class="app-grid" id="app-grid"></div>
   </div>
 </section>
 
 <section id="faq">
   <div class="wrap">
+    <span class="eyebrow" data-i18n="eyebrow.faq"></span>
     <h2>FAQ</h2>
     <p class="sec-sub" data-i18n="faq.sub"></p>
     <div id="faq-list"></div>
@@ -310,6 +364,7 @@
 
 <section id="contact">
   <div class="wrap">
+    <span class="eyebrow" data-i18n="eyebrow.contact"></span>
     <h2 data-i18n="contact.title"></h2>
     <p class="sec-sub" data-i18n="contact.sub"></p>
     <div class="contact-cards">
@@ -328,7 +383,7 @@
 <footer>
   <div class="wrap">
     <div data-i18n="footer.line"></div>
-    <div><a href="https://github.com/phinn" target="_blank">GitHub</a></div>
+    <div><a href="https://github.com/phinn" target="_blank" data-i18n="footer.github"></a></div>
   </div>
 </footer>
 
@@ -387,6 +442,9 @@ var I18N = {
     'faq.a5': 'Assessment: 1 week. POC: 1-2 weeks. Production: 2-8 weeks depending on scope. Data reports: first batch in 1 week, then monthly rolling delivery on subscription.',
     'apps.title': '22 apps on the App Store — all shipped, all live',
     'apps.sub': 'Every card below is live on the App Store right now — tap to open its store page. All adapted for iPhone foldables; 5 built native for the fold.',
+    'eyebrow.services': '01 · Services', 'eyebrow.cases': '02 · Case Studies', 'eyebrow.apps': '03 · App Store', 'eyebrow.faq': '04 · FAQ', 'eyebrow.contact': '05 · Contact',
+    'appf.all': 'All', 'appf.ai': 'AI', 'appf.create': 'Creative', 'appf.life': 'Life', 'appf.focus': 'Focus', 'appf.mactools': 'Mac Tools',
+    'footer.github': 'GitHub \u2197',
     'contact.title': 'Contact', 'contact.sub': 'Questions, scope, quotes - one email gets you a real reply within 24 hours.',
     'contact.email': 'Email (preferred)', 'contact.reply24h': 'Replies within 24 hours',
     'contact.oss': 'Open source', 'contact.ossSub': 'Engine source & docs',
@@ -449,6 +507,9 @@ var I18N = {
     'faq.q4': '报价为什么写"起"?怎么确定最终价?',
     'faq.a4': '按问题价值报价,不按小时。第一轮免费评估后,我会给出固定总价和分阶段付款计划,中途不加价。小问题直接告诉我方案,不收钱。',
     'faq.q5': '周期多长?',
+    'eyebrow.services': '01 · 服务', 'eyebrow.cases': '02 · 案例', 'eyebrow.apps': '03 · App Store', 'eyebrow.faq': '04 · 常见问题', 'eyebrow.contact': '05 · 联系',
+    'appf.all': '全部', 'appf.ai': 'AI', 'appf.create': '创作', 'appf.life': '生活', 'appf.focus': '专注', 'appf.mactools': 'Mac 工具',
+    'footer.github': 'GitHub \u2197',
     'faq.a5': '评估 1 周,POC 1-2 周,生产落地视范围 2-8 周。数据报告类:首批 1 周,订阅制按月滚动交付。',
     'apps.title': 'App Store 在架的 22 个应用 —— 全部上架、全部在售',
     'apps.sub': '以下每张卡片都是 App Store 在架应用,点击直达商店页面。全部适配 iPhone 折叠屏,其中 5 款为折叠原生设计。',
@@ -511,6 +572,9 @@ var I18N = {
     'faq.a2': '初回:シナリオ評価 + 実現性判断 + アーキテクチャ提案書(1週間以内)。継続の場合:POC デモ → 本番デプロイ → プラグイン/社内ツール定制 → チーム引き継ぎ。各フェーズ別途見積もり、いつでも中断できます。',
     'faq.q3': 'データセキュリティは?',
     'faq.a3': '完全プライベートデプロイに対応:モデルは貴社の内網またはプライベート API で動作し、データは貴社の環境外に出ません。Apple エコシステムのネイティブ SQLite によるオンデバイス Local-First アーキテクチャで、機密データを端末内に完結させられます。',
+    'eyebrow.services': '01 · サービス', 'eyebrow.cases': '02 · 実績', 'eyebrow.apps': '03 · App Store', 'eyebrow.faq': '04 · よくある質問', 'eyebrow.contact': '05 · お問い合わせ',
+    'appf.all': 'すべて', 'appf.ai': 'AI', 'appf.create': 'クリエイティブ', 'appf.life': 'ライフ', 'appf.focus': '集中', 'appf.mactools': 'Mac ツール',
+    'footer.github': 'GitHub \u2197',
     'faq.q4': 'なぜ「〜から」の表記?最終価格は?',
     'faq.a4': '時間ではなく課題の価値で評価します。無料初回評価の後、固定総額と段階的支払い計画をご提示し、途中での値上げはありません。小さな質問には無料で直接お答えします。',
     'faq.q5': '期間は?',
@@ -533,7 +597,7 @@ var I18N = {
     ]
   }
 };
-var APPS = [{"id":"6782778566","group":"ai","name":"KinetBrief","tag":"Turns a day of meetings into one morning brief.","tagZh":"把一天的会议变成一份晨报。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/20/60/77/2060773c-5782-1d87-6188-8deeaf46d870/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetbrief-ai-meeting-notes/id6782778566","price":"$6.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/43/a8/44/43a8440a-0b0b-5377-0509-d4e49e419952/f69-01-record.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/55/27/5c/55275c90-7a4b-25bf-e683-7fc908e3a809/f69-02-brief.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/65/c6/32/65c63257-f85e-bf5e-58c6-28a5e5a79706/f69-03-todos.png/440x660bb.jpg"]},{"id":"6820196518","group":"ai","name":"M5Chat","tag":"AI chat that runs entirely on your device.","tagZh":"完全运行在本机的 AI 对话助手。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/84/3c/a4/843ca420-b9d1-3124-05e2-d223edbe5edc/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/m5chat-ai-chat/id6820196518","price":"$9.99","platform":"iOS","duoNative":true,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/46/18/7c/46187cf8-3582-7c95-d300-168eb4aaf8a5/69_en-US_01_library.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/ec/fb/80/ecfb80ab-9c01-b9f2-7093-71c945218a1e/69_en-US_02_chat.png/440x660bb.jpg"]},{"id":"6813593104","group":"ai","name":"KinetMinutes","tag":"Meetings into structured notes — automatically, privately, on your Mac.","tagZh":"会议自动变结构化笔记 —— 私密,全在本机。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/b3/18/4b/b3184b68-01f5-d3b2-4d98-110571d19fb5/AppIcon-0-0-85-220-0-5-0-2x.png/512x512bb.png","url":"https://apps.apple.com/us/app/kinetminutes-meeting-notes/id6813593104","price":"$9.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/25/da/68/25da68e5-0898-dd07-3656-81604fd0e7e1/01-first.png/880x550bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/10/6a/2b/106a2bc9-f9de-b315-5243-e34b47ec6c72/02-minutes.png/880x550bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a5/cd/b4/a5cdb41f-0d4a-beef-02d9-ea5769c9a1e3/03-timeline.png/880x550bb.jpg"]},{"id":"6780944289","group":"ai","name":"KinetTask","tag":"100% on-device AI task manager. Your tasks never leave your phone.","tagZh":"100% 端侧 AI 任务管理,数据不出设备。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/9f/80/50/9f805042-08cc-19a6-66f2-82cd48a28013/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinettask-private-ai-tasks/id6780944289","price":"$6.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a4/38/b5/a438b561-aff3-a48a-dfd1-9f5dc8b54dea/01-onboarding.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/15/27/b6/1527b6f3-7e99-803d-7b51-a1e7a7a6b65a/02-today.png/440x660bb.jpg"]},{"id":"6831877963","group":"create","name":"CubeLike","tag":"Chain-reaction puzzle on a living cube — one move, sixty reactions.","tagZh":"立方体上的连锁反应解谜 —— 一步棋,六十重连锁。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/12/d2/5d/12d25d31-c372-4dc0-698f-87b2fbc5c287/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/cubelike-chain-burst/id6831877963","price":"$6.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f5/24/11/f524117b-dac8-a48f-981f-8a9ea585ffbf/en-US_tutorial_67.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/aa/57/83/aa578392-b64f-e712-3160-23d1886cdd61/en-US_board_67.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/46/ed/d3/46edd3c1-ef73-a03e-43cf-6379deba6490/en-US_picker_67.png/440x660bb.jpg"]},{"id":"6815923723","group":"ai","name":"KinetMemory","tag":"Spaced repetition powered by FSRS, the most accurate scheduling algorithm.","tagZh":"FSRS 驱动的间隔重复记忆卡片。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/0b/69/e2/0b69e221-a94e-2641-381d-4ef1bb1a3d9a/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetmemory-flashcards/id6815923723","price":"$9.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/cf/b9/a3/cfb9a301-60d0-8200-2491-a8114bd98499/01-decks.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/65/58/1d/65581d12-b087-9b94-077a-4d3d019859ac/02-study-front.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/0b/80/62/0b80623f-2bbb-3868-7e80-68c40409a937/03-study-back.png/440x660bb.jpg"]},{"id":"6826942397","group":"create","name":"Minebreaker","tag":"Minesweeper, turned into treasure — every tile is a gamble.","tagZh":"扫雷变成挖宝 —— 每一格都是一次赌注。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/fe/07/d1/fe07d123-e339-d1c5-5064-0e109a53bae5/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/minebreaker-game/id6826942397","price":"$6.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/5e/7b/5f/5e7b5f2b-3313-a727-a232-d29cc39231b4/shot_marketing_1.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/ec/8a/e9/ec8ae988-997b-55ba-5f1c-8c23138c64fc/shot_gameplay.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/c8/ea/f8/c8eaf8e6-03c3-f438-bd42-51faa11b3cb0/shot_marketing_2.png/440x660bb.jpg"]},{"id":"6797004663","group":"ai","name":"KinetStudy","tag":"AI homework grading for parents — photo in, feedback out.","tagZh":"家长版 AI 作业批改 —— 拍照即出反馈。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/9e/48/e2/9e48e2a7-167d-5395-1b72-38fc2df9dbe5/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetstudy/id6797004663","price":"$6.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f2/98/b3/f298b300-b6af-653c-94e2-5404871f7396/5F59405E-F64D-4DC0-B1AB-F99364DE08C7.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/b1/2d/6b/b12d6be7-a8f0-e807-a2d2-443223597fc5/65_0.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/6d/0d/63/6d0d6300-64ab-a377-fa22-be859ca91247/65_1.png/440x660bb.jpg"]},{"id":"6809450051","group":"ai","name":"KinetAios","tag":"All-in-one native macOS AI agent workbench: code, research, writing, automation.","tagZh":"原生 macOS 一体化 AI Agent 工作台:代码、研究、写作、自动化。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a6/f8/ca/a6f8cab2-4ecf-f366-4190-0fe2eb378ecd/AppIcon.png/512x512bb.png","url":"https://apps.apple.com/us/app/kinetaios-all-in-one-ai-agent/id6809450051","price":"$12.99","platform":"iOS · Mac","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/4e/45/de/4e45de71-ee34-c79d-b058-7c1deeccfeea/v8__en-US__s1.png/880x550bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a7/73/77/a77377d3-efd0-a278-e524-b7770b8543eb/v8__en-US__s2.png/880x550bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/87/95/7c/87957c99-1c04-d315-162e-4cea2c4bcd0c/v8__en-US__s3.png/880x550bb.jpg"]},{"id":"6814033986","group":"focus","name":"KinetRain","tag":"Rain on demand. Synthesized live in your menu bar — never a loop.","tagZh":"即点即下的雨声 —— 实时合成,永不成循环。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/2f/d5/30/2fd53008-d664-616a-35ef-25b7a86f94d9/AppIcon.png/512x512bb.png","url":"https://apps.apple.com/us/app/kinetrain-rain-sounds/id6814033986","price":"$6.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/85/74/9b/85749b09-b541-2448-ed66-bf65699760af/01-rain.png/880x550bb.jpg"]},{"id":"6817377455","group":"focus","name":"DriftDesk","tag":"Turns your menu bar into a pocket of calm.","tagZh":"把菜单栏变成一方平静角落。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ab/2d/bd/ab2dbd9c-5b9c-488f-a119-84d6db01e6d3/AppIcon.png/512x512bb.png","url":"https://apps.apple.com/us/app/driftdesk-focus-ambience/id6817377455","price":"$4.99","platform":"iOS · Mac","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/3b/8c/ea/3b8cea0a-0387-13ee-43c0-213d11d9aa29/01-drift.png/880x550bb.jpg"]},{"id":"6820942179","group":"focus","name":"Clasp Focus","tag":"A focus ritual built for folding iPhones.","tagZh":"为折叠屏 iPhone 打造的专注仪式。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/57/0d/80/570d8074-0b01-4ba9-704f-3a2ea8c9db63/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/clasp-focus-focus-timer/id6820942179","price":"$4.99","platform":"iOS","duoNative":true,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/e3/65/89/e3658958-db45-2827-2204-eea55a60be1b/clasp12_00hero_en.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/5a/a1/8f/5aa18fe0-970d-6271-7297-94fa5ab0ebbe/clasp12_brewing_en.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/9b/d6/c0/9bd6c0f9-5180-56ab-eff4-3657b7cbdc30/clasp12_codex_en.png/440x660bb.jpg"]},{"id":"6808698046","group":"mactools","name":"KinetFlashFind","tag":"Instant file search for Mac — indexes your entire disk.","tagZh":"Mac 即时文件搜索 —— 索引整块磁盘。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d8/ec/b3/d8ecb3d6-d558-fad8-44d4-068419562b58/AppIcon.png/512x512bb.png","url":"https://apps.apple.com/us/app/kinetflashfind-file-search/id6808698046","price":"$6.99","platform":"iOS · Mac","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/7c/49/c5/7c49c5e7-6904-b00a-c1be-315009a548d9/01_instant.png/880x550bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f7/72/c0/f772c038-f064-e3c3-f4d9-318bce9128e2/02_hidden.png/880x550bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/90/73/e3/9073e33d-4634-b3a5-824a-8855d4fad7d0/03_multi.png/880x550bb.jpg"]},{"id":"6813423397","group":"mactools","name":"KinetMagicDisk","tag":"See what fills your disk — interactive sunburst map, one-click cleanup.","tagZh":"看清磁盘都被什么占满 —— 交互式旭日图,一键清理。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/cc/a1/90/cca19075-0a51-0d6a-037b-3f421ba80089/AppIcon-0-0-85-220-0-5-0-2x.png/512x512bb.png","url":"https://apps.apple.com/us/app/kinetmagicdisk-disk-usage/id6813423397","price":"$9.99","platform":"iOS · Mac","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/78/dd/59/78dd5946-11a5-80fc-fe96-043263a8a418/01-main.png/880x550bb.jpg"]},{"id":"6817339084","group":"life","name":"FurChart","tag":"Your pet's complete medical history, always at hand.","tagZh":"宠物完整健康档案,随手可查。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/53/92/6e/53926e7f-9494-bb08-b393-9dcf8408067a/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/furchart-pet-health-records/id6817339084","price":"$4.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/63/02/d3/6302d394-9bf2-b62b-7227-6cbfc39fab2b/ios67-en-US-1.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/5f/50/49/5f50490d-16b1-a851-e421-e4ec75c43691/ios67-en-US-2.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/56/cd/46/56cd46fa-3d35-00b7-7ab4-f3c1b0fcf489/ios67-en-US-3.png/440x660bb.jpg"]},{"id":"6773755689","group":"life","name":"KinetFit","tag":"Fast, private workout tracking with measurable progress.","tagZh":"快速、私密的健身记录,每次训练都有迹可循。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/28/d9/27/28d927e8-4347-7895-ba1d-6a252cb4bb8f/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetfit-workout-tracker/id6773755689","price":"$4.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/e5/02/a0/e502a0f2-a762-763a-0961-b61ec3daef89/fk223f_69_en_tab0.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/55/5c/da/555cdad4-cddc-437a-e385-9c9171d4c04f/fk223f_69_en_tab1.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/38/f1/9d/38f19db2-3a1e-cc4a-aadf-d8c453af6801/fk223f_69_en_tab2.png/440x660bb.jpg"]},{"id":"6779978181","group":"life","name":"KinetMorning","tag":"One-tap daily check-in for aging parents. Peace of mind for the family.","tagZh":"独居老人的每日一键报平安。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/5d/26/0e/5d260e8b-a4f6-171a-5404-35c8b13c535d/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetmorning/id6779978181","price":"$2.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/61/7e/23/617e23a6-30a4-f1eb-203b-06cd1ef2b1bf/01-home-checkedin.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/24/e2/ff/24e2ffb2-ad9b-db41-93cc-e501b3c1ac28/02-mood-sheet.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/b5/09/19/b50919c7-c32c-f610-a524-5c34acc20de6/03-mood-filled.png/440x660bb.jpg"]},{"id":"6807457522","group":"life","name":"KinetElf","tag":"An AI elf with personality and memory, living on your Dynamic Island.","tagZh":"住在灵动岛上的 AI 小精灵,有性格有记忆。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a0/8f/3d/a08f3dad-bb4a-972e-c7ec-819b07391b2f/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetelf-pocket-ai-elf/id6807457522","price":"$3.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/08/93/7f/08937fb2-7edd-55cb-f225-49cb08168643/1_home.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/c8/b2/62/c8b262f8-52e2-e6a7-0bf7-870fbbcf3197/2_diary.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/62/f7/28/62f72836-4358-b3fb-44d9-e0cf909223c3/3_breed.png/440x660bb.jpg"]},{"id":"6780600464","group":"life","name":"KinetSoul","tag":"A warm AI companion that stays on your own device.","tagZh":"一个温柔的 AI 伙伴,只留在你自己的设备里。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/5d/b7/96/5db7961e-8778-99af-abfc-30c1d119e410/AppIcon-0-0-1x_U007epad-0-8-0-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetsoul-ai-companion/id6780600464","price":"$6.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/b4/f4/41/b4f441d5-e788-a8d6-f836-4c2fa09abc57/01_chat-en.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/02/b5/8b/02b58ba0-d6dd-b289-a943-b43168a894ce/02_mood-en.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/c9/9e/0f/c99e0fe8-1f06-d860-b1ff-bb325f1a020c/03_history-en.png/440x660bb.jpg"]},{"id":"6823855712","group":"create","name":"DuoFolio","tag":"Immersive two-page reader built for folding iPhones.","tagZh":"为折叠屏打造的沉浸式双页阅读器。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/e8/42/e9/e842e9c0-739e-2eae-dfbb-05f47ecceb4f/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/duofolio/id6823855712","price":"$6.99","platform":"iOS","duoNative":true,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/3a/a1/33/3aa13378-83ad-5d1f-439e-dbcda6968f4a/s1.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/8e/1c/ec/8e1cecf2-aad1-213c-2333-4344098590f2/s2.png/440x660bb.jpg"]},{"id":"6829156684","group":"create","name":"DuoFrame Desk Calendar","tag":"Your screen as a desk calendar that flips like real paper.","tagZh":"把屏幕变成像真纸一样翻页的台历。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/19/71/84/197184ae-0ad3-dfb2-b74e-a7783f752217/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/duoframe-desk-calendar/id6829156684","price":"$6.99","platform":"iOS","duoNative":true,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/61/e5/03/61e50315-62b1-5480-d1ca-99aa0c4a144b/01_hero.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a2/00/df/a200df72-4785-aa92-51bb-92232e1b82b8/02_tent.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/25/e0/95/25e095ea-25b2-9184-085d-33540db0b780/03_photo.png/440x660bb.jpg"]},{"id":"6820624868","group":"create","name":"Promptside","tag":"A camera studio for foldable phones — flip and the roles swap.","tagZh":"折叠屏相机工作室 —— 一翻,角色互换。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d9/f6/b7/d9f6b71f-1e9b-7117-ea84-1a555ad740a9/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/promptside/id6820624868","price":"$5.99","platform":"iOS","duoNative":true,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/fe/e9/b7/fee9b7a9-a4f9-ef65-526c-c1e6bc8af165/en-US_67_0.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/8a/d6/9b/8ad69bad-4584-0b0f-58a0-01af7f84bb15/en-US_67_1.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/b4/e2/78/b4e278f4-d480-8748-66b4-945e094bb6c1/en-US_67_2.png/440x660bb.jpg"]}];
+var APPS = [{"id":"6782778566","group":"ai","name":"KinetBrief","tag":"Turns a day of meetings into one morning brief.","tagZh":"把一天的会议变成一份晨报。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/20/60/77/2060773c-5782-1d87-6188-8deeaf46d870/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetbrief-ai-meeting-notes/id6782778566","price":"$6.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/43/a8/44/43a8440a-0b0b-5377-0509-d4e49e419952/f69-01-record.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/55/27/5c/55275c90-7a4b-25bf-e683-7fc908e3a809/f69-02-brief.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/65/c6/32/65c63257-f85e-bf5e-58c6-28a5e5a79706/f69-03-todos.png/440x660bb.jpg"],"tagJa":"一日の会議を一本の朝のブリーフに。"},{"id":"6820196518","group":"ai","name":"M5Chat","tag":"AI chat that runs entirely on your device.","tagZh":"完全运行在本机的 AI 对话助手。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/84/3c/a4/843ca420-b9d1-3124-05e2-d223edbe5edc/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/m5chat-ai-chat/id6820196518","price":"$9.99","platform":"iOS","duoNative":true,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/46/18/7c/46187cf8-3582-7c95-d300-168eb4aaf8a5/69_en-US_01_library.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/ec/fb/80/ecfb80ab-9c01-b9f2-7093-71c945218a1e/69_en-US_02_chat.png/440x660bb.jpg"],"tagJa":"端末内で完結する AI チャット。"},{"id":"6813593104","group":"ai","name":"KinetMinutes","tag":"Meetings into structured notes — automatically, privately, on your Mac.","tagZh":"会议自动变结构化笔记 —— 私密,全在本机。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/b3/18/4b/b3184b68-01f5-d3b2-4d98-110571d19fb5/AppIcon-0-0-85-220-0-5-0-2x.png/512x512bb.png","url":"https://apps.apple.com/us/app/kinetminutes-meeting-notes/id6813593104","price":"$9.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/25/da/68/25da68e5-0898-dd07-3656-81604fd0e7e1/01-first.png/880x550bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/10/6a/2b/106a2bc9-f9de-b315-5243-e34b47ec6c72/02-minutes.png/880x550bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a5/cd/b4/a5cdb41f-0d4a-beef-02d9-ea5769c9a1e3/03-timeline.png/880x550bb.jpg"],"tagJa":"会議を自動で構造化ノートに——プライベート、すべて Mac の中で。"},{"id":"6780944289","group":"ai","name":"KinetTask","tag":"100% on-device AI task manager. Your tasks never leave your phone.","tagZh":"100% 端侧 AI 任务管理,数据不出设备。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/9f/80/50/9f805042-08cc-19a6-66f2-82cd48a28013/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinettask-private-ai-tasks/id6780944289","price":"$6.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a4/38/b5/a438b561-aff3-a48a-dfd1-9f5dc8b54dea/01-onboarding.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/15/27/b6/1527b6f3-7e99-803d-7b51-a1e7a7a6b65a/02-today.png/440x660bb.jpg"],"tagJa":"100% 端末完結の AI タスク管理。タスクは端末の外に出ません。"},{"id":"6831877963","group":"create","name":"CubeLike","tag":"Chain-reaction puzzle on a living cube — one move, sixty reactions.","tagZh":"立方体上的连锁反应解谜 —— 一步棋,六十重连锁。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/12/d2/5d/12d25d31-c372-4dc0-698f-87b2fbc5c287/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/cubelike-chain-burst/id6831877963","price":"$6.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f5/24/11/f524117b-dac8-a48f-981f-8a9ea585ffbf/en-US_tutorial_67.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/aa/57/83/aa578392-b64f-e712-3160-23d1886cdd61/en-US_board_67.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/46/ed/d3/46edd3c1-ef73-a03e-43cf-6379deba6490/en-US_picker_67.png/440x660bb.jpg"],"tagJa":"立方体の上の連鎖パズル——一手で六十の連鎖。"},{"id":"6815923723","group":"ai","name":"KinetMemory","tag":"Spaced repetition powered by FSRS, the most accurate scheduling algorithm.","tagZh":"FSRS 驱动的间隔重复记忆卡片。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/0b/69/e2/0b69e221-a94e-2641-381d-4ef1bb1a3d9a/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetmemory-flashcards/id6815923723","price":"$9.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/cf/b9/a3/cfb9a301-60d0-8200-2491-a8114bd98499/01-decks.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/65/58/1d/65581d12-b087-9b94-077a-4d3d019859ac/02-study-front.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/0b/80/62/0b80623f-2bbb-3868-7e80-68c40409a937/03-study-back.png/440x660bb.jpg"],"tagJa":"FSRS 駆動の間隔反復カード。最も正確なスケジューリング。"},{"id":"6826942397","group":"create","name":"Minebreaker","tag":"Minesweeper, turned into treasure — every tile is a gamble.","tagZh":"扫雷变成挖宝 —— 每一格都是一次赌注。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/fe/07/d1/fe07d123-e339-d1c5-5064-0e109a53bae5/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/minebreaker-game/id6826942397","price":"$6.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/5e/7b/5f/5e7b5f2b-3313-a727-a232-d29cc39231b4/shot_marketing_1.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/ec/8a/e9/ec8ae988-997b-55ba-5f1c-8c23138c64fc/shot_gameplay.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/c8/ea/f8/c8eaf8e6-03c3-f438-bd42-51faa11b3cb0/shot_marketing_2.png/440x660bb.jpg"],"tagJa":"マインスイーパーが宝掘りに——すべてのマスが賭け。"},{"id":"6797004663","group":"ai","name":"KinetStudy","tag":"AI homework grading for parents — photo in, feedback out.","tagZh":"家长版 AI 作业批改 —— 拍照即出反馈。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/9e/48/e2/9e48e2a7-167d-5395-1b72-38fc2df9dbe5/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetstudy/id6797004663","price":"$6.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f2/98/b3/f298b300-b6af-653c-94e2-5404871f7396/5F59405E-F64D-4DC0-B1AB-F99364DE08C7.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/b1/2d/6b/b12d6be7-a8f0-e807-a2d2-443223597fc5/65_0.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/6d/0d/63/6d0d6300-64ab-a377-fa22-be859ca91247/65_1.png/440x660bb.jpg"],"tagJa":"保護者向け AI 宿題添削——撮って送るだけ。"},{"id":"6809450051","group":"ai","name":"KinetAios","tag":"All-in-one native macOS AI agent workbench: code, research, writing, automation.","tagZh":"原生 macOS 一体化 AI Agent 工作台:代码、研究、写作、自动化。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a6/f8/ca/a6f8cab2-4ecf-f366-4190-0fe2eb378ecd/AppIcon.png/512x512bb.png","url":"https://apps.apple.com/us/app/kinetaios-all-in-one-ai-agent/id6809450051","price":"$12.99","platform":"iOS · Mac","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/4e/45/de/4e45de71-ee34-c79d-b058-7c1deeccfeea/v8__en-US__s1.png/880x550bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a7/73/77/a77377d3-efd0-a278-e524-b7770b8543eb/v8__en-US__s2.png/880x550bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/87/95/7c/87957c99-1c04-d315-162e-4cea2c4bcd0c/v8__en-US__s3.png/880x550bb.jpg"],"tagJa":"macOS ネイティブのオールインワン AI エージェント作業台:コード、リサーチ、執筆、自動化。"},{"id":"6814033986","group":"focus","name":"KinetRain","tag":"Rain on demand. Synthesized live in your menu bar — never a loop.","tagZh":"即点即下的雨声 —— 实时合成,永不成循环。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/2f/d5/30/2fd53008-d664-616a-35ef-25b7a86f94d9/AppIcon.png/512x512bb.png","url":"https://apps.apple.com/us/app/kinetrain-rain-sounds/id6814033986","price":"$6.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/85/74/9b/85749b09-b541-2448-ed66-bf65699760af/01-rain.png/880x550bb.jpg"],"tagJa":"いつでも雨音——メニューバーでライブ合成、ループはなし。"},{"id":"6817377455","group":"focus","name":"DriftDesk","tag":"Turns your menu bar into a pocket of calm.","tagZh":"把菜单栏变成一方平静角落。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ab/2d/bd/ab2dbd9c-5b9c-488f-a119-84d6db01e6d3/AppIcon.png/512x512bb.png","url":"https://apps.apple.com/us/app/driftdesk-focus-ambience/id6817377455","price":"$4.99","platform":"iOS · Mac","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/3b/8c/ea/3b8cea0a-0387-13ee-43c0-213d11d9aa29/01-drift.png/880x550bb.jpg"],"tagJa":"メニューバーを静かな自分だけの一角に。"},{"id":"6820942179","group":"focus","name":"Clasp Focus","tag":"A focus ritual built for folding iPhones.","tagZh":"为折叠屏 iPhone 打造的专注仪式。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/57/0d/80/570d8074-0b01-4ba9-704f-3a2ea8c9db63/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/clasp-focus-focus-timer/id6820942179","price":"$4.99","platform":"iOS","duoNative":true,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/e3/65/89/e3658958-db45-2827-2204-eea55a60be1b/clasp12_00hero_en.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/5a/a1/8f/5aa18fe0-970d-6271-7297-94fa5ab0ebbe/clasp12_brewing_en.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/9b/d6/c0/9bd6c0f9-5180-56ab-eff4-3657b7cbdc30/clasp12_codex_en.png/440x660bb.jpg"],"tagJa":"折りたたみ iPhone のために作られた集中リチュアル。"},{"id":"6808698046","group":"mactools","name":"KinetFlashFind","tag":"Instant file search for Mac — indexes your entire disk.","tagZh":"Mac 即时文件搜索 —— 索引整块磁盘。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d8/ec/b3/d8ecb3d6-d558-fad8-44d4-068419562b58/AppIcon.png/512x512bb.png","url":"https://apps.apple.com/us/app/kinetflashfind-file-search/id6808698046","price":"$6.99","platform":"iOS · Mac","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/7c/49/c5/7c49c5e7-6904-b00a-c1be-315009a548d9/01_instant.png/880x550bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f7/72/c0/f772c038-f064-e3c3-f4d9-318bce9128e2/02_hidden.png/880x550bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/90/73/e3/9073e33d-4634-b3a5-824a-8855d4fad7d0/03_multi.png/880x550bb.jpg"],"tagJa":"Mac の即時ファイル検索——ディスク全体をインデックス。"},{"id":"6813423397","group":"mactools","name":"KinetMagicDisk","tag":"See what fills your disk — interactive sunburst map, one-click cleanup.","tagZh":"看清磁盘都被什么占满 —— 交互式旭日图,一键清理。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/cc/a1/90/cca19075-0a51-0d6a-037b-3f421ba80089/AppIcon-0-0-85-220-0-5-0-2x.png/512x512bb.png","url":"https://apps.apple.com/us/app/kinetmagicdisk-disk-usage/id6813423397","price":"$9.99","platform":"iOS · Mac","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/78/dd/59/78dd5946-11a5-80fc-fe96-043263a8a418/01-main.png/880x550bb.jpg"],"tagJa":"ディスクの中身が見える——インタラクティブな旭日図でワンクリック整理。"},{"id":"6817339084","group":"life","name":"FurChart","tag":"Your pet's complete medical history, always at hand.","tagZh":"宠物完整健康档案,随手可查。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/53/92/6e/53926e7f-9494-bb08-b393-9dcf8408067a/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/furchart-pet-health-records/id6817339084","price":"$4.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/63/02/d3/6302d394-9bf2-b62b-7227-6cbfc39fab2b/ios67-en-US-1.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/5f/50/49/5f50490d-16b1-a851-e421-e4ec75c43691/ios67-en-US-2.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/56/cd/46/56cd46fa-3d35-00b7-7ab4-f3c1b0fcf489/ios67-en-US-3.png/440x660bb.jpg"],"tagJa":"ペットの健康記録をいつでも手元に。"},{"id":"6773755689","group":"life","name":"KinetFit","tag":"Fast, private workout tracking with measurable progress.","tagZh":"快速、私密的健身记录,每次训练都有迹可循。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/28/d9/27/28d927e8-4347-7895-ba1d-6a252cb4bb8f/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetfit-workout-tracker/id6773755689","price":"$4.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/e5/02/a0/e502a0f2-a762-763a-0961-b61ec3daef89/fk223f_69_en_tab0.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/55/5c/da/555cdad4-cddc-437a-e385-9c9171d4c04f/fk223f_69_en_tab1.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/38/f1/9d/38f19db2-3a1e-cc4a-aadf-d8c453af6801/fk223f_69_en_tab2.png/440x660bb.jpg"],"tagJa":"速くてプライベートなワークアウト記録。進捗は数字で残る。"},{"id":"6779978181","group":"life","name":"KinetMorning","tag":"One-tap daily check-in for aging parents. Peace of mind for the family.","tagZh":"独居老人的每日一键报平安。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/5d/26/0e/5d260e8b-a4f6-171a-5404-35c8b13c535d/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetmorning/id6779978181","price":"$2.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/61/7e/23/617e23a6-30a4-f1eb-203b-06cd1ef2b1bf/01-home-checkedin.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/24/e2/ff/24e2ffb2-ad9b-db41-93cc-e501b3c1ac28/02-mood-sheet.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/b5/09/19/b50919c7-c32c-f610-a524-5c34acc20de6/03-mood-filled.png/440x660bb.jpg"],"tagJa":"一人暮らしのご両親のためのワンタップ安否確認。家族みんなの安心。"},{"id":"6807457522","group":"life","name":"KinetElf","tag":"An AI elf with personality and memory, living on your Dynamic Island.","tagZh":"住在灵动岛上的 AI 小精灵,有性格有记忆。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a0/8f/3d/a08f3dad-bb4a-972e-c7ec-819b07391b2f/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetelf-pocket-ai-elf/id6807457522","price":"$3.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/08/93/7f/08937fb2-7edd-55cb-f225-49cb08168643/1_home.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/c8/b2/62/c8b262f8-52e2-e6a7-0bf7-870fbbcf3197/2_diary.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/62/f7/28/62f72836-4358-b3fb-44d9-e0cf909223c3/3_breed.png/440x660bb.jpg"],"tagJa":"ダイナミックアイランドに住む、性格と記憶を持つ AI の妖精。"},{"id":"6780600464","group":"life","name":"KinetSoul","tag":"A warm AI companion that stays on your own device.","tagZh":"一个温柔的 AI 伙伴,只留在你自己的设备里。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/5d/b7/96/5db7961e-8778-99af-abfc-30c1d119e410/AppIcon-0-0-1x_U007epad-0-8-0-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetsoul-ai-companion/id6780600464","price":"$6.99","platform":"iOS","duoNative":false,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/b4/f4/41/b4f441d5-e788-a8d6-f836-4c2fa09abc57/01_chat-en.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/02/b5/8b/02b58ba0-d6dd-b289-a943-b43168a894ce/02_mood-en.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/c9/9e/0f/c99e0fe8-1f06-d860-b1ff-bb325f1a020c/03_history-en.png/440x660bb.jpg"],"tagJa":"あなたの端末だけに住む、やさしい AI コンパニオン。"},{"id":"6823855712","group":"create","name":"DuoFolio","tag":"Immersive two-page reader built for folding iPhones.","tagZh":"为折叠屏打造的沉浸式双页阅读器。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/e8/42/e9/e842e9c0-739e-2eae-dfbb-05f47ecceb4f/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/duofolio/id6823855712","price":"$6.99","platform":"iOS","duoNative":true,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/3a/a1/33/3aa13378-83ad-5d1f-439e-dbcda6968f4a/s1.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/8e/1c/ec/8e1cecf2-aad1-213c-2333-4344098590f2/s2.png/440x660bb.jpg"],"tagJa":"折りたたみ iPhone のために作られた没入型の見開きリーダー。"},{"id":"6829156684","group":"create","name":"DuoFrame Desk Calendar","tag":"Your screen as a desk calendar that flips like real paper.","tagZh":"把屏幕变成像真纸一样翻页的台历。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/19/71/84/197184ae-0ad3-dfb2-b74e-a7783f752217/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/duoframe-desk-calendar/id6829156684","price":"$6.99","platform":"iOS","duoNative":true,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/61/e5/03/61e50315-62b1-5480-d1ca-99aa0c4a144b/01_hero.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a2/00/df/a200df72-4785-aa92-51bb-92232e1b82b8/02_tent.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/25/e0/95/25e095ea-25b2-9184-085d-33540db0b780/03_photo.png/440x660bb.jpg"],"tagJa":"画面が本物の紙のようにめくれる卓上カレンダーに。"},{"id":"6820624868","group":"create","name":"Promptside","tag":"A camera studio for foldable phones — flip and the roles swap.","tagZh":"折叠屏相机工作室 —— 一翻,角色互换。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d9/f6/b7/d9f6b71f-1e9b-7117-ea84-1a555ad740a9/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/promptside/id6820624868","price":"$5.99","platform":"iOS","duoNative":true,"shots":["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/fe/e9/b7/fee9b7a9-a4f9-ef65-526c-c1e6bc8af165/en-US_67_0.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/8a/d6/9b/8ad69bad-4584-0b0f-58a0-01af7f84bb15/en-US_67_1.png/440x660bb.jpg","https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/b4/e2/78/b4e278f4-d480-8748-66b4-945e094bb6c1/en-US_67_2.png/440x660bb.jpg"],"tagJa":"折りたたみ電話のカメラスタジオ——開くと役割が入れ替わる。"}];
 
 var LANGS = ['en','zh','ja'];
 var lang = 'en';
@@ -553,7 +617,9 @@ function applyLang(l){
   document.querySelectorAll('[data-i18n-ph]').forEach(function(el){ el.placeholder = t(el.dataset.i18nPh); });
   document.querySelectorAll('[data-i18n-html]').forEach(function(el){ el.innerHTML = t(el.dataset.i18nHtml); });
   renderFaq();
+  renderChips();
   renderApps();
+  renderMarquee();
 }
 
 /* ---- FAQ 折叠列表(按语言重建) ---- */
@@ -567,21 +633,97 @@ function renderFaq(){
 }
 
 /* ---- App 墙(22 款,与 kinetapp/apps.html 同源) ---- */
+var appFilter = 'all';
+function tagOf(a){
+  return lang === 'zh' ? (a.tagZh || a.tag) : (lang === 'ja' ? (a.tagJa || a.tag) : a.tag);
+}
 function renderApps(){
   var box = document.getElementById('app-grid');
-  var h = '';
+  var h = '', shown = 0;
   for (var i = 0; i < APPS.length; i++) {
     var a = APPS[i];
-    var tag = lang === 'zh' ? (a.tagZh || a.tag) : (lang === 'ja' ? (a.tagJa || a.tag) : a.tag);
-    h += '<a class="app-card" href="' + a.url + '" target="_blank" rel="noopener">'
+    if (appFilter !== 'all' && a.group !== appFilter) continue;
+    var d = Math.min(shown * 45, 540);
+    h += '<a class="app-card" style="--d:' + d + 'ms" href="' + a.url + '" target="_blank" rel="noopener">'
       + '<img class="app-icon" src="' + a.icon + '" alt="' + esc(a.name) + '" loading="lazy">'
       + '<div class="app-body"><div class="app-top"><b>' + esc(a.name) + '</b><span class="app-price">' + a.price + '</span></div>'
-      + '<div class="app-tag">' + esc(tag) + '</div>'
+      + '<div class="app-tag">' + esc(tagOf(a)) + '</div>'
       + '<div class="app-meta"><span>' + a.platform + '</span>'
       + (a.duoNative ? '<em class="duo">DUO NATIVE</em>' : '')
       + '</div></div></a>';
+    shown++;
   }
+  if (!shown) h = '<div class="empty"></div>';
   box.innerHTML = h;
+  observeCards(box);
+  if (window.i18nFillEmpty) window.i18nFillEmpty();
+}
+/* 卡片入场统一走 IntersectionObserver: 视口内才播放 stagger,滚到再动 */
+var cardIO = null;
+function observeCards(scope){
+  var cards = scope.querySelectorAll('.app-card');
+  if (!cards.length) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    cards.forEach(function(c){ c.classList.add('rv'); }); return;
+  }
+  if (!cardIO) cardIO = new IntersectionObserver(function(es){
+    es.forEach(function(en){
+      if (en.isIntersecting) { en.target.classList.add('rv'); cardIO.unobserve(en.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  cards.forEach(function(c){ cardIO.observe(c); });
+}
+/* 筛选 chips(文案随语言重建) */
+function renderChips(){
+  var groups = ['all', 'ai', 'create', 'life', 'focus', 'mactools'];
+  var box = document.getElementById('app-chips');
+  box.innerHTML = groups.map(function(g){
+    return '<button data-g="' + g + '" class="' + (g === appFilter ? 'on' : '') + '">' + esc(t('appf.' + g)) + '</button>';
+  }).join('');
+  box.querySelectorAll('button').forEach(function(b){
+    b.addEventListener('click', function(){
+      appFilter = b.dataset.g;
+      hidePop();
+      box.querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x === b); });
+      renderApps();
+    });
+  });
+}
+/* hero 图标走马灯(双轨无缝) */
+function renderMarquee(){
+  var imgs = APPS.map(function(a){ return '<img src="' + a.icon + '" alt="">'; }).join('');
+  document.getElementById('mq-track').innerHTML = imgs + imgs;
+}
+/* 滚动入场(卡片/svc/case/contact) + reduced-motion 直通 */
+function initReveal(){
+  var els = document.querySelectorAll('.app-card, .svc, .case, .contact-card');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { els.forEach(function(e){ e.classList.add('rv'); }); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (en.isIntersecting) { en.target.classList.add('rv'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(function(e){ io.observe(e); });
+}
+/* scrollspy 导航高亮 */
+function initScrollSpy(){
+  var links = {};
+  document.querySelectorAll('header nav a').forEach(function(a){
+    var id = (a.getAttribute('href') || '').slice(1);
+    if (id) links[id] = a;
+  });
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      document.querySelectorAll('header nav a').forEach(function(a){ a.classList.remove('here'); });
+      var a = links[en.target.id];
+      if (a) a.classList.add('here');
+    });
+  }, { rootMargin: '-30% 0px -55% 0px' });
+  ['services', 'cases', 'apps', 'faq', 'contact'].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el) io.observe(el);
+  });
 }
 
 /* ---- hover 图标弹截图轮播(App Store CDN 真机截图,仅指针设备) ---- */
@@ -590,33 +732,64 @@ function ensurePop(){
   if (pop) return pop;
   pop = document.createElement('div');
   pop.id = 'shot-pop';
-  pop.innerHTML = '<img alt=""><div class="pop-dots"></div>';
+  pop.innerHTML = '<div class="pop-head"><img alt=""><b></b><span></span></div>'
+    + '<div class="pop-stage"><img alt=""></div>'
+    + '<div class="pop-dots"></div>';
   document.body.appendChild(pop);
   return pop;
+}
+function popGo(i){
+  popIdx = (i + popShots.length) % popShots.length;
+  var img = pop.querySelector('.pop-stage img');
+  img.style.opacity = '0';
+  var pre = new Image();
+  pre.onload = function(){ img.src = popShots[popIdx]; img.style.opacity = '1'; };
+  pre.src = popShots[popIdx];
+  pop.querySelectorAll('.pop-dots i').forEach(function(d, j){ d.classList.toggle('on', j === popIdx); });
+}
+function popRestartTimer(){
+  clearInterval(popTimer);
+  popTimer = setInterval(function(){ popGo(popIdx + 1); }, 1800);
 }
 function showPop(app, icon){
   if (!app.shots || !app.shots.length) return;
   var p = ensurePop();
   popShots = app.shots; popIdx = 0;
-  var img = p.querySelector('img'), dots = p.querySelector('.pop-dots');
-  img.src = popShots[0]; img.alt = app.name;
-  dots.innerHTML = popShots.map(function(_, i){ return '<i class="' + (i === 0 ? 'on' : '') + '"></i>'; }).join('');
-  // 定位: 锚定图标,优先上方,不够放下方,水平 clamp
-  var r = icon.getBoundingClientRect(), W = 320;
-  var x = Math.min(Math.max(10, r.left + r.width / 2 - W / 2), window.innerWidth - W - 10);
-  var ph = 360;
-  if (r.top > ph + 20) { p.style.top = ''; p.style.bottom = (window.innerHeight - r.top + 10) + 'px'; }
-  else { p.style.bottom = ''; p.style.top = (r.bottom + 10) + 'px'; }
+  // 头部: logo + 名称 + 价格
+  var head = p.querySelector('.pop-head');
+  head.querySelector('img').src = app.icon;
+  head.querySelector('b').textContent = app.name;
+  head.querySelector('span').textContent = app.price;
+  // 宽度档 + 展台高: 竖图 320/368,Mac 横图 456/284
+  var wide = popShots[0].indexOf('880x550') !== -1;
+  var w = wide ? 456 : 320;
+  p.style.setProperty('--pop-w', w + 'px');
+  p.querySelector('.pop-stage').style.height = wide ? '284px' : '368px';
+  var dots = p.querySelector('.pop-dots');
+  dots.innerHTML = popShots.map(function(_, i){ return '<i data-i="' + i + '" class="' + (i === 0 ? 'on' : '') + '"></i>'; }).join('');
+  dots.querySelectorAll('i').forEach(function(d){
+    d.addEventListener('click', function(){ popGo(+d.dataset.i); popRestartTimer(); });
+  });
+  var img = p.querySelector('.pop-stage img');
+  img.style.opacity = '0'; img.src = popShots[0]; img.alt = app.name;
+  img.onload = function(){ img.style.opacity = '1'; };
+  // 定位: 锚定图标,优先上方,不够放下方,水平 clamp;弹出方向决定 transform-origin
+  var r = icon.getBoundingClientRect();
+  var ph = wide ? 380 : 470;
+  var x = Math.min(Math.max(10, r.left + r.width / 2 - w / 2), window.innerWidth - w - 10);
+  if (r.top > ph + 20) {
+    p.style.top = ''; p.style.bottom = (window.innerHeight - r.top + 10) + 'px';
+    p.style.transformOrigin = 'bottom center';
+  } else {
+    p.style.bottom = ''; p.style.top = (r.bottom + 10) + 'px';
+    p.style.transformOrigin = 'top center';
+  }
   p.style.left = x + 'px';
+  p.classList.remove('on'); void p.offsetWidth; // 重触发入场过渡
   p.classList.add('on');
   // 预热后续图 + 自动轮播
   app.shots.forEach(function(u){ var i = new Image(); i.src = u; });
-  clearInterval(popTimer);
-  popTimer = setInterval(function(){
-    popIdx = (popIdx + 1) % popShots.length;
-    img.src = popShots[popIdx];
-    dots.querySelectorAll('i').forEach(function(d, i){ d.classList.toggle('on', i === popIdx); });
-  }, 1800);
+  popRestartTimer();
 }
 function hidePop(){
   clearInterval(popTimer);
@@ -643,8 +816,17 @@ function bindShotPop(){
 
 /* ---- boot ---- */
 renderFaq();
+renderChips();
 renderApps();
+renderMarquee();
 bindShotPop();
+initReveal();
+initScrollSpy();
+window.i18nFillEmpty = function(){
+  var e = document.querySelector('#app-grid .empty');
+  if (e) e.textContent = lang === 'zh' ? '该分组暂无应用' : (lang === 'ja' ? 'このグループのアプリはありません' : 'No apps in this group');
+};
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') hidePop(); });
 document.querySelectorAll('.lang button').forEach(function(b){
   b.addEventListener('click', function(){ applyLang(b.dataset.l); });
 });
