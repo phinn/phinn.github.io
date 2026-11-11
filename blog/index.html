@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blog — Phinn, indie developer</title>
+<meta name="description" content="Notes on AI agents, Electron architecture, and shipping software as an indie developer. Author of KinetAios, the open-source AI agent engine.">
+<link rel="canonical" href="https://phinn.github.io/blog/">
+<style>
+:root{--paper:#f7f4ee;--ink:#2b2620;--ink-soft:#6b6459;--accent:#b4542e;--line:#e4ddd0;--serif:'Fraunces',Georgia,'Songti SC',serif;--sans:-apple-system,'PingFang SC',sans-serif}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.72;font-size:16.5px}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+nav.site{display:flex;justify-content:space-between;padding:16px 0;font-size:13.5px}
+nav.site a{color:var(--ink-soft);text-decoration:none}
+nav.site a:hover{color:var(--accent)}
+h1{font-family:var(--serif);font-size:clamp(27px,5vw,38px);margin:26px 0 6px}
+.sub{color:var(--ink-soft);font-size:14.5px;margin-bottom:26px}
+.post{padding:20px 0;border-top:1px solid var(--line)}
+.post h2{font-family:var(--serif);font-size:20px;line-height:1.3;margin-bottom:4px}
+.post h2 a{color:var(--ink);text-decoration:none}
+.post h2 a:hover{color:var(--accent)}
+.post .meta{color:var(--ink-soft);font-size:13px;letter-spacing:.3px;margin-bottom:6px}
+.post p{color:var(--ink-soft);font-size:14.5px;margin:0}
+footer.site{margin-top:34px;padding:24px 0;border-top:1px solid var(--line);color:var(--ink-soft);font-size:13px}
+footer.site a{color:var(--ink-soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="site">
+  <a href="/">← phinn.github.io</a>
+  <a href="https://github.com/phinn" target="_blank">GitHub ↗</a>
+</nav>
+
+<h1>Blog</h1>
+<div class="sub">Notes on AI agents, desktop architecture, and shipping as an indie developer.</div>
+
+<div class="post">
+  <h2><a href="/blog/kinetaios-vs-claude-code.html">KinetAios vs Claude Code: an honest look at the open-source alternative</a></h2>
+  <div class="meta">2026-11-11 · 8 min</div>
+  <p>What a desktop cockpit adds to Claude Code — searchable history, side-by-side engines, long-term memory — and what it deliberately doesn't do.</p>
+</div>
+
+<div class="post">
+  <h2><a href="/blog/claude-code-gui.html">Claude Code has no official GUI. Here's what a desktop cockpit actually adds.</a></h2>
+  <div class="meta">2026-11-11 · 7 min</div>
+  <p>Four principles for wrapping a terminal agent: wrap never replace, the three real costs of a REPL, streaming UX as a product, local-first trust.</p>
+</div>
+
+<div class="post">
+  <h2><a href="/blog/electron-ai-agent-architecture.html">What we learned shipping an Electron AI agent dashboard</a></h2>
+  <div class="meta">2026-11-11 · 9 min</div>
+  <p>Two processes one bridge, one fold function for streaming state, SQLite+FTS5 as the spine, and the Windows CLI-spawn traps — architecture notes from KinetAios.</p>
+</div>
+
+<footer class="site">
+  <a href="/">← phinn.github.io</a> · <a href="https://github.com/phinn/KinetAios" target="_blank">KinetAios on GitHub</a>
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code has no official GUI — here's what a desktop cockpit adds (2026)</title>
+<meta name="description" content="Anthropic's Claude Code is terminal-only. If you've been searching for a Claude Code GUI, here's what a native desktop cockpit adds on top: streaming markdown, tool-call cards, cross-project history and long-term memory.">
+<link rel="canonical" href="https://phinn.github.io/blog/claude-code-gui.html">
+<meta property="og:title" content="Looking for a Claude Code GUI?">
+<meta property="og:description" content="Claude Code is terminal-only by design. What a native desktop cockpit adds — and keeps.">
+<meta property="og:type" content="article">
+<style>
+:root{--paper:#f7f4ee;--ink:#2b2620;--ink-soft:#6b6459;--accent:#b4542e;--line:#e4ddd0;--serif:'Fraunces',Georgia,'Songti SC',serif;--sans:-apple-system,'PingFang SC',sans-serif}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.72;font-size:16.5px}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+nav.site{display:flex;justify-content:space-between;padding:16px 0;font-size:13.5px}
+nav.site a{color:var(--ink-soft);text-decoration:none}
+nav.site a:hover{color:var(--accent)}
+h1{font-family:var(--serif);font-size:clamp(27px,5vw,38px);line-height:1.22;margin:22px 0 10px}
+.meta{color:var(--ink-soft);font-size:13.5px;letter-spacing:.3px;margin-bottom:8px}
+h2{font-family:var(--serif);font-size:22px;margin:34px 0 10px;line-height:1.3}
+p{margin:13px 0}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px}
+code{background:#ece6da;padding:1px 6px;border-radius:5px}
+pre{background:#2b2620;color:#f0e9dc;padding:16px 18px;border-radius:10px;overflow-x:auto;line-height:1.6;margin:18px 0}
+pre code{background:none;padding:0;color:inherit}
+ul,ol{margin:12px 0 12px 22px}li{margin:6px 0}
+blockquote{border-left:3px solid var(--accent);padding:2px 0 2px 16px;color:var(--ink-soft);margin:18px 0}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14.5px}
+th,td{border:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+th{background:#ece6da;font-weight:600}
+.cta{background:#2b2620;color:#f7f4ee;border-radius:12px;padding:22px 24px;margin:38px 0 10px}
+.cta p{color:#d9d2c4;font-size:14.5px;margin:8px 0 4px}
+.btn{display:inline-block;background:var(--accent);color:#fff!important;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14.5px;margin:10px 8px 0 0}
+.btn.alt{background:#3a332a}
+footer.site{margin-top:34px;padding:24px 0;border-top:1px solid var(--line);color:var(--ink-soft);font-size:13px}
+footer.site a{color:var(--ink-soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="site">
+  <a href="/">← phinn.github.io</a>
+  <a href="https://github.com/phinn/KinetAios" target="_blank">GitHub ↗</a>
+</nav>
+
+<h1>Claude Code has no official GUI. Here's what a desktop cockpit actually adds.</h1>
+<div class="meta">2026-11-11 · Phinn · 7 min read</div>
+
+<p>Search "Claude Code GUI" and you'll find VS Code extensions, community web UIs, wrappers of every shape. Anthropic ships Claude Code as a terminal REPL — deliberately. The agent loop is best-in-class; the interface is just not where most people want to live for eight hours.</p>
+
+<p>This post is from the author of <a href="https://github.com/phinn/KinetAios" target="_blank">KinetAios</a>, an open-source desktop cockpit for Claude Code (and Codex). Rather than a feature list, here's the reasoning: what a GUI should add on top of a terminal agent, and what it must never take away.</p>
+
+<h2>Principle 1: the GUI wraps, never replaces</h2>
+<p>The mistake most wrappers make is re-implementing the agent. Skills, hooks, sub-agents, MCP config — they live inside the CLI's ecosystem, and a wrapper that intercepts them breaks them quietly.</p>
+<p>KinetAios takes the boring path: spawn the real CLI and read its structured output.</p>
+<pre><code>claude -p --output-format stream-json --verbose --resume &lt;sessionId&gt;</code></pre>
+<p>Every NDJSON event (tokens, tool calls, cost deltas) folds into one unified model that drives the UI. Resume reuses Claude Code's own session ids, so you can leave the cockpit, go back to the terminal, and continue the exact same session — and vice versa. The cockpit doesn't own your agent.</p>
+
+<h2>Principle 2: the terminal's three real costs</h2>
+<p>What does a GUI actually buy? Not syntax highlighting. The real costs of a REPL cockpit are:</p>
+<ol>
+  <li><strong>History you can't search.</strong> Sessions live as per-project JSONL files. "What did I ask the agent to do about the payment module last Tuesday, across two projects?" — unanswerable in a terminal. In KinetAios: SQLite + FTS5 over every conversation, tool call and result.</li>
+  <li><strong>One conversation per window.</strong> Real work is parallel: a refactor here, a flaky test there, a doc question in between. A desktop app gives you multiple conversations across multiple engines (Claude Code, Codex, plus a built-in ReAct engine) in one window.</li>
+  <li><strong>Memory that evaporates.</strong> Each terminal session starts knowing nothing. KinetAios extracts durable facts from every turn — your stack, naming conventions, preferences — and injects them into the next session automatically. Session N benefits from everything before it.</li>
+</ol>
+
+<h2>Principle 3: streaming UX is a product, not a rendering detail</h2>
+<p>A terminal renders a token firehose. A GUI has to render <em>meaning</em>: markdown with proper code fences, tool-call cards that show what the agent is about to do (and ask before it touches your shell), per-turn cost, streaming status. Get this wrong and the GUI is a worse terminal with more chrome. The renderer is where most wrappers die — flicker, lost code blocks, mid-stream layout jumps. We rebuilt ours three times; the current one parses markdown incrementally with a single fold function shared by both the streaming view and the persisted history, so what you saw while streaming is exactly what's stored.</p>
+
+<h2>Principle 4: local-first or it's not yours</h2>
+<p>No account, no relay, no telemetry. Everything — conversations, memory, settings — lives in a local SQLite file you can back up, grep, or throw away. That's not nostalgia; it's the same property that makes CLI agents feel trustworthy, carried over to a desktop app. Your prompts to Anthropic still go to Anthropic; the cockpit adds no middleman.</p>
+
+<h2>The honest limits</h2>
+<ul>
+  <li>Claude Code still needs its own subscription/API key — the cockpit adds no model access.</li>
+  <li>macOS and Windows today; Linux is possible (Electron) but not shipped.</li>
+  <li>No local LLM endpoint yet — that's roadmap, not reality, and we'd rather say so.</li>
+</ul>
+
+<p>If that trade sounds right — the agent brain you already trust, in a cockpit that remembers — that's the whole pitch.</p>
+
+<div class="cta">
+  <b>KinetAios — the desktop cockpit for Claude Code &amp; Codex</b>
+  <p>Open source (MIT) · 3,200+ clones · macOS &amp; Windows · local-first, no relay.</p>
+  <a class="btn" href="https://github.com/phinn/KinetAios" target="_blank">★ Star on GitHub</a>
+  <a class="btn alt" href="https://apps.apple.com/app/id6809450051" target="_blank">Mac App Store — $12.99</a>
+</div>
+
+<footer class="site">
+  <a href="/">← phinn.github.io</a> · <a href="/blog/">Blog</a>
+</footer>
+</div>
+</body>
+</html>
