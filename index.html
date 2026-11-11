@@ -98,6 +98,28 @@
   .case p { font-size: 14px; color: var(--ink-soft); }
   .case .meta { margin-top: 12px; font-size: 13px; color: var(--accent); font-weight: 600; }
 
+  /* app wall: 22 款在架应用(与 kinetapp/apps.html 同源数据与卡片风格) */
+  .app-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+  .app-card {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 16px; text-decoration: none; color: var(--ink);
+    transition: border-color .15s, transform .15s;
+  }
+  .app-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .app-icon { width: 60px; height: 60px; border-radius: 13px; flex-shrink: 0; }
+  .app-body { min-width: 0; }
+  .app-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .app-top b { font-size: 14.5px; }
+  .app-price { font-size: 12.5px; color: var(--ink-soft); flex-shrink: 0; }
+  .app-tag { font-size: 13px; color: var(--ink-soft); margin-top: 5px; line-height: 1.45; }
+  .app-meta { margin-top: 8px; display: flex; gap: 8px; align-items: center; font-size: 12px; color: var(--ink-soft); }
+  .app-meta em.duo {
+    font-style: normal; background: var(--accent); color: #fff;
+    font-size: 10.5px; font-weight: 700; letter-spacing: .4px;
+    padding: 2px 7px; border-radius: 9px;
+  }
+
   /* faq */
   details { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 20px; margin-bottom: 10px; }
   details summary { cursor: pointer; font-weight: 600; font-size: 15px; }
@@ -129,6 +151,7 @@
       <nav>
         <a href="#services" data-i18n="nav.services"></a>
         <a href="#cases" data-i18n="nav.cases"></a>
+        <a href="#apps" data-i18n="nav.apps"></a>
         <a href="#faq">FAQ</a>
         <a href="#contact" data-i18n="nav.contact"></a>
       </nav>
@@ -150,7 +173,7 @@
   </div>
   <div class="proof-row">
     <div class="proof"><b>1000+</b><span data-i18n="proof.clones"></span></div>
-    <div class="proof"><b>6+</b><span data-i18n="proof.apps"></span></div>
+    <div class="proof"><b>22</b><span data-i18n="proof.apps"></span></div>
     <div class="proof"><b data-i18n="proof.one">1</b><span data-i18n="proof.oneSub"></span></div>
   </div>
 </div>
@@ -209,6 +232,14 @@
   </div>
 </section>
 
+<section id="apps">
+  <div class="wrap">
+    <h2 data-i18n="apps.title"></h2>
+    <p class="sec-sub" data-i18n="apps.sub"></p>
+    <div class="app-grid" id="app-grid"></div>
+  </div>
+</section>
+
 <section id="faq">
   <div class="wrap">
     <h2>FAQ</h2>
@@ -248,7 +279,7 @@
 var I18N = {
   en: {
     _title: 'Phinn · AI Agent Consulting — From Demo to Production',
-    'nav.services': 'Services', 'nav.cases': 'Cases', 'nav.contact': 'Contact',
+    'nav.services': 'Services', 'nav.cases': 'Cases', 'nav.apps': 'Apps', 'nav.contact': 'Contact',
     'hero.h1': 'Taking AI Agents from demo<br>to <strong>production systems</strong>',
     'hero.sub': 'I\'m Phinn, an independent developer and author of the open-source AI Agent engine <a href="https://github.com/phinn/KinetAios" target="_blank" style="color:var(--accent)">KinetAios</a> — multi-engine, four-layer architecture (Plan-Execute-Verify-Judge), layered memory. One person, from architecture to App Store. Now I help companies bring the same capabilities into real business.',
     'hero.ctaMail': 'Email me →', 'hero.ctaCases': 'See the cases',
@@ -277,7 +308,7 @@ var I18N = {
     'case2.p': 'Multi-dimensional cross-analysis of large CRM downtime/installation/revenue datasets, auto-generated as dark-theme professional ECharts reports used directly in business decision reviews.',
     'case2.meta': 'Real business delivery · Replicable pipeline',
     'case3.h': 'Apple Full-Stack Shipping Matrix',
-    'case3.p': '6+ apps (tools / AI assistants / notes) from development to the App Store, including ASC API automated submission, multilingual asset production lines, and a full catalog of review-issue handling records.',
+    'case3.p': '22 apps (tools / AI assistants / notes) from development to the App Store, including ASC API automated submission, multilingual asset production lines, and a full catalog of review-issue handling records.',
     'case3.meta': 'Battle-tested review-issue database',
     'faq.sub': 'Common questions. For anything more specific, just email me - replies within 24 hours.',
     'faq.q1': 'How big is your team?',
@@ -290,6 +321,8 @@ var I18N = {
     'faq.a4': 'Priced by problem value, not by the hour. After the free first-round assessment you get a fixed total price and a phased payment plan — no mid-project price changes. Small questions get straight answers, free of charge.',
     'faq.q5': 'How long does it take?',
     'faq.a5': 'Assessment: 1 week. POC: 1-2 weeks. Production: 2-8 weeks depending on scope. Data reports: first batch in 1 week, then monthly rolling delivery on subscription.',
+    'apps.title': '22 apps on the App Store — all shipped, all live',
+    'apps.sub': 'Every card below is live on the App Store right now — tap to open its store page. All adapted for iPhone foldables; 5 built native for the fold.',
     'contact.title': 'Contact', 'contact.sub': 'Questions, scope, quotes - one email gets you a real reply within 24 hours.',
     'contact.email': 'Email (preferred)', 'contact.reply24h': 'Replies within 24 hours',
     'contact.oss': 'Open source', 'contact.ossSub': 'Engine source & docs',
@@ -307,7 +340,7 @@ var I18N = {
   },
   zh: {
     _title: 'Phinn · 企业 AI Agent 落地咨询',
-    'nav.services': '服务', 'nav.cases': '案例', 'nav.contact': '联系',
+    'nav.services': '服务', 'nav.cases': '案例', 'nav.apps': '应用', 'nav.contact': '联系',
     'hero.h1': '把 AI Agent 从 demo<br>做成<strong>生产系统</strong>',
     'hero.sub': '我是 Phinn,独立开发者,开源 AI Agent 引擎 <a href="https://github.com/phinn/KinetAios" target="_blank" style="color:var(--accent)">KinetAios</a> 作者——多引擎、四层架构(Plan-Execute-Verify-Judge)、分层记忆,一个人从架构做到上架。现在帮企业把同样的能力落地到真实业务。',
     'hero.ctaMail': '邮件直达 →', 'hero.ctaCases': '看案例',
@@ -336,7 +369,7 @@ var I18N = {
     'case2.p': '大型 CRM 停机/装机/营收数据的多维交叉分析,自动生成暗色主题 ECharts 专业报告,直接用于业务决策汇报。',
     'case2.meta': '真实业务交付 · 流水线可复制',
     'case3.h': 'Apple 全链路上架矩阵',
-    'case3.p': '6+ 款 App(工具/AI 助手/笔记)从开发到 App Store 上架,含 ASC API 自动化提审、多语言素材产线、审核问题全类型处置记录。',
+    'case3.p': '22 款 App(工具/AI 助手/笔记)从开发到 App Store 上架,含 ASC API 自动化提审、多语言素材产线、审核问题全类型处置记录。',
     'case3.meta': '全类型审核坑实战数据库',
     'faq.sub': '常见问题。更具体的直接发邮件,24 小时内回复。',
     'faq.q1': '你们团队多少人?',
@@ -349,6 +382,8 @@ var I18N = {
     'faq.a4': '按问题价值报价,不按小时。第一轮免费评估后,我会给出固定总价和分阶段付款计划,中途不加价。小问题直接告诉我方案,不收钱。',
     'faq.q5': '周期多长?',
     'faq.a5': '评估 1 周,POC 1-2 周,生产落地视范围 2-8 周。数据报告类:首批 1 周,订阅制按月滚动交付。',
+    'apps.title': 'App Store 在架的 22 个应用 —— 全部上架、全部在售',
+    'apps.sub': '以下每张卡片都是 App Store 在架应用,点击直达商店页面。全部适配 iPhone 折叠屏,其中 5 款为折叠原生设计。',
     'contact.title': '联系', 'contact.sub': '需求、范围、报价——一封邮件,24 小时内真人回复。',
     'contact.email': '邮件(首选)', 'contact.reply24h': '24 小时内回复',
     'contact.oss': '开源', 'contact.ossSub': '引擎源码与文档',
@@ -366,7 +401,7 @@ var I18N = {
   },
   ja: {
     _title: 'Phinn · AIエージェント導入コンサルティング',
-    'nav.services': 'サービス', 'nav.cases': '実績', 'nav.contact': 'お問い合わせ',
+    'nav.services': 'サービス', 'nav.cases': '実績', 'nav.apps': 'アプリ', 'nav.contact': 'お問い合わせ',
     'hero.h1': 'AIエージェントをデモから<br><strong>本番システム</strong>へ',
     'hero.sub': 'Phinn です。独立系開発者で、オープンソース AI エージェントエンジン <a href="https://github.com/phinn/KinetAios" target="_blank" style="color:var(--accent)">KinetAios</a> の作者——マルチエンジン、4層アーキテクチャ(Plan-Execute-Verify-Judge)、階層メモリ。設計から App Store リリースまで一人で完結。同じ力を企業の実ビジネスに落とし込むお手伝いをしています。',
     'hero.ctaMail': 'メールで相談 →', 'hero.ctaCases': '実績を見る',
@@ -395,7 +430,7 @@ var I18N = {
     'case2.p': '大型 CRM の停止/導入/売上データを多次元クロス分析し、ダークテーマの ECharts プロフェッショナルレポートを自動生成。そのまま経営判断の報告に使用。',
     'case2.meta': '実ビジネス納品 · 複製可能なパイプライン',
     'case3.h': 'Apple リリース基盤マトリクス',
-    'case3.p': '6+ アプリ(ツール/AI アシスタント/ノート)を開発から App Store リリースまで。ASC API による自動審査提出、多言語素材生産ライン、審査問題の全類型対応記録を含みます。',
+    'case3.p': '22 アプリ(ツール/AI アシスタント/ノート)を開発から App Store リリースまで。ASC API による自動審査提出、多言語素材生産ライン、審査問題の全類型対応記録を含みます。',
     'case3.meta': '全類型の審査問題を実戦でカバーしたデータベース',
     'faq.sub': 'よくあるご質問。より具体的な内容はメールでどうぞ(24 時間以内に返信)。',
     'faq.q1': 'チームの規模は?',
@@ -408,6 +443,8 @@ var I18N = {
     'faq.a4': '時間ではなく課題の価値で評価します。無料初回評価の後、固定総額と段階的支払い計画をご提示し、途中での値上げはありません。小さな質問には無料で直接お答えします。',
     'faq.q5': '期間は?',
     'faq.a5': '評価 1 週間、POC 1〜2 週間、本番導入はスコープにより 2〜8 週間。データレポートは初回 1 週間、以降は月額サブスクで継続納品。',
+    'apps.title': 'App Store でリリース中の 22 アプリ——すべて販売中',
+    'apps.sub': '以下はすべて App Store で販売中のアプリです。タップするとストアページが開きます。全アプリが折りたたみ iPhone に対応、うち 5 本はフォールドネイティブ設計。',
     'contact.title': 'お問い合わせ', 'contact.sub': 'ご要件・スコープ・見積もりは、メール一通で 24 時間以内に本人から返信します。',
     'contact.email': 'メール(推奨)', 'contact.reply24h': '24 時間以内に返信',
     'contact.oss': 'オープンソース', 'contact.ossSub': 'エンジンのソースとドキュメント',
@@ -424,6 +461,8 @@ var I18N = {
     ]
   }
 };
+var APPS = [{"id":"6782778566","group":"ai","name":"KinetBrief","tag":"Turns a day of meetings into one morning brief.","tagZh":"把一天的会议变成一份晨报。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/20/60/77/2060773c-5782-1d87-6188-8deeaf46d870/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetbrief-ai-meeting-notes/id6782778566","price":"$6.99","platform":"iOS","duoNative":false,"tagJa":"一日の会議を一本の朝のブリーフに。"},{"id":"6820196518","group":"ai","name":"M5Chat","tag":"AI chat that runs entirely on your device.","tagZh":"完全运行在本机的 AI 对话助手。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/84/3c/a4/843ca420-b9d1-3124-05e2-d223edbe5edc/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/m5chat-ai-chat/id6820196518","price":"$9.99","platform":"iOS","duoNative":true,"tagJa":"端末内で完結する AI チャット。"},{"id":"6813593104","group":"ai","name":"KinetMinutes","tag":"Meetings into structured notes — automatically, privately, on your Mac.","tagZh":"会议自动变结构化笔记 —— 私密,全在本机。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/b3/18/4b/b3184b68-01f5-d3b2-4d98-110571d19fb5/AppIcon-0-0-85-220-0-5-0-2x.png/512x512bb.png","url":"https://apps.apple.com/us/app/kinetminutes-meeting-notes/id6813593104","price":"$9.99","platform":"iOS","duoNative":false,"tagJa":"会議を自動で構造化ノートに——プライベート、すべて Mac の中で。"},{"id":"6780944289","group":"ai","name":"KinetTask","tag":"100% on-device AI task manager. Your tasks never leave your phone.","tagZh":"100% 端侧 AI 任务管理,数据不出设备。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/9f/80/50/9f805042-08cc-19a6-66f2-82cd48a28013/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinettask-private-ai-tasks/id6780944289","price":"$6.99","platform":"iOS","duoNative":false,"tagJa":"100% 端末完結の AI タスク管理。タスクは端末の外に出ません。"},{"id":"6831877963","group":"create","name":"CubeLike","tag":"Chain-reaction puzzle on a living cube — one move, sixty reactions.","tagZh":"立方体上的连锁反应解谜 —— 一步棋,六十重连锁。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/12/d2/5d/12d25d31-c372-4dc0-698f-87b2fbc5c287/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/cubelike-chain-burst/id6831877963","price":"$6.99","platform":"iOS","duoNative":false,"tagJa":"立方体の上の連鎖パズル——一手で六十の連鎖。"},{"id":"6815923723","group":"ai","name":"KinetMemory","tag":"Spaced repetition powered by FSRS, the most accurate scheduling algorithm.","tagZh":"FSRS 驱动的间隔重复记忆卡片。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/0b/69/e2/0b69e221-a94e-2641-381d-4ef1bb1a3d9a/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetmemory-flashcards/id6815923723","price":"$9.99","platform":"iOS","duoNative":false,"tagJa":"FSRS 駆動の間隔反復カード。最も正確なスケジューリング。"},{"id":"6826942397","group":"create","name":"Minebreaker","tag":"Minesweeper, turned into treasure — every tile is a gamble.","tagZh":"扫雷变成挖宝 —— 每一格都是一次赌注。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/fe/07/d1/fe07d123-e339-d1c5-5064-0e109a53bae5/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/minebreaker-game/id6826942397","price":"$6.99","platform":"iOS","duoNative":false,"tagJa":"マインスイーパーが宝掘りに——すべてのマスが賭け。"},{"id":"6797004663","group":"ai","name":"KinetStudy","tag":"AI homework grading for parents — photo in, feedback out.","tagZh":"家长版 AI 作业批改 —— 拍照即出反馈。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/9e/48/e2/9e48e2a7-167d-5395-1b72-38fc2df9dbe5/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetstudy/id6797004663","price":"$6.99","platform":"iOS","duoNative":false,"tagJa":"保護者向け AI 宿題添削——撮って送るだけ。"},{"id":"6809450051","group":"ai","name":"KinetAios","tag":"All-in-one native macOS AI agent workbench: code, research, writing, automation.","tagZh":"原生 macOS 一体化 AI Agent 工作台:代码、研究、写作、自动化。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a6/f8/ca/a6f8cab2-4ecf-f366-4190-0fe2eb378ecd/AppIcon.png/512x512bb.png","url":"https://apps.apple.com/us/app/kinetaios-all-in-one-ai-agent/id6809450051","price":"$12.99","platform":"iOS · Mac","duoNative":false,"tagJa":"macOS ネイティブのオールインワン AI エージェント作業台:コード、リサーチ、執筆、自動化。"},{"id":"6814033986","group":"focus","name":"KinetRain","tag":"Rain on demand. Synthesized live in your menu bar — never a loop.","tagZh":"即点即下的雨声 —— 实时合成,永不成循环。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/2f/d5/30/2fd53008-d664-616a-35ef-25b7a86f94d9/AppIcon.png/512x512bb.png","url":"https://apps.apple.com/us/app/kinetrain-rain-sounds/id6814033986","price":"$6.99","platform":"iOS","duoNative":false,"tagJa":"いつでも雨音——メニューバーでライブ合成、ループはなし。"},{"id":"6817377455","group":"focus","name":"DriftDesk","tag":"Turns your menu bar into a pocket of calm.","tagZh":"把菜单栏变成一方平静角落。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ab/2d/bd/ab2dbd9c-5b9c-488f-a119-84d6db01e6d3/AppIcon.png/512x512bb.png","url":"https://apps.apple.com/us/app/driftdesk-focus-ambience/id6817377455","price":"$4.99","platform":"iOS · Mac","duoNative":false,"tagJa":"メニューバーを静かな自分だけの一角に。"},{"id":"6820942179","group":"focus","name":"Clasp Focus","tag":"A focus ritual built for folding iPhones.","tagZh":"为折叠屏 iPhone 打造的专注仪式。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/57/0d/80/570d8074-0b01-4ba9-704f-3a2ea8c9db63/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/clasp-focus-focus-timer/id6820942179","price":"$4.99","platform":"iOS","duoNative":true,"tagJa":"折りたたみ iPhone のために作られた集中リチュアル。"},{"id":"6808698046","group":"mactools","name":"KinetFlashFind","tag":"Instant file search for Mac — indexes your entire disk.","tagZh":"Mac 即时文件搜索 —— 索引整块磁盘。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d8/ec/b3/d8ecb3d6-d558-fad8-44d4-068419562b58/AppIcon.png/512x512bb.png","url":"https://apps.apple.com/us/app/kinetflashfind-file-search/id6808698046","price":"$6.99","platform":"iOS · Mac","duoNative":false,"tagJa":"Mac の即時ファイル検索——ディスク全体をインデックス。"},{"id":"6813423397","group":"mactools","name":"KinetMagicDisk","tag":"See what fills your disk — interactive sunburst map, one-click cleanup.","tagZh":"看清磁盘都被什么占满 —— 交互式旭日图,一键清理。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/cc/a1/90/cca19075-0a51-0d6a-037b-3f421ba80089/AppIcon-0-0-85-220-0-5-0-2x.png/512x512bb.png","url":"https://apps.apple.com/us/app/kinetmagicdisk-disk-usage/id6813423397","price":"$9.99","platform":"iOS · Mac","duoNative":false,"tagJa":"ディスクの中身が見える——インタラクティブな旭日図でワンクリック整理。"},{"id":"6817339084","group":"life","name":"FurChart","tag":"Your pet's complete medical history, always at hand.","tagZh":"宠物完整健康档案,随手可查。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/53/92/6e/53926e7f-9494-bb08-b393-9dcf8408067a/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/furchart-pet-health-records/id6817339084","price":"$4.99","platform":"iOS","duoNative":false,"tagJa":"ペットの健康記録をいつでも手元に。"},{"id":"6773755689","group":"life","name":"KinetFit","tag":"Fast, private workout tracking with measurable progress.","tagZh":"快速、私密的健身记录,每次训练都有迹可循。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/28/d9/27/28d927e8-4347-7895-ba1d-6a252cb4bb8f/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetfit-workout-tracker/id6773755689","price":"$4.99","platform":"iOS","duoNative":false,"tagJa":"速くてプライベートなワークアウト記録。進捗は数字で残る。"},{"id":"6779978181","group":"life","name":"KinetMorning","tag":"One-tap daily check-in for aging parents. Peace of mind for the family.","tagZh":"独居老人的每日一键报平安。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/5d/26/0e/5d260e8b-a4f6-171a-5404-35c8b13c535d/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetmorning/id6779978181","price":"$2.99","platform":"iOS","duoNative":false,"tagJa":"一人暮らしのご両親のためのワンタップ安否確認。家族みんなの安心。"},{"id":"6807457522","group":"life","name":"KinetElf","tag":"An AI elf with personality and memory, living on your Dynamic Island.","tagZh":"住在灵动岛上的 AI 小精灵,有性格有记忆。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a0/8f/3d/a08f3dad-bb4a-972e-c7ec-819b07391b2f/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetelf-pocket-ai-elf/id6807457522","price":"$3.99","platform":"iOS","duoNative":false,"tagJa":"ダイナミックアイランドに住む、性格と記憶を持つ AI の妖精。"},{"id":"6780600464","group":"life","name":"KinetSoul","tag":"A warm AI companion that stays on your own device.","tagZh":"一个温柔的 AI 伙伴,只留在你自己的设备里。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/5d/b7/96/5db7961e-8778-99af-abfc-30c1d119e410/AppIcon-0-0-1x_U007epad-0-8-0-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/kinetsoul-ai-companion/id6780600464","price":"$6.99","platform":"iOS","duoNative":false,"tagJa":"あなたの端末だけに住む、やさしい AI コンパニオン。"},{"id":"6823855712","group":"create","name":"DuoFolio","tag":"Immersive two-page reader built for folding iPhones.","tagZh":"为折叠屏打造的沉浸式双页阅读器。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/e8/42/e9/e842e9c0-739e-2eae-dfbb-05f47ecceb4f/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/duofolio/id6823855712","price":"$6.99","platform":"iOS","duoNative":true,"tagJa":"折りたたみ iPhone のために作られた没入型の見開きリーダー。"},{"id":"6829156684","group":"create","name":"DuoFrame Desk Calendar","tag":"Your screen as a desk calendar that flips like real paper.","tagZh":"把屏幕变成像真纸一样翻页的台历。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/19/71/84/197184ae-0ad3-dfb2-b74e-a7783f752217/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/duoframe-desk-calendar/id6829156684","price":"$6.99","platform":"iOS","duoNative":true,"tagJa":"画面が本物の紙のようにめくれる卓上カレンダーに。"},{"id":"6820624868","group":"create","name":"Promptside","tag":"A camera studio for foldable phones — flip and the roles swap.","tagZh":"折叠屏相机工作室 —— 一翻,角色互换。","icon":"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d9/f6/b7/d9f6b71f-1e9b-7117-ea84-1a555ad740a9/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg","url":"https://apps.apple.com/us/app/promptside/id6820624868","price":"$5.99","platform":"iOS","duoNative":true,"tagJa":"折りたたみ電話のカメラスタジオ——開くと役割が入れ替わる。"}];
+
 var LANGS = ['en','zh','ja'];
 var lang = 'en';
 try { var saved = localStorage.getItem('phinn-lang'); if (LANGS.indexOf(saved) !== -1) lang = saved; } catch(e){}
@@ -442,6 +481,7 @@ function applyLang(l){
   document.querySelectorAll('[data-i18n-ph]').forEach(function(el){ el.placeholder = t(el.dataset.i18nPh); });
   document.querySelectorAll('[data-i18n-html]').forEach(function(el){ el.innerHTML = t(el.dataset.i18nHtml); });
   renderFaq();
+  renderApps();
 }
 
 /* ---- FAQ 折叠列表(按语言重建) ---- */
@@ -454,8 +494,27 @@ function renderFaq(){
   box.innerHTML = html;
 }
 
+/* ---- App 墙(22 款,与 kinetapp/apps.html 同源) ---- */
+function renderApps(){
+  var box = document.getElementById('app-grid');
+  var h = '';
+  for (var i = 0; i < APPS.length; i++) {
+    var a = APPS[i];
+    var tag = lang === 'zh' ? (a.tagZh || a.tag) : (lang === 'ja' ? (a.tagJa || a.tag) : a.tag);
+    h += '<a class="app-card" href="' + a.url + '" target="_blank" rel="noopener">'
+      + '<img class="app-icon" src="' + a.icon + '" alt="' + esc(a.name) + '" loading="lazy">'
+      + '<div class="app-body"><div class="app-top"><b>' + esc(a.name) + '</b><span class="app-price">' + a.price + '</span></div>'
+      + '<div class="app-tag">' + esc(tag) + '</div>'
+      + '<div class="app-meta"><span>' + a.platform + '</span>'
+      + (a.duoNative ? '<em class="duo">DUO NATIVE</em>' : '')
+      + '</div></div></a>';
+  }
+  box.innerHTML = h;
+}
+
 /* ---- boot ---- */
 renderFaq();
+renderApps();
 document.querySelectorAll('.lang button').forEach(function(b){
   b.addEventListener('click', function(){ applyLang(b.dataset.l); });
 });
