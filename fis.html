@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIS 企业级套件 · ERP / CRM / OA / 流程中台 — 能力明细</title>
+<style>
+  :root {
+    --paper: #f7f4ee; --paper-deep: #f0ebe1; --ink: #2b2620; --ink-soft: #6b6357;
+    --line: #e0d8c8; --accent: #b4542e; --accent-soft: #f3e2d8; --green: #4a7c59;
+    --card: #fffdf8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: -apple-system, "PingFang SC", "Hiragino Sans", "Yu Gothic UI", "Microsoft YaHei", sans-serif; line-height: 1.65; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 48px 28px 80px; }
+
+  header { margin-bottom: 30px; }
+  .back { display: inline-block; font-size: 13.5px; color: var(--accent); text-decoration: none; margin-bottom: 16px; }
+  .back:hover { text-decoration: underline; }
+  h1 { font-size: 30px; font-weight: 800; letter-spacing: .3px; }
+  h1 em { font-style: normal; color: var(--accent); }
+  .sub { color: var(--ink-soft); font-size: 15px; margin-top: 8px; max-width: 760px; }
+  .kpi-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+  .kpi { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 16px; }
+  .kpi b { display: block; font-size: 21px; font-weight: 800; color: var(--accent); }
+  .kpi span { font-size: 12.5px; color: var(--ink-soft); }
+
+  nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 34px; }
+  nav.toc a { font-size: 13px; text-decoration: none; color: var(--ink-soft); background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 5px 14px; }
+  nav.toc a:hover { color: var(--accent); border-color: var(--accent); }
+
+  section { margin-bottom: 52px; }
+  h2 { font-size: 21px; font-weight: 800; margin-bottom: 4px; display: flex; align-items: baseline; gap: 10px; }
+  h2 .chip { font-size: 12px; font-weight: 700; color: var(--accent); background: var(--accent-soft); border-radius: 7px; padding: 2px 10px; }
+  h2 .g-crm { color: #b4542e; background: #f3e2d8; }
+  h2 .g-erp { color: #6b6357; background: #f0ebe1; }
+  h2 .g-oa { color: #4a7c59; background: #e6efe8; }
+  h2 .g-wf { color: #7a5aa6; background: #ece4f5; }
+  .sec-sub { color: var(--ink-soft); font-size: 14px; margin-bottom: 18px; max-width: 820px; }
+
+  .diagram { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px 18px 12px; margin-bottom: 20px; }
+  .diagram svg { display: block; width: 100%; height: auto; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+  .group { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+  .group h3 { font-size: 15px; font-weight: 800; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+  .group h3 .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; }
+  .mod { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px dashed #ece5d6; font-size: 13.5px; align-items: baseline; }
+  .mod:last-child { border-bottom: none; }
+  .mod code { flex: none; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; background: var(--paper-deep); border-radius: 5px; padding: 1px 7px; color: var(--ink); min-width: 86px; text-align: center; }
+  .mod .d { color: var(--ink-soft); }
+  .mod .d b { color: var(--ink); font-weight: 600; }
+
+  footer { margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 13px; }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <a class="back" href="index.html">← 返回首页 / Back</a>
+  <h1>FIS 企业级套件 · <em>ERP / CRM / OA / 流程中台</em></h1>
+  <p class="sub">四个独立部署的 NestJS 全栈系统,共享同一套可嵌入工作流引擎(源码单源分发)。前端均为独立 SPA,通过 JWT 访问各自 API;CRM 与 ERP 之间走 REST + SSO 免登。低代码能力整体对标钉钉 / 飞书 / 泛微 / 简道云。</p>
+  <div class="kpi-row">
+    <div class="kpi"><b>4</b><span>子系统 · 独立部署</span></div>
+    <div class="kpi"><b>6+1</b><span>前端应用 + 流程设计器</span></div>
+    <div class="kpi"><b>3/3</b><span>业务系统已内嵌工作流引擎</span></div>
+    <div class="kpi"><b>17</b><span>ERP 单据类型(docType)</span></div>
+    <div class="kpi"><b>62 项</b><span>对标矩阵能力已落地</span></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#arch">① 总架构</a>
+  <a href="#erp">② ERP 内核</a>
+  <a href="#crm">③ 医疗器械 CRM</a>
+  <a href="#oa">④ 协同办公 OA</a>
+  <a href="#wf">⑤ 流程中台</a>
+</nav>
+
+<!-- ═══════════ ① 总架构 ═══════════ -->
+<section id="arch">
+  <h2>① 总架构 <span class="chip">四个系统 · 一个引擎</span></h2>
+  <p class="sec-sub">共享工作流引擎 fis-workflow v1.3.0-fis 以「源码单源分发」方式内嵌进三个业务系统:引擎源码只有一份(scripts/sync-engine.sh 整目录同步),禁止散改;业务系统通过 SPI 挂接点接入身份与单据回调。</p>
+  <div class="diagram">
+    <svg viewBox="0 0 560 240" role="img" aria-label="FIS 总架构图">
+      <!-- 用户接入层 -->
+      <text x="280" y="18" text-anchor="middle" font-size="13" font-weight="700" fill="#6b6357">用户接入层 · 6 前端应用 + 1 设计器(独立 SPA)</text>
+      <g font-size="15" font-weight="700">
+        <rect x="12" y="30" width="86" height="40" rx="9" fill="#f0ebe1" stroke="#6b6357" stroke-width="2"/>
+        <text x="55" y="55" text-anchor="middle" fill="#6b6357">ERP PC</text>
+        <rect x="106" y="30" width="86" height="40" rx="9" fill="#f0ebe1" stroke="#6b6357" stroke-width="2"/>
+        <text x="149" y="55" text-anchor="middle" fill="#6b6357">ERP H5</text>
+        <rect x="200" y="30" width="86" height="40" rx="9" fill="#f3e2d8" stroke="#b4542e" stroke-width="2"/>
+        <text x="243" y="55" text-anchor="middle" fill="#b4542e">CRM PC</text>
+        <rect x="294" y="30" width="86" height="40" rx="9" fill="#f3e2d8" stroke="#b4542e" stroke-width="2"/>
+        <text x="337" y="55" text-anchor="middle" fill="#b4542e">CRM H5</text>
+        <rect x="388" y="30" width="86" height="40" rx="9" fill="#e6efe8" stroke="#4a7c59" stroke-width="2"/>
+        <text x="431" y="55" text-anchor="middle" fill="#4a7c59">OA Vue3</text>
+        <rect x="482" y="30" width="66" height="40" rx="9" fill="#ece4f5" stroke="#7a5aa6" stroke-width="2"/>
+        <text x="515" y="55" text-anchor="middle" fill="#7a5aa6">设计器</text>
+      </g>
+      <!-- 接入层到系统层 -->
+      <path d="M55,70 V84 H117 V98 M149,70 V98 M243,70 V84 H311 V98 M337,70 V98 M431,70 V84 H365 V98 M515,70 V84 H419" fill="none" stroke="#b0a693" stroke-width="1.8" opacity="0.55"/>
+      <!-- 四系统 -->
+      <g font-size="16" font-weight="800">
+        <rect x="12" y="98" width="210" height="52" rx="11" fill="#f0ebe1" stroke="#6b6357" stroke-width="2.2"/>
+        <text x="117" y="122" text-anchor="middle" fill="#6b6357">fis-erp · 通用 ERP 内核</text>
+        <text x="117" y="140" text-anchor="middle" font-size="11.5" font-weight="500" fill="#8a8175">4S 汽车 + 多行业 · 17 docType</text>
+        <rect x="234" y="98" width="210" height="52" rx="11" fill="#f3e2d8" stroke="#b4542e" stroke-width="2.2"/>
+        <text x="339" y="122" text-anchor="middle" fill="#b4542e">fis-crm · 医疗器械 CRM</text>
+        <text x="339" y="140" text-anchor="middle" font-size="11.5" font-weight="500" fill="#c07a5b">IVD / 影像设备 · 行业合规硬闸</text>
+        <rect x="456" y="98" width="92" height="52" rx="11" fill="#e6efe8" stroke="#4a7c59" stroke-width="2.2"/>
+        <text x="502" y="122" text-anchor="middle" fill="#4a7c59">fis-oa</text>
+        <text x="502" y="140" text-anchor="middle" font-size="11.5" font-weight="500" fill="#6f9880">协同办公</text>
+      </g>
+      <!-- 系统到引擎 -->
+      <path d="M117,150 V170 H280 V182 M339,150 V170 M502,150 V170 H420 V182" fill="none" stroke="#7a5aa6" stroke-width="2" opacity="0.6"/>
+      <!-- 引擎 -->
+      <rect x="140" y="182" width="280" height="46" rx="11" fill="#2b2620"/>
+      <text x="280" y="203" text-anchor="middle" font-size="16" font-weight="800" fill="#fdfbf7">fis-workflow 工作流引擎</text>
+      <text x="280" y="220" text-anchor="middle" font-size="11.5" fill="rgba(253,251,247,0.65)">源码单源分发 · embed() 内嵌 · SPI 挂接</text>
+      <!-- 底部 -->
+      <g font-size="12" fill="#6b6357">
+        <rect x="120" y="74" width="72" height="0" fill="none"/>
+        <text x="500" y="248" text-anchor="end">JWT 认证 · SSO 免登 · REST /agent/invoke 互通 · 4 MySQL + Redis</text>
+      </g>
+    </svg>
+  </div>
+  <div class="grid2">
+    <div class="group">
+      <h3><span class="dot" style="background:#b4542e"></span>互通与身份</h3>
+      <div class="mod"><span class="d"><b>JWT + Passport</b>(local/JWT 策略)统一认证;CRM ↔ ERP 走 <b>REST /agent/invoke</b> + SSO 换票免登。</span></div>
+      <div class="mod"><span class="d"><b>多租户</b>:tenant 模块 + 租户装包(tenant-pack),一套代码多组织隔离运行。</span></div>
+    </div>
+    <div class="group">
+      <h3><span class="dot" style="background:#7a5aa6"></span>引擎分发铁律</h3>
+      <div class="mod"><span class="d">引擎源码唯一:<b>sync-engine.sh</b> 整目录同步到 ERP / CRM / OA,版本 WF_ENGINE_VERSION 统一升级,<b>禁止散改</b>。</span></div>
+      <div class="mod"><span class="d">attach() 于 onModuleInit 回填(构造期耦合会 DI 死锁);published 定义不可改图,改动必须 <b>version +1</b>。</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ② ERP ═══════════ -->
+<section id="erp">
+  <h2>② fis-erp 通用 ERP 内核 <span class="chip g-erp">12 内核引擎 + 13 业务包</span></h2>
+  <p class="sec-sub">平台地基(modules)+ 内核引擎(kernel)+ 业务包(packs)三层:单据引擎驱动 17 种 docType,Agentic ERP 让 Agent 成为第一操作者。</p>
+  <div class="grid2">
+    <div class="group">
+      <h3><span class="dot" style="background:#6b6357"></span>内核引擎 kernel/(12)</h3>
+      <div class="mod"><code>document</code><span class="d"><b>单据引擎</b>:create/submit/approve/reject/post/reverse/discard 全生命周期</span></div>
+      <div class="mod"><code>metadata</code><span class="d"><b>动态实体/字段/记录</b>,替代 form-designer 的低代码底座</span></div>
+      <div class="mod"><code>event-bus</code><span class="d">outbox → Bull → dispatch,重试 5 次进死信</span></div>
+      <div class="mod"><code>gl</code><span class="d">总账与凭证(gl.voucher.posted)</span></div>
+      <div class="mod"><code>agent</code><span class="d"><b>Agentic ERP</b>:Agent 第一操作者 + 定时调度 + 异常扫描</span></div>
+      <div class="mod"><code>doc-ai</code><span class="d">单据 AI 能力</span></div>
+      <div class="mod"><code>permission</code><span class="d">RBAC 权限(perm_role)</span></div>
+      <div class="mod"><code>report</code><span class="d">报表 + 驾驶舱每日快照</span></div>
+      <div class="mod"><code>wf-engine</code><span class="d">内嵌工作流引擎 + SPI 三件套</span></div>
+    </div>
+    <div class="group">
+      <h3><span class="dot" style="background:#6b6357"></span>业务包 packs/(13)</h3>
+      <div class="mod"><code>4s</code><span class="d">整车 / 服务工单 / 索赔 / 会员 / 套餐</span></div>
+      <div class="mod"><code>sales</code><span class="d">订单 / 发货 / 发票 3 docType</span></div>
+      <div class="mod"><code>purchase</code><span class="d">采购订单 / 收货 / 发票</span></div>
+      <div class="mod"><code>inventory</code><span class="d">出入库 / 调拨 / 盘点 / 报废</span></div>
+      <div class="mod"><code>wms</code><span class="d">仓储收货 / 发运</span></div>
+      <div class="mod"><code>mrp</code><span class="d">BOM / MRP / 生产工单</span></div>
+      <div class="mod"><code>finance</code><span class="d">应收 / 科目 / 凭证 / 余额 / 期间 / 预算 / 成本</span></div>
+      <div class="mod"><code>asset</code><span class="d">固定资产</span></div>
+      <div class="mod"><code>md</code><span class="d">医疗器械:首检 / 召回,证照效期扫描 02:00</span></div>
+      <div class="mod"><code>integration</code><span class="d">出站集成网关 + <b>SAP 适配器</b></span></div>
+    </div>
+    <div class="group">
+      <h3><span class="dot" style="background:#6b6357"></span>平台地基 modules/</h3>
+      <div class="mod"><code>auth</code><span class="d">JWT + Passport(local/JWT 策略)</span></div>
+      <div class="mod"><code>tenant</code><span class="d">多租户管理</span></div>
+      <div class="mod"><code>organization</code><span class="d">组织与分支</span></div>
+      <div class="mod"><code>user</code><span class="d">用户与角色</span></div>
+      <div class="mod"><code>system</code><span class="d">系统配置 /system/configs</span></div>
+    </div>
+    <div class="group">
+      <h3><span class="dot" style="background:#6b6357"></span>前端与运行时</h3>
+      <div class="mod"><code>PC</code><span class="d">Vue3 + Element Plus,<b>68 路由 / 66 页面</b> · 16 菜单组</span></div>
+      <div class="mod"><code>H5</code><span class="d">React18 + antd-mobile:移动审批 / 驾驶舱</span></div>
+      <div class="mod"><code>cron</code><span class="d">定时任务 ×7(证照扫描 / 快照 / 死信重投等)</span></div>
+      <div class="mod"><code>docType</code><span class="d"><b>17 种单据类型</b>,manifest 声明式注册</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ③ CRM ═══════════ -->
+<section id="crm">
+  <h2>③ fis-crm 医疗器械行业 CRM <span class="chip g-crm">IVD / 影像设备 · 行业硬闸</span></h2>
+  <p class="sec-sub">围绕「获客 → 交易 → 交付 → 合规」医疗器械业务闭环:证照过期冻结开单、两票制硬闸、UDI 追溯、不良事件 CAPA、监管直报,行业规则内建为系统闸门而非人工约定。</p>
+  <div class="grid2">
+    <div class="group">
+      <h3><span class="dot" style="background:#b4542e"></span>获客与商机</h3>
+      <div class="mod"><code>lead</code><span class="d">线索 + 公海回收(每日 02:30)</span></div>
+      <div class="mod"><code>customer</code><span class="d">客户主档 / 360° 视图 / 决策链图谱</span></div>
+      <div class="mod"><code>bid</code><span class="d">招投标:保证金跟踪 / 中标率分析</span></div>
+      <div class="mod"><code>opportunity</code><span class="d">商机漏斗:阶段状态机 / 赢率 / 竞对</span></div>
+      <div class="mod"><code>quote</code><span class="d">报价单:证照硬闸 + 过期 cron(01:00)</span></div>
+    </div>
+    <div class="group">
+      <h3><span class="dot" style="background:#b4542e"></span>交易与收款</h3>
+      <div class="mod"><code>order</code><span class="d">订单提交推送 ERP(单号回写 / 幂等闸)</span></div>
+      <div class="mod"><code>contract</code><span class="d">合同:法务/财务/合规三角色评审 + <b>两票制硬闸</b></span></div>
+      <div class="mod"><code>receivable</code><span class="d">应收 / 回款登记 → ERP 核销</span></div>
+      <div class="mod"><code>quota</code><span class="d">销售指标</span></div>
+    </div>
+    <div class="group">
+      <h3><span class="dot" style="background:#b4542e"></span>交付与服务</h3>
+      <div class="mod"><code>device</code><span class="d">装机台账 / 序列号 / 补货预测(90 天外推)+ 复购商机 cron</span></div>
+      <div class="mod"><code>ticket</code><span class="d">售后工单:SLA 违约红染(30min 扫描)</span></div>
+      <div class="mod"><code>pm</code><span class="d">预防性维护:逾期自动开工单(06:20)</span></div>
+      <div class="mod"><code>udi</code><span class="d"><b>UDI 追溯</b>:DI/PI / 事件时间线 / 召回圈定</span></div>
+    </div>
+    <div class="group">
+      <h3><span class="dot" style="background:#b4542e"></span>合规与风控(行业硬闸)</h3>
+      <div class="mod"><code>license</code><span class="d">证照效期 180/90/30 三级预警,<b>过期冻结开单</b>(02:00)</span></div>
+      <div class="mod"><code>adr</code><span class="d">不良事件:严重度分级 / 立案停用设备 / CAPA 闭环</span></div>
+      <div class="mod"><code>regreport</code><span class="d">监管直报:严重 7 日报国家局 / 一般 30 日报省局</span></div>
+      <div class="mod"><code>dealer</code><span class="d">经销商分层 / 两票制 / 流向登记(02:20 扫证照)</span></div>
+      <div class="mod"><code>audit</code><span class="d">@Audit 装饰器 + 全局拦截器</span></div>
+    </div>
+    <div class="group">
+      <h3><span class="dot" style="background:#b4542e"></span>协同与运营</h3>
+      <div class="mod"><code>visit</code><span class="d">拜访 / H5 GPS 签到 / KOL 合规审计(月度)</span></div>
+      <div class="mod"><code>todo</code><span class="d">每日待办派发(08:00)</span></div>
+      <div class="mod"><code>weekly</code><span class="d">周报:周五 17:00 催交,可挂流程批阅</span></div>
+      <div class="mod"><code>H5</code><span class="d">企微挂载 20 路由</span></div>
+    </div>
+    <div class="group">
+      <h3><span class="dot" style="background:#b4542e"></span>前端</h3>
+      <div class="mod"><code>PC</code><span class="d">React18 + antd v5,<b>29 路由 / 30 页面</b></span></div>
+      <div class="mod"><code>H5</code><span class="d">移动端 · 企微工作台免登</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ④ OA ═══════════ -->
+<section id="oa">
+  <h2>④ fis-oa 协同办公系统 <span class="chip g-oa">低代码 · 引擎接入参考实现</span></h2>
+  <p class="sec-sub">请假 / 报销 / 用章 / 出差 / 采购 / 会议室 / 公告 / 自定义表单 / 统一审批中心,7 套流程定义 wf-seed 幂等种入;低代码能力(公开表单 / 超时催办 / 报表中心 / 数据预警 / 文档中心)对标钉钉 / 飞书 / 泛微 / 简道云,对标矩阵 62 项已落地。</p>
+  <div class="grid2">
+    <div class="group">
+      <h3><span class="dot" style="background:#4a7c59"></span>业务模块 modules/(9)</h3>
+      <div class="mod"><code>leave</code><span class="d">请假:额度冻结 → 扣减闭环</span></div>
+      <div class="mod"><code>expense</code><span class="d">报销</span></div>
+      <div class="mod"><code>seal</code><span class="d">用章申请</span></div>
+      <div class="mod"><code>travel</code><span class="d">出差申请</span></div>
+      <div class="mod"><code>purchase</code><span class="d">办公采购</span></div>
+      <div class="mod"><code>meeting</code><span class="d">会议室 + 预订(含提醒 cron)</span></div>
+      <div class="mod"><code>announcement</code><span class="d">公告</span></div>
+      <div class="mod"><code>form</code><span class="d">自定义表单 + <b>FormDesigner</b> + 数据源 / 导出</span></div>
+      <div class="mod"><code>approval-center</code><span class="d"><b>统一审批中心</b>:inbox/mine/inst/act/bulk/cancel/restart/urge</span></div>
+    </div>
+    <div class="group">
+      <h3><span class="dot" style="background:#4a7c59"></span>低代码与运营能力(对标钉钉 / 飞书)</h3>
+      <div class="mod"><code>公开表单</code><span class="d">/f/:token 免登录填报 + IP 频控 + 名额 + 过期</span></div>
+      <div class="mod"><code>报表中心</code><span class="d">聚合查询 + CSS 图表</span></div>
+      <div class="mod"><code>数据预警</code><span class="d">阈值 + cooldown + cron 推站内信 + 试算页</span></div>
+      <div class="mod"><code>超时催办</code><span class="d">审批超时自动催办 / 升级</span></div>
+      <div class="mod"><code>文档中心</code><span class="d">目录树 + 可见性 + latin1 文件名修正</span></div>
+      <div class="mod"><code>Excel 导入</code><span class="d">业务数据批量导入</span></div>
+      <div class="mod"><code>开放 API</code><span class="d">apikey 开放接口</span></div>
+      <div class="mod"><code>移动端</code><span class="d">≤768px 汉堡抽屉自适应</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ⑤ 流程中台 ═══════════ -->
+<section id="wf">
+  <h2>⑤ fis-workflow 流程中台 <span class="chip g-wf">可嵌入引擎 + 可视化设计器</span></h2>
+  <p class="sec-sub">既是独立系统(REST /api/wf/* + 设计器 :3500),又是被三个业务系统内嵌的引擎内核。提交即 wf.start(),bizData 为提交时快照,在途审批不受单据后续修改影响;幂等闸防重复发起。</p>
+  <div class="grid2">
+    <div class="group">
+      <h3><span class="dot" style="background:#7a5aa6"></span>引擎能力(核心)</h3>
+      <div class="mod"><code>节点 ×6</code><span class="d">start / approval / service(预留)/ exclusive 排他 / parallel 并行 fork+join / end</span></div>
+      <div class="mod"><code>resolver</code><span class="d">审批人:role: / user: / dept_leader / initiator / field:payload.a.b</span></div>
+      <div class="mod"><code>多人策略</code><span class="d">或签 any / 会签 all / 按比例 ratio</span></div>
+      <div class="mod"><code>驳回策略</code><span class="d">回发起 to_start / 终止 to_end / 上一节点 to_previous</span></div>
+      <div class="mod"><code>超时</code><span class="d">timeoutHours + 自动通过/驳回/提醒,提醒可升级 escalate(10min 扫描)</span></div>
+      <div class="mod"><code>任务操作</code><span class="d">转办 / 加签 / 委托(wf_delegate_rule 期间委托)/ 撤回 / 催办(单条/批量)</span></div>
+      <div class="mod"><code>实例操作</code><span class="d">挂起 / 恢复 / 重发起 / 取消 / 批量通过驳回</span></div>
+      <div class="mod"><code>其他</code><span class="d">定义版本化 / 克隆 / 导入导出 / 模板市场 / 抄送 / 统计 / 幂等发起 / 多租户 / graphCache</span></div>
+    </div>
+    <div class="group">
+      <h3><span class="dot" style="background:#7a5aa6"></span>SPI 挂接点与嵌入方式</h3>
+      <div class="mod"><code>IdentitySpi</code><span class="d">resolveRole / resolveDeptLeader / getUserNames / hasRole</span></div>
+      <div class="mod"><code>BizCallback</code><span class="d">onFinished 终态回调单据状态机 / onServiceNode / onNotify</span></div>
+      <div class="mod"><code>embed()</code><span class="d"><b>WorkflowEngineModule.embed()</b> 一行接入,接入指南 embed-guide.ts</span></div>
+      <div class="mod"><code>数据模型</code><span class="d">wf_def(租户+code+version 唯一,graph JSON)/ wf_inst / wf_task 等 ×6</span></div>
+      <div class="mod"><code>Designer</code><span class="d">可视化流程设计器 Vue3(:3500),拖拽画图 → 发布版本</span></div>
+      <div class="mod"><code>REST</code><span class="d">/api/wf/* 全量管理 API</span></div>
+    </div>
+    <div class="group">
+      <h3><span class="dot" style="background:#7a5aa6"></span>落地进度</h3>
+      <div class="mod"><code>P0 · OA</code><span class="d">接入 + 引擎成熟 ✅</span></div>
+      <div class="mod"><code>P1 · ERP</code><span class="d">高频单据先行 ✅</span></div>
+      <div class="mod"><code>P2 · ERP</code><span class="d">全量切换 + 摘除旧引擎 ✅</span></div>
+      <div class="mod"><code>P3 · CRM</code><span class="d">已挂接(混合态待收敛)</span></div>
+      <div class="mod"><code>P4</code><span class="d">standalone host 升级为跨系统统一流程管理台(规划)</span></div>
+    </div>
+    <div class="group">
+      <h3><span class="dot" style="background:#7a5aa6"></span>关键契约</h3>
+      <div class="mod"><code>发起</code><span class="d">wf.start({ bizType, bizId, bizNo, bizData }),快照隔离</span></div>
+      <div class="mod"><code>幂等</code><span class="d">idempotent:true 同 bizType+bizId 已有 running 实例直接返回</span></div>
+      <div class="mod"><code>终态</code><span class="d">approved/rejected/cancelled 与单据状态机一一映射(bizCallback)</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>FIS Enterprise Suite — 4 systems · 6+1 frontends · one unified approval engine. 架构与能力明细源自项目功能地图(2026-09)。</p>
+  <p><a href="index.html">← 返回首页</a> · 联系方式见首页 Contact 区块</p>
+</footer>
+
+</div>
+</body>
+</html>

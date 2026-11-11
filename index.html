@@ -97,6 +97,12 @@
   .case h3 { font-size: 16px; margin-bottom: 8px; }
   .case p { font-size: 14px; color: var(--ink-soft); }
   .case .meta { margin-top: 12px; font-size: 13px; color: var(--accent); font-weight: 600; }
+  .case .fis-diagram { display: block; width: 100%; max-width: 640px; height: auto; margin: 8px auto 14px; border-radius: 8px; }
+  /* FIS 卡为案例主视觉:独占一整行(上方 3 卡 + 下方全宽架构图带) */
+  .case.case-wide { grid-column: 1 / -1; }
+  @media (min-width: 901px) { .case-grid { grid-template-columns: repeat(3, 1fr); } }
+  .case-more { display: inline-block; margin-top: 10px; font-size: 13.5px; font-weight: 700; color: var(--accent); text-decoration: none; }
+  .case-more:hover { text-decoration: underline; }
 
   /* app wall: 22 款在架应用(与 kinetapp/apps.html 同源数据与卡片风格) */
   .app-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
@@ -247,10 +253,40 @@
         <p data-i18n="case3.p"></p>
         <div class="meta" data-i18n="case3.meta"></div>
       </div>
-      <div class="case">
+      <div class="case case-wide">
         <h3 data-i18n="case4.h"></h3>
+        <svg class="fis-diagram" viewBox="0 0 520 220" role="img" aria-label="FIS architecture: ERP CRM OA sharing one workflow engine">
+          <!-- 三系统 -->
+          <g font-family="inherit">
+            <rect x="10" y="8" width="150" height="62" rx="10" fill="#f0ebe1" stroke="#6b6357" stroke-width="2.5"/>
+            <text x="85" y="40" text-anchor="middle" font-size="28" font-weight="700" fill="#6b6357">ERP</text>
+            <text x="85" y="62" text-anchor="middle" font-size="19" fill="#8a8175">17 doc types</text>
+            <rect x="185" y="8" width="150" height="62" rx="10" fill="#f3e2d8" stroke="#b4542e" stroke-width="2.5"/>
+            <text x="260" y="40" text-anchor="middle" font-size="28" font-weight="700" fill="#b4542e">CRM</text>
+            <text x="260" y="62" text-anchor="middle" font-size="19" fill="#c07a5b">medical IVD</text>
+            <rect x="360" y="8" width="150" height="62" rx="10" fill="#e6efe8" stroke="#4a7c59" stroke-width="2.5"/>
+            <text x="435" y="40" text-anchor="middle" font-size="28" font-weight="700" fill="#4a7c59">OA</text>
+            <text x="435" y="62" text-anchor="middle" font-size="19" fill="#6f9880">low-code</text>
+          </g>
+          <!-- 汇聚线 -->
+          <path d="M85,70 V88 H260 V105 M260,70 V105 M435,70 V88 H260" fill="none" stroke="#b4542e" stroke-width="2.5" opacity="0.5"/>
+          <!-- 中央引擎 -->
+          <rect x="70" y="112" width="380" height="54" rx="10" fill="#2b2620"/>
+          <text x="260" y="140" text-anchor="middle" font-size="28" font-weight="700" fill="#fdfbf7">Workflow Engine</text>
+          <text x="260" y="160" text-anchor="middle" font-size="19" fill="rgba(253,251,247,0.62)">single-source · visual designer</text>
+          <!-- 底部徽标 -->
+          <g font-size="19" fill="#6b6357">
+            <rect x="100" y="182" width="100" height="30" rx="15" fill="none" stroke="#e0d8c8" stroke-width="2"/>
+            <text x="150" y="203" text-anchor="middle">6+1 SPA</text>
+            <rect x="220" y="182" width="110" height="30" rx="15" fill="none" stroke="#e0d8c8" stroke-width="2"/>
+            <text x="275" y="203" text-anchor="middle">4 MySQL</text>
+            <rect x="350" y="182" width="70" height="30" rx="15" fill="none" stroke="#e0d8c8" stroke-width="2"/>
+            <text x="385" y="203" text-anchor="middle">SSO</text>
+          </g>
+        </svg>
         <p data-i18n="case4.p"></p>
         <div class="meta" data-i18n="case4.meta"></div>
+        <a class="case-more" href="fis.html" data-i18n="case4.more"></a>
       </div>
     </div>
   </div>
@@ -337,6 +373,7 @@ var I18N = {
     'case4.h': 'FIS Enterprise Suite · ERP / CRM / OA / Workflow',
     'case4.p': 'Four independently deployed NestJS full-stack systems sharing one embedded workflow engine (single-source distribution): 17 ERP document types, medical-device CRM with compliance gates, low-code OA (public forms / approval timeouts / reports center), plus a visual process designer. Benchmarked against DingTalk / Feishu / Weaver.',
     'case4.meta': '4 systems · 6+1 frontends · one unified approval engine',
+      'case4.more': 'See the full FIS suite →',
     'faq.sub': 'Common questions. For anything more specific, just email me - replies within 24 hours.',
     'faq.q1': 'How big is your team?',
     'faq.a1': 'One person + an AI workflow. That\'s the advantage: no project-manager relays — you talk to me directly, while AI carries 70% of the production work. Fast delivery, low marginal cost. KinetAios itself was built with exactly this workflow.',
@@ -401,6 +438,7 @@ var I18N = {
     'case4.h': 'FIS 企业级套件 · ERP / CRM / OA / 流程中台',
     'case4.p': '四个独立部署的 NestJS 全栈系统,共享同一套可嵌入工作流引擎(源码单源分发):ERP 17 种单据类型、医疗器械 CRM 行业合规硬闸、低代码 OA(公开表单/超时催办/报表中心)、可视化流程设计器,整体对标钉钉/飞书/泛微低代码平台。',
     'case4.meta': '4 系统 · 6+1 前端 · 统一审批引擎收口',
+      'case4.more': '查看 FIS 套件详情 →',
     'faq.sub': '常见问题。更具体的直接发邮件,24 小时内回复。',
     'faq.q1': '你们团队多少人?',
     'faq.a1': '一人 + AI 工作流。这正是优势:没有项目经理传话,你跟我直接对话;AI 承担 70% 生产工作,交付速度快、边际成本低。KinetAios 就是这套工作流本身做出来的。',
@@ -465,6 +503,7 @@ var I18N = {
     'case4.h': 'FIS 法人スイート · ERP / CRM / OA / ワークフロー基盤',
     'case4.p': '独立デプロイの NestJS フルスタックシステム 4 つが、埋め込み可能な同一ワークフローエンジン(ソース単一配布)を共有:ERP 17 種のドキュメントタイプ、医療機器 CRM のコンプライアンスゲート、ローコード OA(公開フォーム/期限督促/レポートセンター)、ビジュアルプロセスデザイナー。DingTalk / Feishu / Weaver のローコードプラットフォームをベンチマーク。',
     'case4.meta': '4 システム · 6+1 フロントエンド · 統一承認エンジン',
+      'case4.more': 'FIS スイートの詳細 →',
     'faq.sub': 'よくあるご質問。より具体的な内容はメールでどうぞ(24 時間以内に返信)。',
     'faq.q1': 'チームの規模は?',
     'faq.a1': '一人 + AI ワークフロー。だからこそ PM の伝言ゲームがなく、私と直接対話でき、AI が生産作業の 7 割を担います。納品は速く、限界費用は低い。KinetAios 自体がこのワークフローの産物です。',
