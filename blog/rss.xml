@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Phinn's blog</title>
+  <link>https://phinn.github.io/blog/</link>
+  <description>Notes on AI agents, desktop architecture, and shipping as an indie developer.</description>
+  <language>en</language>
+  <atom:link href="https://phinn.github.io/blog/rss.xml" rel="self" type="application/rss+xml"/>
+  <item>
+    <title>KinetAios vs Claude Code: an honest look at the open-source alternative</title>
+    <link>https://phinn.github.io/blog/kinetaios-vs-claude-code.html</link>
+    <guid isPermaLink="true">https://phinn.github.io/blog/kinetaios-vs-claude-code.html</guid>
+    <pubDate>Wed, 11 Nov 2026 00:00:00 +0800</pubDate>
+    <description>What a desktop cockpit adds to Claude Code — searchable history, side-by-side engines, long-term memory — and what it deliberately doesn't do.</description>
+  </item>
+  <item>
+    <title>Claude Code has no official GUI. Here's what a desktop cockpit actually adds.</title>
+    <link>https://phinn.github.io/blog/claude-code-gui.html</link>
+    <guid isPermaLink="true">https://phinn.github.io/blog/claude-code-gui.html</guid>
+    <pubDate>Wed, 11 Nov 2026 00:00:00 +0800</pubDate>
+    <description>Four principles for wrapping a terminal agent: wrap never replace, the three real costs of a REPL, streaming UX as a product, local-first trust.</description>
+  </item>
+  <item>
+    <title>What we learned shipping an Electron AI agent dashboard</title>
+    <link>https://phinn.github.io/blog/electron-ai-agent-architecture.html</link>
+    <guid isPermaLink="true">https://phinn.github.io/blog/electron-ai-agent-architecture.html</guid>
+    <pubDate>Wed, 11 Nov 2026 00:00:00 +0800</pubDate>
+    <description>Two processes one bridge, one fold function for streaming state, SQLite+FTS5 as the spine, and the Windows CLI-spawn traps.</description>
+  </item>
+</channel>
+</rss>

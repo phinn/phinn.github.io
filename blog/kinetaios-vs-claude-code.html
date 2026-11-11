@@ -7,106 +7,129 @@
 <meta name="description" content="Claude Code is a terminal-first coding agent. KinetAios is a local-first desktop dashboard that runs Claude Code and Codex side by side — what it adds, what it doesn't, and who it's for.">
 <link rel="canonical" href="https://phinn.github.io/blog/kinetaios-vs-claude-code.html">
 <meta property="og:title" content="KinetAios vs Claude Code: an honest look">
-<meta property="og:description" content="What a desktop dashboard adds to Claude Code — and what it deliberately doesn't do.">
+<meta property="og:description" content="What a desktop cockpit adds to Claude Code — and what it deliberately doesn't do.">
 <meta property="og:type" content="article">
-<style>
-:root{--paper:#f7f4ee;--ink:#2b2620;--ink-soft:#6b6459;--accent:#b4542e;--line:#e4ddd0;--serif:'Fraunces',Georgia,'Songti SC',serif;--sans:-apple-system,'PingFang SC',sans-serif}
-*{box-sizing:border-box;margin:0}
-body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.72;font-size:16.5px}
-.wrap{max-width:720px;margin:0 auto;padding:0 22px}
-nav.site{display:flex;justify-content:space-between;padding:16px 0;font-size:13.5px}
-nav.site a{color:var(--ink-soft);text-decoration:none}
-nav.site a:hover{color:var(--accent)}
-h1{font-family:var(--serif);font-size:clamp(27px,5vw,38px);line-height:1.22;margin:22px 0 10px}
-.meta{color:var(--ink-soft);font-size:13.5px;letter-spacing:.3px;margin-bottom:8px}
-h2{font-family:var(--serif);font-size:22px;margin:34px 0 10px;line-height:1.3}
-p{margin:13px 0}
-code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px}
-code{background:#ece6da;padding:1px 6px;border-radius:5px}
-pre{background:#2b2620;color:#f0e9dc;padding:16px 18px;border-radius:10px;overflow-x:auto;line-height:1.6;margin:18px 0}
-pre code{background:none;padding:0;color:inherit}
-ul,ol{margin:12px 0 12px 22px}li{margin:6px 0}
-blockquote{border-left:3px solid var(--accent);padding:2px 0 2px 16px;color:var(--ink-soft);margin:18px 0}
-table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14.5px}
-th,td{border:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
-th{background:#ece6da;font-weight:600}
-.cta{background:#2b2620;color:#f7f4ee;border-radius:12px;padding:22px 24px;margin:38px 0 10px}
-.cta p{color:#d9d2c4;font-size:14.5px;margin:8px 0 4px}
-.btn{display:inline-block;background:var(--accent);color:#fff!important;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14.5px;margin:10px 8px 0 0}
-.btn.alt{background:#3a332a}
-footer.site{margin-top:34px;padding:24px 0;border-top:1px solid var(--line);color:var(--ink-soft);font-size:13px}
-footer.site a{color:var(--ink-soft)}
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap">
+<link rel="stylesheet" href="assets/blog.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "KinetAios vs Claude Code: an honest look at the open-source alternative",
+  "datePublished": "2026-11-11",
+  "dateModified": "2026-11-11",
+  "author": {"@type": "Person", "name": "Phinn", "url": "https://phinn.github.io/"},
+  "publisher": {"@type": "Person", "name": "Phinn"},
+  "mainEntityOfPage": "https://phinn.github.io/blog/kinetaios-vs-claude-code.html",
+  "description": "Claude Code is a terminal-first coding agent. KinetAios is a local-first desktop dashboard that runs Claude Code and Codex side by side — what it adds, what it doesn't, and who it's for."
+}
+</script>
 </head>
 <body>
-<div class="wrap">
-<nav class="site">
-  <a href="/">← phinn.github.io</a>
-  <a href="https://github.com/phinn/KinetAios" target="_blank">GitHub ↗</a>
-</nav>
+<div class="progress" role="presentation"></div>
+<header class="topbar">
+  <div class="tb-wrap">
+    <a class="tb-home" href="/">phinn<em>.</em>io</a>
+    <nav class="tb-nav">
+      <a href="/blog/">Blog</a>
+      <a href="/#apps">Apps</a>
+      <a href="https://github.com/phinn" target="_blank">GitHub ↗</a>
+      <a href="mailto:phinn@outlook.com">Contact</a>
+    </nav>
+  </div>
+</header>
 
-<h1>KinetAios vs Claude Code: an honest look at the open-source alternative</h1>
-<div class="meta">2026-11-11 · Phinn · 8 min read</div>
+<main class="post-grid">
+  <article>
+    <div class="p-meta"><time datetime="2026-11-11">Nov 11, 2026</time> · Phinn · 8 min read · <a href="index.html#kinetaios-vs-claude-code"># claude-code</a></div>
+    <h1 class="p-title">KinetAios vs Claude Code: an honest look at the open-source alternative</h1>
+    <p class="p-lead">Claude Code is the strongest terminal coding agent. KinetAios doesn't try to be a better Claude Code — it builds the seats around it: searchable history, side-by-side engines, memory that accumulates.</p>
 
-<p>People searching for a "Claude Code alternative" usually want one of two things: a different workflow (GUI, history, multiple agents), or a different engine under the hood. This post is written by the author of <a href="https://github.com/phinn/KinetAios" target="_blank">KinetAios</a>, so instead of marketing, here is exactly what it does, what it doesn't, and who it's for.</p>
+    <div class="p-body">
+      <p>People searching for a "Claude Code alternative" usually want one of two things: a different workflow (GUI, history, multiple agents), or a different engine under the hood. This post is written by the author of <a href="https://github.com/phinn/KinetAios" target="_blank">KinetAios</a>, so instead of marketing, here is exactly what it does, what it doesn't, and who it's for.</p>
 
-<h2>What Claude Code does well</h2>
-<p>Claude Code is the strongest terminal coding agent available. Its agent loop, tool use, skills and hooks run inside Anthropic's own CLI, tightly integrated with the model. If you live in the terminal, work on one project at a time, and only use one engine — Claude Code alone is enough. Genuinely. Close this tab.</p>
+      <h2 id="what-cc-does-well">What Claude Code does well</h2>
+      <p>Claude Code is the strongest terminal coding agent available. Its agent loop, tool use, skills and hooks run inside Anthropic's own CLI, tightly integrated with the model. If you live in the terminal, work on one project at a time, and only use one engine — Claude Code alone is enough. Genuinely. <a href="https://claude.com/product/claude-code" target="_blank">Close this tab</a>.</p>
 
-<h2>Where a terminal hits friction</h2>
-<p>After months of daily use, the friction isn't the agent — it's the cockpit:</p>
-<ul>
-  <li><strong>History is scattered.</strong> Sessions land as per-project JSONL under <code>~/.claude/projects/…</code>. There is no cross-project, cross-day search over what you and the agent actually did.</li>
-  <li><strong>One REPL at a time.</strong> Running three agents in parallel means tmux panes, and switching contexts mid-thought.</li>
-  <li><strong>Nothing accumulates.</strong> Session N doesn't know what you decided in session N-3 unless you paste it back in yourself.</li>
-  <li><strong>One engine only.</strong> Trying Codex means learning a second REPL with different flags, different resume semantics, and a different history store.</li>
-</ul>
+      <h2 id="terminal-friction">Where a terminal hits friction</h2>
+      <p>After months of daily use, the friction isn't the agent — it's the cockpit:</p>
+      <ul>
+        <li><strong>History is scattered.</strong> Sessions land as per-project JSONL under <code>~/.claude/projects/…</code>. There is no cross-project, cross-day search over what you and the agent actually did.</li>
+        <li><strong>One REPL at a time.</strong> Running three agents in parallel means tmux panes, and switching contexts mid-thought.</li>
+        <li><strong>Nothing accumulates.</strong> Session N doesn't know what you decided in session N-3 unless you paste it back in yourself.</li>
+        <li><strong>One engine only.</strong> Trying Codex means learning a second REPL with different flags, different resume semantics, and a different history store.</li>
+      </ul>
 
-<h2>What KinetAios is</h2>
-<p>KinetAios is a local-first desktop dashboard for coding agents on macOS and Windows. Open source (MIT), no account, no relay. The honest framing: it does not replace Claude Code's agent brain — it wraps it in a cockpit, and lets other engines share the same cockpit.</p>
+      <h2 id="what-kinetaios-is">What KinetAios is</h2>
+      <p>KinetAios is a local-first desktop dashboard for coding agents on macOS and Windows. Open source (MIT), no account, no relay. The honest framing: it does not replace Claude Code's agent brain — it wraps it in a cockpit, and lets other engines share the same cockpit.</p>
 
-<table>
-  <tr><th></th><th>Claude Code (CLI)</th><th>KinetAios (desktop)</th></tr>
-  <tr><td>Agent engine</td><td>Anthropic CLI</td><td>Claude Code + Codex + built-in ReAct engine (Direct)</td></tr>
-  <tr><td>Interface</td><td>Terminal REPL</td><td>Streaming GUI: markdown, tool-call cards, cost per turn</td></tr>
-  <tr><td>History</td><td>Per-project JSONL</td><td>SQLite + FTS5, searchable across projects and days</td></tr>
-  <tr><td>Memory</td><td>Per-session context</td><td>Long-term facts extracted per turn, injected into the next</td></tr>
-  <tr><td>Engines side by side</td><td>—</td><td>Multiple conversations, multiple engines, one window</td></tr>
-  <tr><td>Platforms</td><td>macOS / Linux / Windows (terminal)</td><td>macOS + Windows native (global hotkey, tray, quick panel)</td></tr>
-  <tr><td>License</td><td>Commercial (Anthropic)</td><td>MIT, source in the open · Mac build on the App Store</td></tr>
-</table>
+      <table>
+        <tr><th></th><th>Claude Code (CLI)</th><th>KinetAios (desktop)</th></tr>
+        <tr><td>Agent engine</td><td>Anthropic CLI</td><td>Claude Code + Codex + built-in ReAct engine (Direct)</td></tr>
+        <tr><td>Interface</td><td>Terminal REPL</td><td>Streaming GUI: markdown, tool-call cards, cost per turn</td></tr>
+        <tr><td>History</td><td>Per-project JSONL</td><td>SQLite + FTS5, searchable across projects and days</td></tr>
+        <tr><td>Memory</td><td>Per-session context</td><td>Long-term facts extracted per turn, injected into the next</td></tr>
+        <tr><td>Engines side by side</td><td>—</td><td>Multiple conversations, multiple engines, one window</td></tr>
+        <tr><td>Platforms</td><td>macOS / Linux / Windows (terminal)</td><td>macOS + Windows native (global hotkey, tray, quick panel)</td></tr>
+        <tr><td>License</td><td>Commercial (Anthropic)</td><td>MIT, source in the open · Mac build on the App Store</td></tr>
+      </table>
 
-<h2>How it actually runs Claude Code</h2>
-<p>No reimplementation, no proxy. KinetAios spawns the real CLI and parses its structured stream:</p>
-<pre><code>claude -p --output-format stream-json --verbose --resume &lt;sessionId&gt;</code></pre>
-<p>Every NDJSON line — tokens, tool calls, costs, status — is folded into a unified event model. Resume uses Claude Code's own session id. Your stored preferences are injected via <code>--append-system-prompt</code>. The agent loop is still Anthropic's; the dashboard adds the seats around it.</p>
-<p>Codex gets the same treatment (<code>codex exec --json</code>, same resume pattern). And the built-in "Direct" engine is a compact ReAct loop for when you want a second opinion from a different provider without leaving the window.</p>
+      <h2 id="how-it-runs-cc">How it actually runs Claude Code</h2>
+      <p>No reimplementation, no proxy. KinetAios spawns the real CLI and parses its structured stream:</p>
+      <div class="codeblk"><div class="cb-lang">bash</div><pre><code>claude -p --output-format stream-json --verbose --resume &lt;sessionId&gt;</code></pre></div>
+      <p>Every NDJSON line — tokens, tool calls, costs, status — is folded into a unified event model. Resume uses Claude Code's own session id, so you can drop back to the terminal and continue the same session. Your stored preferences ride along via <code>--append-system-prompt</code>. The agent loop is still Anthropic's; the dashboard adds the seats around it.</p>
+      <p>Codex gets the same treatment (<code>codex exec --json</code>, same resume pattern). And the built-in "Direct" engine is a compact ReAct loop for when you want a second opinion from a different provider without leaving the window.</p>
 
-<h2>What it deliberately doesn't do</h2>
-<ul>
-  <li><strong>It doesn't fork or proxy Claude Code's internals.</strong> Skills, hooks and sub-agents still live inside the CLI and keep working — KinetAios doesn't intercept them.</li>
-  <li><strong>No local LLM endpoint yet.</strong> There is no Ollama/OpenAI-compatible base-url setting today. If local models are your hard requirement, this isn't the tool for that yet — the roadmap has it, but shipping a half-working local endpoint would be worse than not shipping it.</li>
-  <li><strong>It's not a team product.</strong> No cloud sync, no seats, no relay server. Everything stays in your SQLite file.</li>
-</ul>
+      <h2 id="doesnt-do">What it deliberately doesn't do</h2>
+      <ul>
+        <li><strong>It doesn't fork or proxy Claude Code's internals.</strong> Skills, hooks and sub-agents still live inside the CLI and keep working — KinetAios doesn't intercept them.</li>
+        <li><strong>No local LLM endpoint yet.</strong> There is no Ollama / OpenAI-compatible base-url setting today. If local models are your hard requirement, this isn't the tool for that yet — the roadmap has it, but shipping a half-working local endpoint would be worse than not shipping it.</li>
+        <li><strong>It's not a team product.</strong> No cloud sync, no seats, no relay server. Everything stays in your local SQLite file.</li>
+      </ul>
 
-<h2>Who should try it</h2>
-<ul>
-  <li>You run Claude Code daily and want searchable history across projects instead of JSONL archaeology.</li>
-  <li>You juggle Claude Code and Codex and want one cockpit instead of two REPLs.</li>
-  <li>You want your agent's decisions to accumulate into long-term memory automatically.</li>
-  <li>You're on Windows and prefer a native desktop app over a terminal window.</li>
-</ul>
+      <h2 id="who-should-try">Who should try it</h2>
+      <ul>
+        <li>You run Claude Code daily and want searchable history across projects instead of JSONL archaeology.</li>
+        <li>You juggle Claude Code and Codex and want one cockpit instead of two REPLs.</li>
+        <li>You want your agent's decisions to accumulate into long-term memory automatically.</li>
+        <li>You're on Windows and prefer a native desktop app over a terminal window.</li>
+      </ul>
 
-<div class="cta">
-  <b>KinetAios — local-first agent cockpit, open source (MIT)</b>
-  <p>3,200+ clones · macOS &amp; Windows · Claude Code, Codex and a built-in ReAct engine in one window. No account, no relay.</p>
-  <a class="btn" href="https://github.com/phinn/KinetAios" target="_blank">★ Star on GitHub</a>
-  <a class="btn alt" href="https://apps.apple.com/app/id6809450051" target="_blank">Mac App Store — $12.99</a>
-</div>
+      <p>If that trade sounds right — the agent brain you already trust, in a cockpit that remembers — that's the whole pitch.</p>
+    </div>
 
-<footer class="site">
-  <a href="/">← phinn.github.io</a> · <a href="/blog/">Blog</a>
+    <div class="cta">
+      <b>KinetAios — local-first agent cockpit, open source (MIT)</b>
+      <p>3,200+ clones · macOS &amp; Windows · Claude Code, Codex and a built-in ReAct engine in one window. No account, no relay.</p>
+      <a class="btn" href="https://github.com/phinn/KinetAios" target="_blank">★ Star on GitHub</a>
+      <a class="btn alt" href="https://apps.apple.com/app/id6809450051" target="_blank">Mac App Store — $12.99</a>
+    </div>
+
+    <nav class="pn">
+      <a class="next solo" href="claude-code-gui.html"><span class="pn-k">Next →</span><span class="pn-t">Claude Code has no official GUI. Here's what a desktop cockpit actually adds.</span></a>
+    </nav>
+  </article>
+
+  <aside class="toc" id="toc">
+    <div class="toc-h">On this page</div>
+    <a href="#what-cc-does-well">What Claude Code does well</a>
+    <a href="#terminal-friction">Where a terminal hits friction</a>
+    <a href="#what-kinetaios-is">What KinetAios is</a>
+    <a href="#how-it-runs-cc">How it actually runs Claude Code</a>
+    <a href="#doesnt-do">What it deliberately doesn't do</a>
+    <a href="#who-should-try">Who should try it</a>
+  </aside>
+</main>
+
+<footer class="site-foot">
+  <div class="sf-wrap">
+    <div>© <span id="y">2026</span> Phinn · <a href="/">phinn.github.io</a></div>
+    <div><a href="/blog/">Blog</a> · <a href="https://github.com/phinn/KinetAios" target="_blank">KinetAios</a> · <a href="mailto:phinn@outlook.com">phinn@outlook.com</a></div>
+  </div>
 </footer>
-</div>
+<script src="assets/blog.js"></script>
 </body>
 </html>
+

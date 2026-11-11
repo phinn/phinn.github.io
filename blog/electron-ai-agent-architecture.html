@@ -3,98 +3,122 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>What we learned shipping an Electron AI agent dashboard (architecture notes)</title>
+<title>What we learned shipping an Electron AI agent dashboard (2026)</title>
 <meta name="description" content="Architecture notes from shipping KinetAios, an Electron + TypeScript AI agent dashboard: the two-process bridge, unified event folding, SQLite+FTS5 history, spawning CLIs on Windows safely, and why vanilla TS beat a framework here.">
 <link rel="canonical" href="https://phinn.github.io/blog/electron-ai-agent-architecture.html">
 <meta property="og:title" content="Electron AI agent dashboard: architecture notes">
 <meta property="og:description" content="Two processes, one event fold function, and other lessons from shipping an Electron agent dashboard.">
 <meta property="og:type" content="article">
-<style>
-:root{--paper:#f7f4ee;--ink:#2b2620;--ink-soft:#6b6459;--accent:#b4542e;--line:#e4ddd0;--serif:'Fraunces',Georgia,'Songti SC',serif;--sans:-apple-system,'PingFang SC',sans-serif}
-*{box-sizing:border-box;margin:0}
-body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.72;font-size:16.5px}
-.wrap{max-width:720px;margin:0 auto;padding:0 22px}
-nav.site{display:flex;justify-content:space-between;padding:16px 0;font-size:13.5px}
-nav.site a{color:var(--ink-soft);text-decoration:none}
-nav.site a:hover{color:var(--accent)}
-h1{font-family:var(--serif);font-size:clamp(27px,5vw,38px);line-height:1.22;margin:22px 0 10px}
-.meta{color:var(--ink-soft);font-size:13.5px;letter-spacing:.3px;margin-bottom:8px}
-h2{font-family:var(--serif);font-size:22px;margin:34px 0 10px;line-height:1.3}
-h3{font-size:16.5px;margin:22px 0 6px}
-p{margin:13px 0}
-code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px}
-code{background:#ece6da;padding:1px 6px;border-radius:5px}
-pre{background:#2b2620;color:#f0e9dc;padding:16px 18px;border-radius:10px;overflow-x:auto;line-height:1.6;margin:18px 0}
-pre code{background:none;padding:0;color:inherit}
-ul,ol{margin:12px 0 12px 22px}li{margin:6px 0}
-blockquote{border-left:3px solid var(--accent);padding:2px 0 2px 16px;color:var(--ink-soft);margin:18px 0}
-table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14.5px}
-th,td{border:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
-th{background:#ece6da;font-weight:600}
-.cta{background:#2b2620;color:#f7f4ee;border-radius:12px;padding:22px 24px;margin:38px 0 10px}
-.cta p{color:#d9d2c4;font-size:14.5px;margin:8px 0 4px}
-.btn{display:inline-block;background:var(--accent);color:#fff!important;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14.5px;margin:10px 8px 0 0}
-.btn.alt{background:#3a332a}
-footer.site{margin-top:34px;padding:24px 0;border-top:1px solid var(--line);color:var(--ink-soft);font-size:13px}
-footer.site a{color:var(--ink-soft)}
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap">
+<link rel="stylesheet" href="assets/blog.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "What we learned shipping an Electron AI agent dashboard",
+  "datePublished": "2026-11-11",
+  "dateModified": "2026-11-11",
+  "author": {"@type": "Person", "name": "Phinn", "url": "https://phinn.github.io/"},
+  "publisher": {"@type": "Person", "name": "Phinn"},
+  "mainEntityOfPage": "https://phinn.github.io/blog/electron-ai-agent-architecture.html",
+  "description": "Architecture notes from shipping an Electron + TypeScript AI agent dashboard: two processes one bridge, one fold function, SQLite+FTS5, safe CLI spawning on Windows."
+}
+</script>
 </head>
 <body>
-<div class="wrap">
-<nav class="site">
-  <a href="/">← phinn.github.io</a>
-  <a href="https://github.com/phinn/KinetAios" target="_blank">GitHub ↗</a>
-</nav>
+<div class="progress" role="presentation"></div>
+<header class="topbar">
+  <div class="tb-wrap">
+    <a class="tb-home" href="/">phinn<em>.</em>io</a>
+    <nav class="tb-nav">
+      <a href="/blog/">Blog</a>
+      <a href="/#apps">Apps</a>
+      <a href="https://github.com/phinn" target="_blank">GitHub ↗</a>
+      <a href="mailto:phinn@outlook.com">Contact</a>
+    </nav>
+  </div>
+</header>
 
-<h1>What we learned shipping an Electron AI agent dashboard</h1>
-<div class="meta">2026-11-11 · Phinn · 9 min read</div>
+<main class="post-grid">
+  <article>
+    <div class="p-meta"><time datetime="2026-11-11">Nov 11, 2026</time> · Phinn · 9 min read · <a href="index.html#electron-ai-agent-architecture"># engineering</a></div>
+    <h1 class="p-title">What we learned shipping an Electron AI agent dashboard</h1>
+    <p class="p-lead">KinetAios is a local-first desktop cockpit for coding agents — Claude Code, Codex and a built-in ReAct engine in one window, on macOS and Windows. These are the architecture decisions that survived contact with reality, and the ones that didn't.</p>
 
-<p><a href="https://github.com/phinn/KinetAios" target="_blank">KinetAios</a> is a local-first AI agent dashboard (macOS + Windows) that runs Claude Code, Codex and a built-in ReAct engine side by side, with searchable history and long-term memory. It's Electron + TypeScript with zero frontend framework — vanilla TS bundled by esbuild. These are the architecture decisions that survived contact with reality, and the ones that didn't.</p>
+    <div class="p-body">
+      <p><a href="https://github.com/phinn/KinetAios" target="_blank">KinetAios</a> is Electron + TypeScript with zero frontend framework — vanilla TS bundled by esbuild. It's MIT; read it, steal the patterns, tell us what we got wrong. Here's the write-up we wish we'd had before starting.</p>
 
-<h2>Two processes, one narrow bridge — kept</h2>
-<p>Main process owns Node: agent runtime, SQLite, settings, CLI spawning. Renderer owns pixels and has <strong>no Node access</strong>: <code>contextIsolation: true</code>, <code>nodeIntegration: false</code>. Everything crossing the boundary goes through one typed preload API.</p>
-<p>The discipline that makes this work: a shared types file is the single contract. Adding a capability means touching exactly three places — the API interface, the preload binding, the main handler — and they must stay in sync. Boring, explicit, greppable. Every Electron security incident starts with someone making this bridge "more convenient".</p>
+      <h2 id="bridge">Two processes, one narrow bridge</h2>
+      <p>Main process owns Node: agent runtime, SQLite, settings, CLI spawning. Renderer owns pixels and has <strong>no Node access</strong>: <code>contextIsolation: true</code>, <code>nodeIntegration: false</code>. Everything crossing the boundary goes through one typed preload API.</p>
+      <p>The discipline that makes this work: a shared types file is the single contract. Adding a capability means touching exactly three places — the API interface, the preload binding, the main handler — and they must stay in sync. Boring, explicit, greppable. Every Electron security incident starts with someone making this bridge "more convenient".</p>
 
-<h2>One fold function for streaming state — kept, twice</h2>
-<p>Every engine emits the same unified event union: <code>token | tool | cost | status | sessionStarted | done | error</code>. A single pure function folds one event into the conversation's turn state. Main calls it before persisting; the renderer calls the same function to update the view.</p>
-<p>We rebuilt this once after the original per-engine state handling drifted. The rule that fell out: <em>when you change how an event updates state, change it in exactly one place</em>. If streaming view and stored history can disagree, they eventually will.</p>
+      <h2 id="fold">One fold function for streaming state</h2>
+      <p>Every engine emits the same unified event union: <code>token | tool | cost | status | sessionStarted | done | error</code>. A single pure function folds one event into the conversation's turn state. Main calls it before persisting; the renderer calls the same function to update the view.</p>
+      <p>We rebuilt this once after the original per-engine state handling drifted. The rule that fell out: <em>when you change how an event updates state, change it in exactly one place</em>. If streaming view and stored history can disagree, they eventually will — and the disagreement ships to users before you notice.</p>
 
-<h2>SQLite + FTS5 as the spine — kept</h2>
-<p>History, long-term memory, search: all SQLite. FTS5 powers full-text recall across every conversation and tool result. Three lessons:</p>
-<ul>
-  <li>Run schema migrations idempotently on init — virtual tables via <code>db.exec</code>, because <code>.prepare</code> only runs the first statement.</li>
-  <li>Index what you prune. A 90-day DELETE by timestamp without a range index meant a full scan of 600k+ rows every few turns; one <code>CREATE INDEX</code> ended it.</li>
-  <li>Bounded background jobs, always. Our memory-dedup pass was O(n²) over pairwise token sets — at 45k memories it stalled the main process for minutes. Cap the working set, yield to the event loop, push the tail to a decay job. If a background task's cost isn't written in a comment next to its trigger, it's a future outage.</li>
-</ul>
+      <h2 id="sqlite">SQLite + FTS5 as the spine</h2>
+      <p>History, long-term memory, search: all SQLite. FTS5 powers full-text recall across every conversation and tool result. Three lessons paid for in production:</p>
+      <ul>
+        <li>Run schema migrations idempotently on init — virtual tables via <code>db.exec</code>, because <code>.prepare</code> only runs the first statement.</li>
+        <li>Index what you prune. A 90-day DELETE by timestamp without a range index meant a full scan of 600k+ rows every few turns; one <code>CREATE INDEX</code> ended it.</li>
+        <li>Bounded background jobs, always. Our memory-dedup pass was O(n²) over pairwise token sets — at 45k memories it stalled the main process for minutes at 83% CPU. Cap the working set, yield to the event loop, push the tail to a decay job. If a background task's cost isn't written in a comment next to its trigger, it's a future outage.</li>
+      </ul>
 
-<h2>Spawning CLIs is the hard part on Windows — learned the hard way</h2>
-<p>The dashboard spawns real CLIs (<code>claude</code>, <code>codex</code>) and parses their JSON streams. On Windows, npm-global CLIs are <code>.cmd</code> shims — and since CVE-2024-27980, Node refuses to spawn <code>.cmd</code>/<code>.bat</code> directly. The routing: shims go through <code>shell: true</code> (sandboxed, fixed argv), real executables spawn directly.</p>
-<p>Second trap: a GUI-launched Electron app inherits a sparse PATH and can't find the CLIs at all. Solution is augmenting PATH with the common install dirs before spawn. Neither trap is exotic; both produce "works in my terminal, broken in the app" reports that waste afternoons.</p>
+      <h2 id="spawn">Spawning CLIs is the hard part on Windows</h2>
+      <p>The dashboard spawns real CLIs (<code>claude</code>, <code>codex</code>) and parses their JSON streams. On Windows, npm-global CLIs are <code>.cmd</code> shims — and since CVE-2024-27980, Node refuses to spawn <code>.cmd</code>/<code>.bat</code> directly. The routing: shims go through <code>shell: true</code> (sandboxed, fixed argv), real executables spawn directly.</p>
+      <p>Second trap: a GUI-launched Electron app inherits a sparse PATH and can't find the CLIs at all. Solution is augmenting PATH with the common install dirs before spawn. Neither trap is exotic; both produce "works in my terminal, broken in the app" reports that waste afternoons.</p>
 
-<h2>Vanilla TS over a framework — kept, would keep again</h2>
-<p>No React. Renderer is TypeScript + HTML + CSS bundled by esbuild. For a tool UI (lists, streaming text, a modal), a framework buys you a virtual DOM and costs you a build pipeline, a state model, and bundle weight. The streaming markdown renderer is a single function: parse → fold into DOM. Every "should we add React?" conversation since has died at "what would it change tomorrow?"</p>
+      <h2 id="vanilla">Vanilla TS over a framework</h2>
+      <p>No React. Renderer is TypeScript + HTML + CSS bundled by esbuild. For a tool UI (lists, streaming text, a modal), a framework buys you a virtual DOM and costs you a build pipeline, a state model, and bundle weight. The streaming markdown renderer is a single function: parse → fold into DOM, throttled by <code>requestAnimationFrame</code> (which also auto-pauses when the window is hidden — <code>setTimeout</code> throttling doesn't). Every "should we add React?" conversation since has died at "what would it change tomorrow?"</p>
 
-<h2>Things that didn't survive</h2>
-<ul>
-  <li><strong>Per-engine event handling.</strong> Three engines, three code paths, subtle divergence. Replaced by the unified event union + one fold.</li>
-  <li><strong>Confirm flows in the main process.</strong> Main can't show UI; the first confirm implementation grew tentacles. Now: main parks a resolver, sends one message to the renderer, the modal replies. One map, one timeout.</li>
-  <li><strong>Settings as loose JSON, grown organically.</strong> Became a schemaless blob. Typed it end to end; the diff was brutal, the afterwards was quiet.</li>
-</ul>
+      <h2 id="fences">Fence parsing is a state machine, not a regex</h2>
+      <p>A regex like <code>/```(\w*)\n[\s\S]*?```/</code> happily terminates a code block on a fence that appears <em>inside</em> the content — and then writes the rest of the message twice. We replaced it with a small line-by-line state machine following CommonMark fence rules: about 40 lines, no edge cases since. Lesson: streaming markdown is a parsing problem, and parsing problems get state machines.</p>
 
-<h2>The meta-lesson</h2>
-<p>An agent dashboard is mostly plumbing around someone else's loop: stream parsing, history, memory, permissions. The plumbing is the product. Every hour spent making the bridge narrow, the state fold pure, and the background jobs bounded paid for itself; every shortcut became a 2 a.m. incident.</p>
-<p>The codebase is MIT — read it, steal the patterns, tell us what we got wrong.</p>
+      <h2 id="dead">Things that didn't survive</h2>
+      <ul>
+        <li><strong>Per-engine event handling.</strong> Three engines, three code paths, subtle divergence. Replaced by the unified event union + one fold.</li>
+        <li><strong>Confirm flows in the main process.</strong> Main can't show UI; the first confirm implementation grew tentacles. Now: main parks a resolver, sends one message to the renderer, the modal replies. One map, one timeout.</li>
+        <li><strong>Settings as loose JSON, grown organically.</strong> Became a schemaless blob. Typed it end to end; the diff was brutal, the afterwards was quiet.</li>
+      </ul>
 
-<div class="cta">
-  <b>KinetAios — the dashboard this post is about</b>
-  <p>Open source (MIT) · Electron + TypeScript · SQLite + FTS5 · macOS &amp; Windows.</p>
-  <a class="btn" href="https://github.com/phinn/KinetAios" target="_blank">★ Star on GitHub</a>
-  <a class="btn alt" href="https://apps.apple.com/app/id6809450051" target="_blank">Mac App Store — $12.99</a>
-</div>
+      <h2 id="meta">The meta-lesson</h2>
+      <p>An agent dashboard is mostly plumbing around someone else's loop: stream parsing, history, memory, permissions. The plumbing is the product. Every hour spent making the bridge narrow, the state fold pure, and the background jobs bounded paid for itself; every shortcut became a 2 a.m. incident.</p>
+    </div>
 
-<footer class="site">
-  <a href="/">← phinn.github.io</a> · <a href="/blog/">Blog</a>
+    <div class="cta">
+      <b>KinetAios — the dashboard this post is about</b>
+      <p>Open source (MIT) · 3,200+ clones · Electron + TypeScript · SQLite + FTS5 · macOS &amp; Windows.</p>
+      <a class="btn" href="https://github.com/phinn/KinetAios" target="_blank">★ Star on GitHub</a>
+      <a class="btn alt" href="https://apps.apple.com/app/id6809450051" target="_blank">Mac App Store — $12.99</a>
+    </div>
+
+    <nav class="pn">
+      <a href="claude-code-gui.html"><span class="pn-k">← Previous</span><span class="pn-t">Claude Code has no official GUI. Here's what a desktop cockpit actually adds.</span></a>
+      <a class="next solo" href="index.html"><span class="pn-k">Next →</span><span class="pn-t">All posts</span></a>
+    </nav>
+  </article>
+
+  <aside class="toc" id="toc">
+    <div class="toc-h">On this page</div>
+    <a href="#bridge">Two processes, one narrow bridge</a>
+    <a href="#fold">One fold function</a>
+    <a href="#sqlite">SQLite + FTS5 as the spine</a>
+    <a href="#spawn">Spawning CLIs on Windows</a>
+    <a href="#vanilla">Vanilla TS over a framework</a>
+    <a href="#fences">Fences: state machine, not regex</a>
+    <a href="#dead">Things that didn't survive</a>
+    <a href="#meta">The meta-lesson</a>
+  </aside>
+</main>
+
+<footer class="site-foot">
+  <div class="sf-wrap">
+    <div>© <span id="y">2026</span> Phinn · <a href="/">phinn.github.io</a></div>
+    <div><a href="/blog/">Blog</a> · <a href="https://github.com/phinn/KinetAios" target="_blank">KinetAios</a> · <a href="mailto:phinn@outlook.com">phinn@outlook.com</a></div>
+  </div>
 </footer>
-</div>
+<script src="assets/blog.js"></script>
 </body>
 </html>
