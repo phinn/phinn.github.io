@@ -18,7 +18,7 @@
   --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 }
 
-/* ---- dark theme (opt-in, persisted in localStorage 'phinn-theme') ---- */
+/* ---- dark theme (opt-in; stored in localStorage 'phinn-theme') ---- */
 html[data-theme="dark"] {
   --paper: #191612;
   --paper-deep: #201c16;
@@ -32,6 +32,29 @@ html[data-theme="dark"] {
   --pre-bg: #14110d;
   --pre-ink: #e9e1d2;
 }
+
+/* ---- sepia theme (warm ebook look, lighter than light) ---- */
+html[data-theme="sepia"] {
+  --paper: #f0e5ce;
+  --paper-deep: #e8dabc;
+  --ink: #3f3425;
+  --ink-soft: #7d6f58;
+  --accent: #a35428;
+  --accent-soft: #ecdcc0;
+  --line: #ddd0b2;
+  --code-bg: #e6d9ba;
+  --code-ink: #453a2a;
+  --pre-bg: #2b261c;
+  --pre-ink: #e8dfc8;
+}
+
+/* ---- theme menu (option list; markup injected by blog.js) ---- */
+.theme-menu { position: absolute; margin-top: 8px; background: var(--paper-deep); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 8px 24px rgba(41, 36, 30, .14); padding: 5px; z-index: 60; min-width: 150px; }
+.tm-opt { display: flex; align-items: center; gap: 8px; width: 100%; border: 0; background: transparent; color: var(--ink); font: 500 13px/1 var(--sans); padding: 8px 10px; border-radius: 6px; cursor: pointer; text-align: left; }
+.tm-opt:hover { background: var(--accent-soft); color: var(--accent); text-decoration: none; }
+.tm-opt.on { color: var(--accent); font-weight: 700; }
+.tm-opt svg { width: 14px; height: 14px; flex: none; }
+.tm-opt .tm-check { margin-left: auto; font-weight: 700; }
 
 /* ---- theme toggle button ---- */
 .theme-btn { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1px solid var(--line); border-radius: 8px; background: transparent; color: var(--ink-soft); cursor: pointer; vertical-align: middle; }

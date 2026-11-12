@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>(function(){try{if(localStorage.getItem('phinn-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+  <script>(function(){try{var t=localStorage.getItem('phinn-theme');if(t==='auto')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';if(t==='dark')document.documentElement.setAttribute('data-theme','dark');else if(t==='sepia')document.documentElement.setAttribute('data-theme','sepia');}catch(e){}})();</script>
 <title>Phinn · AI Agent Consulting — From Demo to Production</title>
 <meta name="description" content="Independent developer, author of the open-source AI Agent engine KinetAios. Enterprise AI Agent consulting, cross-analysis data reports, end-to-end iOS App Store shipping.">
 <meta property="og:title" content="Phinn · AI Agent Consulting — From Demo to Production">
@@ -45,6 +45,21 @@
     --dot: #3a352e;
     --dot-h: #9a9083;
   }
+  /* ---- sepia theme (warm ebook look, lighter than light) ---- */
+  html[data-theme="sepia"] {
+    --paper: #f0e5ce;
+    --paper-deep: #e8dabc;
+    --ink: #3f3425;
+    --ink-soft: #7d6f58;
+    --line: #ddd0b2;
+    --accent: #a35428;
+    --accent-soft: #ecdcc0;
+    --green: #6d7d51;
+    --card: #f7efd9;
+    --hdr: rgba(240,229,206,.92);
+    --dot: #cfc2a0;
+    --dot-h: #7d6f58;
+  }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; scroll-padding-top: 76px; }
   body {
@@ -81,8 +96,13 @@
   .theme-btn { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border: 1px solid var(--line); border-radius: 14px; background: transparent; color: var(--ink-soft); cursor: pointer; }
   .theme-btn:hover { color: var(--accent); border-color: var(--accent); }
   .theme-btn svg { width: 14px; height: 14px; display: block; }
-  .theme-btn .icon-sun { display: none; } .theme-btn .icon-moon { display: block; }
-  html[data-theme="dark"] .theme-btn .icon-sun { display: block; } html[data-theme="dark"] .theme-btn .icon-moon { display: none; }
+  .theme-anchor { position: relative; display: inline-flex; align-items: center; }
+  .theme-menu { position: absolute; top: calc(100% + 8px); right: 0; background: var(--paper-deep); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 8px 24px rgba(41,36,30,.14); padding: 5px; z-index: 60; min-width: 150px; }
+  .tm-opt { display: flex; align-items: center; gap: 8px; width: 100%; border: 0; background: transparent; color: var(--ink); font: 500 13px/1 inherit; padding: 8px 10px; border-radius: 6px; cursor: pointer; text-align: left; }
+  .tm-opt:hover { background: var(--accent-soft); color: var(--accent); }
+  .tm-opt.on { color: var(--accent); font-weight: 700; }
+  .tm-opt svg { width: 14px; height: 14px; flex: none; }
+  .tm-opt .tm-check { margin-left: auto; font-weight: 700; }
 
   /* hero */
   .hero { padding: 88px 0 56px; }
@@ -252,7 +272,7 @@
         <a href="#faq">FAQ</a>
         <a href="#contact" data-i18n="nav.contact"></a>
       </nav>
-      <button id="theme-btn" class="theme-btn" type="button" aria-label="Toggle dark mode" aria-pressed="false"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+      <button id="theme-btn" class="theme-btn" type="button" aria-label="Switch color theme" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18" fill="currentColor" stroke="none"/></svg></button>
       <div class="lang">
         <button data-l="en">EN</button>
         <button data-l="zh">中文</button>
@@ -419,14 +439,75 @@
 (function(){
   var root = document.documentElement, btn = document.getElementById('theme-btn');
   if (!btn) return;
-  var dark = root.getAttribute('data-theme') === 'dark';
-  if (dark) btn.setAttribute('aria-pressed', 'true');
-  btn.addEventListener('click', function(){
-    dark = root.getAttribute('data-theme') !== 'dark';
-    if (dark) root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
-    btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
-    try { localStorage.setItem('phinn-theme', dark ? 'dark' : 'light'); } catch(e){}
-  });
+  var THEMES = [
+    { id:'light', label:'Light',  svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>' },
+    { id:'sepia', label:'Sepia',  svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4a2 2 0 0 0-2-2H6.5A2.5 2.5 0 0 0 4 4.5v15z"/></svg>' },
+    { id:'dark',  label:'Dark',   svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>' },
+    { id:'auto',  label:'System', svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>' }
+  ];
+  var menu = null;
+  function stored(){ try { return localStorage.getItem('phinn-theme') || 'light'; } catch(e){ return 'light'; } }
+  function save(t){ try { localStorage.setItem('phinn-theme', t); } catch(e){} }
+  function resolve(t){ return t==='auto' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : t; }
+  function apply(t){
+    var r = resolve(t);
+    if (r==='dark') root.setAttribute('data-theme','dark');
+    else if (r==='sepia') root.setAttribute('data-theme','sepia');
+    else root.removeAttribute('data-theme');
+    sync(t);
+  }
+  function sync(cur){
+    if (!menu) return;
+    var o = menu.querySelectorAll('.tm-opt');
+    for (var i=0;i<o.length;i++){
+      var on = o[i].getAttribute('data-t')===cur;
+      o[i].classList.toggle('on', on);
+      o[i].querySelector('.tm-check').textContent = on ? '\u2713' : '';
+    }
+  }
+  function wrap(){
+    if (!btn.parentNode.className || btn.parentNode.className.indexOf('theme-anchor')===-1){
+      var w = document.createElement('span');
+      w.className = 'theme-anchor';
+      btn.parentNode.insertBefore(w, btn);
+      w.appendChild(btn);
+    }
+    return btn.parentNode;
+  }
+  function build(){
+    menu = document.createElement('div');
+    menu.className = 'theme-menu';
+    menu.setAttribute('role','menu');
+    THEMES.forEach(function(th){
+      var b = document.createElement('button');
+      b.type='button'; b.className='tm-opt';
+      b.setAttribute('data-t', th.id); b.setAttribute('role','menuitem');
+      b.innerHTML = th.svg + '<span>'+th.label+'</span><span class="tm-check"></span>';
+      b.addEventListener('click', function(){
+        var t = this.getAttribute('data-t');
+        save(t); apply(t); close();
+      });
+      menu.appendChild(b);
+    });
+  }
+  function onDoc(e){ if (menu && !menu.contains(e.target) && !btn.contains(e.target)) close(); }
+  function open(){
+    if (!menu) build();
+    sync(stored());
+    wrap().appendChild(menu);
+    btn.setAttribute('aria-expanded','true');
+    setTimeout(function(){ document.addEventListener('click', onDoc, true); }, 0);
+  }
+  function close(){
+    if (menu && menu.parentNode) menu.parentNode.removeChild(menu);
+    btn.setAttribute('aria-expanded','false');
+    document.removeEventListener('click', onDoc, true);
+  }
+  apply(stored());
+  btn.addEventListener('click', function(){ if (menu && menu.parentNode) close(); else open(); });
+  var mq = matchMedia('(prefers-color-scheme: dark)');
+  var mh = function(){ if (stored()==='auto') apply('auto'); };
+  if (mq.addEventListener) mq.addEventListener('change', mh); else if (mq.addListener) mq.addListener(mh);
 })();
 
 /* ================= i18n =================
