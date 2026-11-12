@@ -2,15 +2,15 @@
    Brand: Fraunces serif + warm-paper palette, inherited from phinn.github.io. */
 
 :root {
-  --paper: #f7f4ee;
-  --paper-deep: #efeadd;
-  --ink: #29241e;
-  --ink-soft: #6f675a;
+  --paper: #fbfaf8;
+  --paper-deep: #f4f2ee;
+  --ink: #26231e;
+  --ink-soft: #6e6a62;
   --accent: #b4542e;
-  --accent-soft: #f3e2d8;
-  --line: #e3dcd0;
-  --code-bg: #ece5d8;
-  --code-ink: #3a332a;
+  --accent-soft: #f7ece4;
+  --line: #e6e3dd;
+  --code-bg: #f3f1ec;
+  --code-ink: #3a362e;
   --pre-bg: #26211b;
   --pre-ink: #e9e1d2;
   --serif: "Fraunces", "Palatino", "Georgia", "Songti SC", "STSong", "Hiragino Mincho ProN", serif;
