@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>(function(){try{if(localStorage.getItem('phinn-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 <title>Phinn · AI Agent Consulting — From Demo to Production</title>
 <meta name="description" content="Independent developer, author of the open-source AI Agent engine KinetAios. Enterprise AI Agent consulting, cross-analysis data reports, end-to-end iOS App Store shipping.">
 <meta property="og:title" content="Phinn · AI Agent Consulting — From Demo to Production">
@@ -23,8 +24,26 @@
     --accent-soft: #f3e2d8;
     --green: #4a7c59;
     --card: #fffdf8;
+    --hdr: rgba(247,244,238,.92);
+    --dot: #ddd8cf;
+    --dot-h: #b9b2a4;
     --serif: "Fraunces", "Palatino", "Georgia", "Songti SC", "STSong", "Hiragino Mincho ProN", "Yu Mincho", serif;
     --ease: cubic-bezier(.22,.61,.36,1);
+  }
+  /* ---- dark theme (opt-in, persisted in localStorage 'phinn-theme', shared with /blog/) ---- */
+  html[data-theme="dark"] {
+    --paper: #191612;
+    --paper-deep: #201c16;
+    --ink: #e8e0d2;
+    --ink-soft: #9a9083;
+    --line: #35302a;
+    --accent: #d97a50;
+    --accent-soft: #3a2d24;
+    --green: #7fae8e;
+    --card: #211d17;
+    --hdr: rgba(25,22,18,.92);
+    --dot: #3a352e;
+    --dot-h: #9a9083;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; scroll-padding-top: 76px; }
@@ -41,7 +60,7 @@
     padding: 18px 0;
     border-bottom: 1px solid var(--line);
     position: sticky; top: 0; z-index: 50;
-    background: rgba(247,244,238,.92);
+    background: var(--hdr);
     backdrop-filter: blur(8px);
   }
   header .wrap { display: flex; align-items: center; justify-content: space-between; }
@@ -59,6 +78,11 @@
   }
   .lang button:hover { color: var(--accent); }
   .lang button.on { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+  .theme-btn { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border: 1px solid var(--line); border-radius: 14px; background: transparent; color: var(--ink-soft); cursor: pointer; }
+  .theme-btn:hover { color: var(--accent); border-color: var(--accent); }
+  .theme-btn svg { width: 14px; height: 14px; display: block; }
+  .theme-btn .icon-sun { display: none; } .theme-btn .icon-moon { display: block; }
+  html[data-theme="dark"] .theme-btn .icon-sun { display: block; } html[data-theme="dark"] .theme-btn .icon-moon { display: none; }
 
   /* hero */
   .hero { padding: 88px 0 56px; }
@@ -158,10 +182,10 @@
   }
   #shot-pop .pop-dots { display: flex; gap: 6px; justify-content: center; padding-top: 9px; }
   #shot-pop .pop-dots i {
-    width: 6px; height: 6px; border-radius: 3px; background: #ddd8cf;
+    width: 6px; height: 6px; border-radius: 3px; background: var(--dot);
     transition: background .15s, width .15s; cursor: pointer;
   }
-  #shot-pop .pop-dots i:hover { background: #b9b2a4; }
+  #shot-pop .pop-dots i:hover { background: var(--dot-h); }
   #shot-pop .pop-dots i.on { background: var(--accent); width: 16px; }
   @media (hover: none) { #shot-pop { display: none !important; } }
 
@@ -228,6 +252,7 @@
         <a href="#faq">FAQ</a>
         <a href="#contact" data-i18n="nav.contact"></a>
       </nav>
+      <button id="theme-btn" class="theme-btn" type="button" aria-label="Toggle dark mode" aria-pressed="false"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
       <div class="lang">
         <button data-l="en">EN</button>
         <button data-l="zh">中文</button>
@@ -389,6 +414,21 @@
 </footer>
 
 <script>
+/* ================= theme toggle =================
+   亮色为默认品牌;访客可切暗色,持久化 localStorage('phinn-theme'),与 /blog/ 共享。 */
+(function(){
+  var root = document.documentElement, btn = document.getElementById('theme-btn');
+  if (!btn) return;
+  var dark = root.getAttribute('data-theme') === 'dark';
+  if (dark) btn.setAttribute('aria-pressed', 'true');
+  btn.addEventListener('click', function(){
+    dark = root.getAttribute('data-theme') !== 'dark';
+    if (dark) root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+    btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+    try { localStorage.setItem('phinn-theme', dark ? 'dark' : 'light'); } catch(e){}
+  });
+})();
+
 /* ================= i18n =================
    默认英文(海外获客主页面),可切中文/日文;选择持久化 localStorage。
    Default EN (this page's audience is global), switchable to ZH/JA, persisted. */

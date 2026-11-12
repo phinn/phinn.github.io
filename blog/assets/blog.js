@@ -5,6 +5,27 @@
    `ticking` flag starve each other (the second sees ticked=true and skips). */
 (function () {
   'use strict';
+
+  /* ---- theme toggle (opt-in dark; key 'phinn-theme' shared with the main site) ---- */
+  var root = document.documentElement;
+  var tbtn = document.getElementById('theme-btn');
+  function applyTheme(t) {
+    if (t === 'dark') root.setAttribute('data-theme', 'dark');
+    else root.removeAttribute('data-theme');
+  }
+  var tsaved = null;
+  try { tsaved = localStorage.getItem('phinn-theme'); } catch (e) {}
+  applyTheme(tsaved === 'dark' ? 'dark' : 'light');
+  if (tbtn) {
+    if (tsaved === 'dark') tbtn.setAttribute('aria-pressed', 'true');
+    tbtn.addEventListener('click', function () {
+      var dark = root.getAttribute('data-theme') === 'dark';
+      var next = dark ? 'light' : 'dark';
+      applyTheme(next);
+      tbtn.setAttribute('aria-pressed', dark ? 'false' : 'true');
+      try { localStorage.setItem('phinn-theme', next); } catch (e) {}
+    });
+  }
   var bar = document.querySelector('.progress');
   var links = document.querySelectorAll('#toc a[href^="#"]');
   var map = [];

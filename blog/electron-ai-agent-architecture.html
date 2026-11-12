@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  (function(){try{if(localStorage.getItem('phinn-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();
+</script>
 <title>What we learned shipping an Electron AI agent dashboard (2026)</title>
 <meta name="description" content="Architecture notes from shipping KinetAios, an Electron + TypeScript AI agent dashboard: the two-process bridge, unified event folding, SQLite+FTS5 history, spawning CLIs on Windows safely, and why vanilla TS beat a framework here.">
 <link rel="canonical" href="https://phinn.github.io/blog/electron-ai-agent-architecture.html">
@@ -13,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap">
-<link rel="stylesheet" href="assets/blog.css?v=2">
+<link rel="stylesheet" href="assets/blog.css?v=3">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -39,6 +42,7 @@
       <a href="https://github.com/phinn" target="_blank" rel="noopener">GitHub ↗</a>
       <a href="mailto:phinn@outlook.com">Contact</a>
     </nav>
+      <button id="theme-btn" class="theme-btn" type="button" aria-label="Toggle dark mode" aria-pressed="false"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
   </div>
 </header>
 
@@ -120,6 +124,6 @@
     <div><a href="/blog/">Blog</a> · <a href="https://github.com/phinn/KinetAios" target="_blank" rel="noopener">KinetAios</a> · <a href="mailto:phinn@outlook.com">phinn@outlook.com</a></div>
   </div>
 </footer>
-<script src="assets/blog.js?v=2"></script>
+<script src="assets/blog.js?v=3"></script>
 </body>
 </html>

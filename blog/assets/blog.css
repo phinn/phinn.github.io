@@ -18,6 +18,30 @@
   --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 }
 
+/* ---- dark theme (opt-in, persisted in localStorage 'phinn-theme') ---- */
+html[data-theme="dark"] {
+  --paper: #191612;
+  --paper-deep: #201c16;
+  --ink: #e8e0d2;
+  --ink-soft: #9a9083;
+  --accent: #d97a50;
+  --accent-soft: #3a2d24;
+  --line: #35302a;
+  --code-bg: #26221c;
+  --code-ink: #d8cfbf;
+  --pre-bg: #14110d;
+  --pre-ink: #e9e1d2;
+}
+
+/* ---- theme toggle button ---- */
+.theme-btn { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1px solid var(--line); border-radius: 8px; background: transparent; color: var(--ink-soft); cursor: pointer; vertical-align: middle; }
+.theme-btn:hover { color: var(--accent); border-color: var(--accent); }
+.theme-btn svg { width: 15px; height: 15px; display: block; }
+.theme-btn .icon-sun { display: none; }
+.theme-btn .icon-moon { display: block; }
+html[data-theme="dark"] .theme-btn .icon-sun { display: block; }
+html[data-theme="dark"] .theme-btn .icon-moon { display: none; }
+
 * { box-sizing: border-box; margin: 0; }
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation: none!important; transition: none!important; } }
