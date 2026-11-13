@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@500;600&display=swap');
+html,body{margin:0;padding:0;background:#fbfaf8;}
+#stage{position:relative;width:1200px;height:630px;overflow:hidden;background:#fbfaf8;}
+.kicker{position:absolute;left:64px;top:64px;font:600 22px Inter,-apple-system,sans-serif;letter-spacing:4px;color:#b4542e;}
+.headline{position:absolute;left:60px;top:110px;font-family:Fraunces,Georgia,serif;font-weight:600;font-size:66px;line-height:1.16;color:#26231e;letter-spacing:-1px;}
+.headline strong{color:#b4542e;font-weight:600;}
+.sub{position:absolute;left:64px;top:440px;font:500 24px Inter,-apple-system,sans-serif;color:#6e6a62;}
+.pill{position:absolute;left:64px;top:516px;height:52px;display:flex;align-items:center;padding:0 26px;border:1.5px solid #e6e3dd;border-radius:26px;background:#ffffff;font:600 22px Inter,-apple-system,sans-serif;color:#26231e;box-sizing:border-box;}
+.icon{position:absolute;width:64px;height:64px;border-radius:14px;box-shadow:0 1px 5px rgba(38,35,30,.12);}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="kicker">PHINN · INDIE DEVELOPER</div>
+  <div class="headline">Taking AI Agents<br>from demo to <strong>production</strong></div>
+  <div class="sub">22 apps on the App Store&nbsp;&nbsp;·&nbsp;&nbsp;Local-first&nbsp;&nbsp;·&nbsp;&nbsp;Open source</div>
+  <div class="pill">phinn.github.io</div>
+<script>
+const ICONS=[
+"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/20/60/77/2060773c-5782-1d87-6188-8deeaf46d870/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/84/3c/a4/843ca420-b9d1-3124-05e2-d223edbe5edc/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/9f/80/50/9f805042-08cc-19a6-66f2-82cd48a28013/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/fe/07/d1/fe07d123-e339-d1c5-5064-0e109a53bae5/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a6/f8/ca/a6f8cab2-4ecf-f366-4190-0fe2eb378ecd/AppIcon.png/512x512bb.png",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/57/0d/80/570d8074-0b01-4ba9-704f-3a2ea8c9db63/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/53/92/6e/53926e7f-9494-bb08-b393-9dcf8408067a/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a0/8f/3d/a08f3dad-bb4a-972e-c7ec-819b07391b2f/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg"
+];
+/* 右侧 2×4 网格: x 880/988, y 210/306/402/498 — 远离左列文字,右缘 64+64 安全 */
+let idx=0;
+for(let row=0;row<4;row++){
+  for(let col=0;col<2;col++){
+    const d=document.createElement('img');
+    d.className='icon';d.src=ICONS[idx++];
+    d.style.left=(880+col*108)+'px';d.style.top=(210+row*96)+'px';
+    document.getElementById('stage').appendChild(d);
+  }
+}
+</script>
+</div>
+</body>
+</html>
