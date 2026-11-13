@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@500;600&display=swap');
+html,body{margin:0;padding:0;background:#fbfaf8;}
+#stage{position:relative;width:1500px;height:500px;overflow:hidden;background:#fbfaf8;}
+.kicker{position:absolute;left:82px;top:46px;font:600 24px Inter,-apple-system,sans-serif;letter-spacing:5px;color:#b4542e;}
+.headline{position:absolute;left:78px;top:88px;font-family:Fraunces,Georgia,serif;font-weight:600;font-size:78px;line-height:1.12;color:#26231e;letter-spacing:-1px;}
+.headline .num{color:#b4542e;}
+.sub{position:absolute;left:82px;top:288px;font:500 25px Inter,-apple-system,sans-serif;color:#6e6a62;}
+.pill{position:absolute;right:76px;top:402px;height:56px;display:flex;align-items:center;padding:0 30px;border:1.5px solid #e6e3dd;border-radius:28px;background:#ffffff;font:600 24px Inter,-apple-system,sans-serif;color:#26231e;box-sizing:border-box;}
+.icon{position:absolute;width:72px;height:72px;border-radius:16px;box-shadow:0 1px 5px rgba(38,35,30,.12);}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="kicker">INDIE DEVELOPER</div>
+  <div class="headline"><span class="num">22</span> apps on<br>the App Store.</div>
+  <div class="sub">Local-first&nbsp;&nbsp;·&nbsp;&nbsp;No accounts&nbsp;&nbsp;·&nbsp;&nbsp;No tracking</div>
+  <div class="pill">phinn.github.io</div>
+<script>
+const ICONS=[
+"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/20/60/77/2060773c-5782-1d87-6188-8deeaf46d870/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/84/3c/a4/843ca420-b9d1-3124-05e2-d223edbe5edc/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/b3/18/4b/b3184b68-01f5-d3b2-4d98-110571d19fb5/AppIcon-0-0-85-220-0-5-0-2x.png/512x512bb.png",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/9f/80/50/9f805042-08cc-19a6-66f2-82cd48a28013/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/12/d2/5d/12d25d31-c372-4dc0-698f-87b2fbc5c287/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/0b/69/e2/0b69e221-a94e-2641-381d-4ef1bb1a3d9a/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/fe/07/d1/fe07d123-e339-d1c5-5064-0e109a53bae5/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/9e/48/e2/9e48e2a7-167d-5395-1b72-38fc2df9dbe5/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a6/f8/ca/a6f8cab2-4ecf-f366-4190-0fe2eb378ecd/AppIcon.png/512x512bb.png",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/2f/d5/30/2fd53008-d664-616a-35ef-25b7a86f94d9/AppIcon.png/512x512bb.png",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ab/2d/bd/ab2dbd9c-5b9c-488f-a119-84d6db01e6d3/AppIcon.png/512x512bb.png",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/57/0d/80/570d8074-0b01-4ba9-704f-3a2ea8c9db63/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d8/ec/b3/d8ecb3d6-d558-fad8-44d4-068419562b58/AppIcon.png/512x512bb.png",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/cc/a1/90/cca19075-0a51-0d6a-037b-3f421ba80089/AppIcon-0-0-85-220-0-5-0-2x.png/512x512bb.png",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/53/92/6e/53926e7f-9494-bb08-b393-9dcf8408067a/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/28/d9/27/28d927e8-4347-7895-ba1d-6a252cb4bb8f/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/5d/26/0e/5d260e8b-a4f6-171a-5404-35c8b13c535d/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a0/8f/3d/a08f3dad-bb4a-972e-c7ec-819b07391b2f/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/5d/b7/96/5db7961e-8778-99af-abfc-30c1d119e410/AppIcon-0-0-1x_U007epad-0-8-0-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/e8/42/e9/e842e9c0-739e-2eae-dfbb-05f47ecceb4f/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/19/71/84/197184ae-0ad3-dfb2-b74e-a7783f752217/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+"https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d9/f6/b7/d9f6b71f-1e9b-7117-ea84-1a555ad740a9/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg"
+];
+/* 图标墙:三行 8+8+6,右缘统一 1424(=1500-76);左列文字全部收在 y<315,避开 X 头像遮挡区(x40-375/y337+) */
+const ROWS=[{n:8,x:792,y:64},{n:8,x:792,y:152},{n:6,x:952,y:240}];
+let idx=0;
+for(const r of ROWS){
+  for(let k=0;k<r.n;k++){
+    const d=document.createElement('img');
+    d.className='icon';d.src=ICONS[idx++];
+    d.style.left=(r.x+k*80)+'px';d.style.top=r.y+'px';
+    document.getElementById('stage').appendChild(d);
+  }
+}
+</script>
+</div>
+</body>
+</html>
