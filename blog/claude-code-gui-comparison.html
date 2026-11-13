@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  (function(){try{var t=localStorage.getItem('phinn-theme');if(t==='auto')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';if(t==='dark')document.documentElement.setAttribute('data-theme','dark');else if(t==='sepia')document.documentElement.setAttribute('data-theme','sepia');}catch(e){}})();
+</script>
+<title>Claude Code GUI clients compared (2026): six real options</title>
+<meta name="description" content="Six real Claude Code GUI clients compared — Omnara, AionUi, Yume, Codelegate, AgentCodeGUI, KinetAios: platforms, engines, pricing, and the honest catch of each.">
+<link rel="canonical" href="https://phinn.github.io/blog/claude-code-gui-comparison.html">
+<meta property="og:title" content="Six Claude Code GUI clients, compared (2026)">
+<meta property="og:description" content="Omnara, AionUi, Yume, Codelegate, AgentCodeGUI, KinetAios — platforms, engines, pricing, and the honest catch of each.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://phinn.github.io/blog/claude-code-gui-comparison.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap">
+<link rel="stylesheet" href="assets/blog.css?v=5">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Six Claude Code GUI clients, compared (2026)",
+  "datePublished": "2026-11-13",
+  "dateModified": "2026-11-13",
+  "author": {"@type": "Person", "name": "Phinn", "url": "https://phinn.github.io/"},
+  "publisher": {"@type": "Person", "name": "Phinn"},
+  "mainEntityOfPage": "https://phinn.github.io/blog/claude-code-gui-comparison.html",
+  "description": "Six real Claude Code GUI clients compared — Omnara, AionUi, Yume, Codelegate, AgentCodeGUI, KinetAios: platforms, engines, pricing, and the honest catch of each."
+}
+</script>
+</head>
+<body>
+<div class="progress" role="presentation"></div>
+<header class="topbar">
+  <div class="tb-wrap">
+    <a class="tb-home" href="/">phinn<em>.</em>io</a>
+    <nav class="tb-nav">
+      <a href="/blog/">Blog</a>
+      <a href="/#apps">Apps</a>
+      <a href="https://github.com/phinn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="mailto:phinn@outlook.com">Contact</a>
+    </nav>
+      <button id="theme-btn" class="theme-btn" type="button" aria-label="Switch color theme" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18" fill="currentColor" stroke="none"/></svg></button>
+  </div>
+</header>
+
+<main class="post-grid">
+  <article>
+    <div class="p-meta"><time datetime="2026-11-13">Nov 13, 2026</time> · Phinn · 10 min read · <a href="index.html#claude-code-gui-comparison"># comparison</a></div>
+    <h1 class="p-title">Six Claude Code GUI clients, compared — Omnara, AionUi, Yume, Codelegate, AgentCodeGUI, KinetAios</h1>
+    <p class="p-lead">Search "Claude Code GUI" and you get forum threads, dead repos, and one YC company that used to be a desktop app. Nobody has published a proper map of this field. This is that map — with a disclosure up front: I build one of the six.</p>
+
+    <div class="p-body">
+      <p>Anthropic ships Claude Code as a terminal REPL, on purpose. The agent loop is the product; the interface is your problem. That gap has become a small ecosystem: at least four teams shipped dedicated desktop clients this year, one became a YC-backed platform, and one open-source project crossed thirty-four thousand stars. Yet if you try to compare them before picking, you'll find launch posts and vibes — no field guide.</p>
+      <p>So here's the field guide. One caveat about me: I'm the author of <a href="https://github.com/phinn/KinetAios" target="_blank" rel="noopener">KinetAios</a>, one of the six. I'm not going to pretend that away — I'll judge my own entry by the same standard as the rest and put its weaknesses in the same font. Everything below comes from each project's own docs, repo, and release history as of November 2026, not from marketing blurbs rephrased.</p>
+
+      <h2 id="why-no-official">Why there's no official GUI (and why that's the design)</h2>
+      <p>Claude Code's ecosystem — skills, hooks, sub-agents, MCP config — lives inside the CLI. A GUI that re-implements the agent breaks that ecosystem quietly, one update at a time. I've written about this at length before (<a href="claude-code-gui.html">wrap, never replace</a>), so here's the short version: every client below survives precisely to the degree it treats the CLI as the engine and itself as the cockpit. Keep that yardstick while reading — it explains most of the differences you're about to see.</p>
+
+      <h2 id="the-field">The field, at a glance</h2>
+      <table>
+        <tr><th>Project</th><th>What it actually is</th><th>Platforms</th><th>Engines</th><th>Price</th><th>Source</th></tr>
+        <tr><td><a href="https://omnara.com" target="_blank" rel="noopener">Omnara</a></td><td>Agent control plane (YC S25)</td><td>Cloud, mobile, self-host</td><td>Claude Code, Codex, any agent via API</td><td>Free platform; credits at cost +5%; paid enterprise</td><td>Open source</td></tr>
+        <tr><td><a href="https://github.com/iOfficeAI/AionUi" target="_blank" rel="noopener">AionUi</a></td><td>24/7 "cowork" webUI, many engines</td><td>Desktop (Electron)</td><td>Claude Code, Codex, Gemini CLI, OpenCode, 20+</td><td>Free</td><td>Open source</td></tr>
+        <tr><td><a href="https://aofp.github.io/yume/" target="_blank" rel="noopener">Yume</a></td><td>Opinionated orchestration cockpit</td><td>macOS, Windows, Linux</td><td>Claude Code, Gemini, OpenAI, Kiro</td><td>Free demo; $4/mo or $49 lifetime</td><td>Closed</td></tr>
+        <tr><td><a href="https://codelegate.dev/" target="_blank" rel="noopener">Codelegate</a></td><td>Keyboard-first multi-agent workspace</td><td>macOS, Linux</td><td>Claude Code, Codex</td><td>Free download</td><td>License n/a</td></tr>
+        <tr><td><a href="https://github.com/UnrealFactory/AgentCodeGUI" target="_blank" rel="noopener">AgentCodeGUI</a></td><td>Windows-native task room</td><td>Windows 10/11</td><td>Claude Code, Codex</td><td>Free</td><td>MIT</td></tr>
+        <tr><td><a href="https://github.com/phinn/KinetAios" target="_blank" rel="noopener">KinetAios</a></td><td>Desktop cockpit that remembers</td><td>macOS, Windows</td><td>Claude Code, Codex, built-in engine</td><td>Free (OSS); Mac App Store $12.99</td><td>MIT</td></tr>
+      </table>
+      <p>Numbers move fast in this category — star counts and feature lists below are as of November 13, 2026.</p>
+
+      <p>Before the individual reviews, the useful insight: this field has already split into three archetypes, and most confusion comes from comparing across archetypes.</p>
+      <ul>
+        <li><strong>The cockpit for yourself</strong> — a native app around your own terminal agents: Yume, Codelegate, AgentCodeGUI, KinetAios.</li>
+        <li><strong>The platform for a team</strong> — agents as managed infrastructure: Omnara.</li>
+        <li><strong>The everything-app</strong> — one UI for every CLI agent that exists: AionUi.</li>
+      </ul>
+      <p>With that lens, here's each one.</p>
+
+      <h2 id="omnara">Omnara — the one that outgrew the category</h2>
+      <p>Omnara launched on Hacker News in February 2026 as "run Claude Code from anywhere" — a mobile cockpit for your terminal agents. That launch went well: 147 points, 161 comments, and a YC S25 badge. Six months later, their homepage doesn't say "desktop app" anymore. It says "the open-source alternative to Claude Managed Agents": one API where agents are durable objects that survive crashes and deploys, runnable on any model, any machine, any cloud.</p>
+      <p><strong>The good:</strong> this is the most serious engineering in the field. The control plane is open source, self-hosting is free, you bring your own model keys with no markup, and the pivot tells you they found real demand beyond hobbyists — teams want agents as infrastructure, not as a window on somebody's laptop.</p>
+      <p><strong>The catch:</strong> if you arrived searching for a <em>desktop GUI</em>, Omnara is no longer that. It moved up the stack. Great product, different category.</p>
+      <p><strong>For you if:</strong> you're deploying agents for a team or a product, and "where does the agent live" is a real question you're paid to answer.</p>
+
+      <h2 id="aionui">AionUi — the everything-app, at scale</h2>
+      <p>AionUi is the volume leader by an order of magnitude: around 34,000 GitHub stars and 3,600 forks as of this writing. The pitch is breadth — an open-source "cowork" desktop app for Claude Code, Codex, Gemini CLI, OpenCode, and "20+ more" CLI agents, with customizable assistants that can work as a team. It's free, and it's been public since January 2026.</p>
+      <p><strong>The good:</strong> if your shop uses three different agent CLIs and you want one interface, nothing else here even attempts that scope. The community is large enough that the project won't disappear next month, and free-and-open-source removes every adoption barrier.</p>
+      <p><strong>The catch:</strong> breadth is the product, and it shows. Nearly nine hundred open issues tells you the edge-touching experience: polished core, sharp edges at the periphery, and depth per engine varies. That's not a knock on the maintainers — it's the physics of supporting twenty engines. But "works with everything" and "works beautifully with mine" are different promises.</p>
+      <p><strong>For you if:</strong> you genuinely run many engines and want a free hub, and you're willing to be the kind of user who files issues.</p>
+
+      <h2 id="yume">Yume — the opinionated one, worth its coffee-money price</h2>
+      <p>Yume (Tauri, from a small team) sells something no one else in the list does: a methodology. Every session runs its orchestration loop — an architect plans before code, an explorer does read-only reconnaissance, an implementer makes small precise edits, a guardian checks for bugs before they ship. Around that: four parallel background agents, six panes, live thinking streams, always-visible 5-hour/7-day usage limits with an overage guard, visual diffs with per-message rollback, and 5-minute snapshot crash recovery. Mac, Windows, Linux. Free demo, then $4/month or $49 lifetime — explicitly "you're paying for the app, not the AI," since it uses your existing Claude/Gemini/OpenAI/Kiro accounts.</p>
+      <p><strong>The good:</strong> the usage-limit visibility alone is worth $4 to anyone who has hit a Claude limit mid-task at 6pm. And the orchestration loop is a real answer to the biggest weakness of raw CLI agents: unguided, they dive straight in, make mistakes, and burn your tokens learning. Yume bakes plan-first into every session. It's the most <em>product</em> — in the designed-a-round-thing sense — on this list.</p>
+      <p><strong>The catch:</strong> the value is the opinion. If you want the raw Claude Code you know, Yume's loop is in the way — you're renting their workflow, not just their window. It's also the only paid-first entry here, which will bother some people on principle and shouldn't: $49 lifetime is less than one month of most SaaS.</p>
+      <p><strong>For you if:</strong> you want the GUI to make the agent smarter, not just prettier, and you're happy following someone else's method to get it.</p>
+
+      <h2 id="codelegate">Codelegate — parallel agents, one repo, no mouse</h2>
+      <p>Codelegate (Mac/Linux, keyboard-first) attacks a specific pain: running multiple agents against the <em>same repository</em> without them trampling each other. Every session gets its own git worktree, so two agents can refactor different corners of one repo in parallel, conflict-free. Each session also gets a real terminal — dev server, lazygit, zellij, tmux, whatever runs in your shell runs there — plus its own Git pane, automatic session restore, and tray notifications when an agent needs you. Claude Code and Codex supported.</p>
+      <p><strong>The good:</strong> worktree-per-agent is the correct answer to multi-agent concurrency, and Codelegate is the only client in this field guide that treats it as the core feature rather than a checkbox. Keyboard-complete navigation means an experienced user never touches the mouse — the right bias for a tool that lives next to a terminal.</p>
+      <p><strong>The catch:</strong> worktrees are also a workflow opinion — repos with generated files, submodules, or exotic hooks don't always fit the pattern happily. And it's Mac/Linux only; Windows users, this isn't your door.</p>
+      <p><strong>For you if:</strong> your bottleneck is one repo and several simultaneous agents, and your hands already live on the keyboard.</p>
+
+      <h2 id="agentcodegui">AgentCodeGUI — the Windows bunker</h2>
+      <p>AgentCodeGUI (from a Korean solo developer, Tauri 2 + Rust) is the newest entry — shown on Hacker News in August 2026 — and the most platform-focused: Windows 10/11 only, a 30MB installer, conversations and settings in a local <code>~/.agentcodegui3</code> with account tokens encrypted via Windows DPAPI, and an explicit no-telemetry statement in the FAQ. It supports Claude Code and Codex, tracks subscription limits and — for Anthropic API keys — per-conversation cost, cumulative spend, and budgets.</p>
+      <p><strong>The good:</strong> the privacy posture is the most detailed of any client here, and cost-per-conversation visibility is something even paid tools rarely show you. MIT-licensed, and it keeps your terminal CLI login separate from the app's, so trying it costs you nothing.</p>
+      <p><strong>The catch:</strong> it's young, Windows-only, and ships without a code-signing certificate — expect the SmartScreen warning dance on install. If you need polish guarantees, wait a few versions; if you need Windows + privacy + free, there's nothing else on this list to compare.</p>
+      <p><strong>For you if:</strong> you're on Windows, you read privacy policies, and you like watching a young project grow up.</p>
+
+      <h2 id="kinetaios">KinetAios — the cockpit that remembers</h2>
+      <p>Mine, so keep the seasoning light. KinetAios is an open-source (MIT) desktop cockpit for Claude Code and Codex on macOS and Windows, with a third engine of our own (a built-in ReAct loop) alongside. The design rule is the one from the top of this post: wrap, never replace — your skills, hooks, and MCP config keep working because the CLI still runs the show. On top of that: streaming markdown with tool-call cards, side-by-side engine runs on the same prompt, and the two things nobody else in this list makes central — <strong>cross-project searchable history</strong> (SQLite + full-text search over every session you've ever run) and <strong>long-term memory</strong> (durable facts about you and your projects, extracted per turn and injected into the next). Free from source; $12.99 on the Mac App Store if you'd rather buy it than build it.</p>
+      <p><strong>The good:</strong> the memory thesis. Six months from now, your valuable asset isn't any single chat — it's the accumulated context of every session across every project. That's what the other clients treat as out of scope.</p>
+      <p><strong>The catch:</strong> by every community metric, this is the smallest project here — around 3,200 clones against AionUi's 34,000 stars. No Linux build yet, no mobile/remote story (deliberately: local-first means no relay), and honestly — no local LLM endpoint yet either; that's roadmap, not reality.</p>
+      <p><strong>For you if:</strong> you want one place that remembers your work across projects and engines, and you value a small project you can read the entire source of over a big one you'll never finish cloning.</p>
+
+      <h2 id="how-to-choose">How to actually choose</h2>
+      <p>Skip the feature matrices. Answer one question: <em>where do your agents live, and who are they for?</em></p>
+      <ul>
+        <li>Agents as <strong>team infrastructure</strong>, deployed and managed → <strong>Omnara</strong>.</li>
+        <li><strong>Many engines</strong>, one free interface, community over curation → <strong>AionUi</strong>.</li>
+        <li>One developer who wants the GUI to <strong>make the agent smarter</strong> → <strong>Yume</strong>.</li>
+        <li><strong>Parallel agents on one repo</strong>, keyboard-first → <strong>Codelegate</strong>.</li>
+        <li><strong>Windows + privacy + free</strong>, and tolerance for youth → <strong>AgentCodeGUI</strong>.</li>
+        <li>Cross-project <strong>history and memory</strong> as the core feature → <strong>KinetAios</strong> (<a href="kinetaios-vs-claude-code.html">here's the honest long-form comparison with Claude Code itself</a>).</li>
+      </ul>
+      <p>Two of these overlap nowhere. If your answer is "me, my machines, my context" — the choice is between the methodologists (Yume), the concurrency specialists (Codelegate), and the rememberers (KinetAios, mine). Try the free path of each; they all let you.</p>
+
+      <h2 id="what-nobody-solves">What none of them solve yet</h2>
+      <p>The fragmentation itself. Pick a client this month, another next month, and your Claude Code session history is now scattered across two apps and a terminal scrollback. Your projects don't notice — but you will, the third time you re-explain the same architectural decision to a fresh context. Whichever client solves continuity <em>across</em> clients, not just inside its own walls, wins the next phase of this field. Every project here, including mine, is still open on that front. I'd rather tell you that than pretend one of us already did it.</p>
+    </div>
+
+    <div class="cta">
+      <b>KinetAios — the desktop cockpit that remembers</b>
+      <p>Open source (MIT) · 3,200+ clones · macOS &amp; Windows · cross-project history, long-term memory, local-first.</p>
+      <a class="btn" href="https://github.com/phinn/KinetAios" target="_blank" rel="noopener">★ Star on GitHub</a>
+      <a class="btn alt" href="https://apps.apple.com/app/id6809450051" target="_blank" rel="noopener">Mac App Store — $12.99</a>
+    </div>
+
+    <nav class="pn">
+      <a href="electron-ai-agent-architecture.html"><span class="pn-k">← Previous</span><span class="pn-t">What we learned shipping an Electron AI agent dashboard</span></a>
+      <a class="next solo" href="index.html"><span class="pn-k">Next →</span><span class="pn-t">All posts</span></a>
+    </nav>
+  </article>
+
+  <aside class="toc" id="toc">
+    <div class="toc-h">On this page</div>
+    <a href="#why-no-official">Why there's no official GUI</a>
+    <a href="#the-field">The field, at a glance</a>
+    <a href="#omnara">Omnara</a>
+    <a href="#aionui">AionUi</a>
+    <a href="#yume">Yume</a>
+    <a href="#codelegate">Codelegate</a>
+    <a href="#agentcodegui">AgentCodeGUI</a>
+    <a href="#kinetaios">KinetAios</a>
+    <a href="#how-to-choose">How to actually choose</a>
+    <a href="#what-nobody-solves">What nobody solves yet</a>
+  </aside>
+</main>
+
+<footer class="site-foot">
+  <div class="sf-wrap">
+    <div>© <span id="y">2026</span> Phinn · <a href="/">phinn.github.io</a></div>
+    <div><a href="/blog/">Blog</a> · <a href="https://github.com/phinn/KinetAios" target="_blank" rel="noopener">KinetAios</a> · <a href="mailto:phinn@outlook.com">phinn@outlook.com</a></div>
+  </div>
+</footer>
+<script src="assets/blog.js?v=5"></script>
+</body>
+</html>

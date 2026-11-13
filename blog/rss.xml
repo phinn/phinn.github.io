@@ -7,6 +7,13 @@
   <language>en</language>
   <atom:link href="https://phinn.github.io/blog/rss.xml" rel="self" type="application/rss+xml"/>
   <item>
+    <title>Six Claude Code GUI clients, compared — Omnara, AionUi, Yume, Codelegate, AgentCodeGUI, KinetAios</title>
+    <link>https://phinn.github.io/blog/claude-code-gui-comparison.html</link>
+    <guid isPermaLink="true">https://phinn.github.io/blog/claude-code-gui-comparison.html</guid>
+    <pubDate>Fri, 13 Nov 2026 00:00:00 +0800</pubDate>
+    <description>A field guide to the 2026 desktop-client ecosystem: one YC platform, one 34k-star everything-app, three archetypes, and the continuity problem none of them solve yet.</description>
+  </item>
+  <item>
     <title>KinetAios vs Claude Code: an honest look at the open-source alternative</title>
     <link>https://phinn.github.io/blog/kinetaios-vs-claude-code.html</link>
     <guid isPermaLink="true">https://phinn.github.io/blog/kinetaios-vs-claude-code.html</guid>

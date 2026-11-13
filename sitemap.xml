@@ -11,14 +11,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://phinn.github.io/blog/claude-code-gui-comparison.html</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://phinn.github.io/blog/kinetaios-vs-claude-code.html</loc>
-    <lastmod>2026-11-11</lastmod>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://phinn.github.io/blog/claude-code-gui.html</loc>
-    <lastmod>2026-11-11</lastmod>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
