@@ -157,6 +157,9 @@ h1.p-title { font-family: var(--serif); font-weight: 600; font-size: clamp(29px,
 .cta { background: var(--pre-bg); color: var(--pre-ink); border-radius: 14px; padding: 26px 28px; margin: 52px 0 8px; }
 .cta b { font-family: var(--serif); font-size: 18px; font-weight: 600; }
 .cta p { color: #b3a893; font-size: 14.5px; margin: 8px 0 2px; line-height: 1.6; }
+.cta .more { margin-top: 14px; font-size: 13px; color: #9a8f7d; line-height: 1.6; }
+.cta .more a { color: #c96a3e; text-decoration: none; border-bottom: 1px solid rgba(201,106,62,.35); }
+.cta .more a:hover { border-bottom-color: #c96a3e; }
 .btn { display: inline-block; background: var(--accent); color: #fff !important; padding: 10px 18px; border-radius: 9px; font-weight: 600; font-size: 14.5px; margin: 14px 10px 0 0; }
 .btn:hover { text-decoration: none; filter: brightness(1.08); }
 .btn.alt { background: transparent; border: 1px solid #4a4238; color: var(--pre-ink) !important; }
