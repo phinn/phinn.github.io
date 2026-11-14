@@ -298,6 +298,9 @@
   /* scrollspy 当前分区高亮 */
   header nav a.here { color: var(--accent); font-weight: 600; }
   .app-grid .empty { grid-column: 1 / -1; text-align: center; color: var(--ink-soft); font-size: 14px; padding: 30px 0; }
+  .apps-all { text-align: center; margin-top: 26px; }
+  .apps-all a { color: var(--accent); text-decoration: none; font-size: 15px; font-weight: 600; }
+  .apps-all a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -445,6 +448,7 @@
     <p class="sec-sub" data-i18n="apps.sub">Every card below is live on the App Store right now — tap to open its store page. All adapted for iPhone foldables; 5 built native for the fold.</p>
     <div class="chips" id="app-chips"></div>
     <div class="app-grid" id="app-grid"></div>
+    <p class="apps-all"><a href="https://phinn.github.io/kinetapp/apps.html?utm_source=phinn.github.io&amp;utm_medium=home_wall&amp;utm_campaign=browse-all" data-i18n="apps.all">Browse all 22 apps with scene filters →</a></p>
   </div>
 </section>
 
@@ -620,6 +624,7 @@ var I18N = {
     'faq.a5': 'Assessment: 1 week. POC: 1-2 weeks. Production: 2-8 weeks depending on scope. Data reports: first batch in 1 week, then monthly rolling delivery on subscription.',
     'apps.title': '22 apps on the App Store — all shipped, all live',
     'apps.sub': 'Every card below is live on the App Store right now — tap to open its store page. All adapted for iPhone foldables; 5 built native for the fold.',
+    'apps.all': 'Browse all 22 apps with scene filters →',
     'eyebrow.services': '01 · Services', 'eyebrow.cases': '02 · Case Studies', 'eyebrow.apps': '03 · App Store', 'eyebrow.faq': '04 · FAQ', 'eyebrow.contact': '05 · Contact',
     'appf.all': 'All', 'appf.ai': 'AI', 'appf.create': 'Creative', 'appf.life': 'Life', 'appf.focus': 'Focus', 'appf.mactools': 'Mac Tools',
     'footer.github': 'GitHub \u2197',
@@ -691,6 +696,7 @@ var I18N = {
     'faq.a5': '评估 1 周,POC 1-2 周,生产落地视范围 2-8 周。数据报告类:首批 1 周,订阅制按月滚动交付。',
     'apps.title': 'App Store 在架的 22 个应用 —— 全部上架、全部在售',
     'apps.sub': '以下每张卡片都是 App Store 在架应用,点击直达商店页面。全部适配 iPhone 折叠屏,其中 5 款为折叠原生设计。',
+    'apps.all': '按场景浏览全部 22 款应用 →',
     'contact.title': '联系', 'contact.sub': '需求、范围、报价——一封邮件,24 小时内真人回复。',
     'contact.email': '邮件(首选)', 'contact.reply24h': '24 小时内回复',
     'contact.oss': '开源', 'contact.ossSub': '开源引擎 · Mac 版 $12.99',
@@ -759,6 +765,7 @@ var I18N = {
     'faq.a5': '評価 1 週間、POC 1〜2 週間、本番導入はスコープにより 2〜8 週間。データレポートは初回 1 週間、以降は月額サブスクで継続納品。',
     'apps.title': 'App Store でリリース中の 22 アプリ——すべて販売中',
     'apps.sub': '以下はすべて App Store で販売中のアプリです。タップするとストアページが開きます。全アプリが折りたたみ iPhone に対応、うち 5 本はフォールドネイティブ設計。',
+    'apps.all': 'シーン別にすべての 22 apps を見る →',
     'contact.title': 'お問い合わせ', 'contact.sub': 'ご要件・スコープ・見積もりは、メール一通で 24 時間以内に本人から返信します。',
     'contact.email': 'メール(推奨)', 'contact.reply24h': '24 時間以内に返信',
     'contact.oss': 'オープンソース', 'contact.ossSub': 'オープンソースエンジン · Mac版 $12.99',
@@ -818,11 +825,15 @@ function tagOf(a){
 function renderApps(){
   var box = document.getElementById('app-grid');
   var h = '', shown = 0;
+  // App Store 外链统一 UTM 归因(与 kinetapp/apps.html 同规则,utm_medium 区分来源页)
+  function utmHome(url, name){
+    return url + (url.indexOf('?') !== -1 ? '&' : '?') + 'utm_source=phinn.github.io&utm_medium=home_wall&utm_campaign=' + encodeURIComponent(name || '');
+  }
   for (var i = 0; i < APPS.length; i++) {
     var a = APPS[i];
     if (appFilter !== 'all' && a.group !== appFilter) continue;
     var d = Math.min(shown * 45, 540);
-    h += '<a class="app-card" style="--d:' + d + 'ms" href="' + a.url + '" target="_blank" rel="noopener">'
+    h += '<a class="app-card" style="--d:' + d + 'ms" href="' + utmHome(a.url, a.name) + '" target="_blank" rel="noopener">'
       + '<img class="app-icon" src="' + a.icon + '" alt="' + esc(a.name) + '" loading="lazy">'
       + '<div class="app-body"><div class="app-top"><b>' + esc(a.name) + '</b><span class="app-price">' + a.price + '</span></div>'
       + '<div class="app-tag">' + esc(tagOf(a)) + '</div>'
